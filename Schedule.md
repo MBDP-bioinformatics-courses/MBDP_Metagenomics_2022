@@ -46,7 +46,7 @@
 | 10:30-12:00 | **Tania Shishido Joutsen**: Secondary metabolite hands-on:  [antiSMASH](Practicals/README.md#Detection-of-secondary-metabolites-biosynthesis-gene-clusters) and  [BiG-SCAPE/CORASON](Practicals/README.md#Comparison-of-secondary-metabolites-biosynthesis-gene-clusters)|
 | 12:00-13:00 | **Lunch** |
 | 13:00-14:30 | **Tania Shishido Joutsen** Secondary metabolite hands-on: [BiG-SCAPE/CORASON](Practicals/README.md#Comparison-of-secondary-metabolites-biosynthesis-gene-clusters) |
-| 14:30-16:00 | **Time for groupwork** |
+| 14:30-16:00 | **something** |
 
 
 ## Friday - WHERE
