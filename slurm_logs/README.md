@@ -1,0 +1,1 @@
+Folder to store all slurm log files
