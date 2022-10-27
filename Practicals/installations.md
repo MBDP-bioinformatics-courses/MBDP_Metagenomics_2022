@@ -1,4 +1,4 @@
-# Installations for the course
+# Things to set up before the course
 
 Before our first class on **14.11.2022**, please do the following steps.  
 If you run into problems, just send me an [e-mail](mailto:antti.karkman@helsinki.fi) and I will help you out.  
