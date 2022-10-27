@@ -1,6 +1,6 @@
 # Schedule
 
-## Monday - EE-building, Walter-sali
+## Monday - WHERE
 | Time | Description|
 | --- | --- |
 | 10:00-10:30 | **Jenni Hultman**: [Introduction (including general structure of the course and group work)](Lectures/introduction.pdf)|
@@ -16,7 +16,7 @@
 | 14:45-15:30 | **Endrews Delbaje**: [Assembly hands-on](Practicals/README.md#Genome-assembly-with-Spades) |
 | 15:30-16:00 | **Students**: Student presentations|
 
-## Tuesday - EE-building, Walter-sali
+## Tuesday - WHERE
 | Time | Description |
 | --- | --- |
 | 08:30-09:00 | **Tania Shishido Joutsen**: [Assembly QC lecture](Lectures/lecture_assemblyQC.pdf)|
@@ -25,10 +25,10 @@
 | 10:00-10:30 | **Endrews Delbaje**: [Annotation lecture](Lectures/Genome_Annotation.pdf)|
 | 10:30-12:00 | **Endrews Delbaje**: Annotation hands-on|
 | 12:00-13:00 | **Lunch** |
-| 13:00-16:00 | **Endrews Delbaje**:KBase tutorial and hands-on|
+| 14:00-17:00 | _**Optional:**_ Lars Paulin retirement seminar: _From single nucleotides to large genomes using wide variety state-of-the-art sequencing technologies_ (Viikki, Bio2, 2041)|
 
 
-## Wednesday - EE-building, sh 11+12
+## Wednesday - WHERE
 | Time | Description |
 | --- | --- |
 | 08:30-09:15 | **Antti Karkman**: [Introduction to Anvi'o](Lectures/Pangenomics.pdf)|
@@ -38,7 +38,7 @@
 | 15:00-16:00 | **Time for groupwork** |
 
 
-## Thursday - EE-building, Walter-sali
+## Thursday - WHERE
 | Time | Description |
 | --- | --- |
 | 08:30-10:00 | **Time for groupwork** |
@@ -49,9 +49,13 @@
 | 14:30-16:00 | **Time for groupwork** |
 
 
-## Friday - EE-building, Walter-sali
+## Friday - WHERE
 | Time | Description |
 | --- | --- |
 | 08:30-12:00 | **ALL**: Groupwork presentations|
+| 08:30-12:00 | **ALL**: Groupwork presentations|
+| 08:30-12:00 | **ALL**: Groupwork presentations|
 | 12:00-13:00 | **Lunch** |
+| 13:00-15:30 | **Q&A** & **Feedback** and MBDP coffee break at 14:00|
+| 13:00-15:30 | **Q&A** & **Feedback** and MBDP coffee break at 14:00|
 | 13:00-15:30 | **Q&A** & **Feedback** and MBDP coffee break at 14:00|
