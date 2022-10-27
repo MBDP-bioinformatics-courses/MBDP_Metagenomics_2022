@@ -34,6 +34,6 @@ This course is targeted at PhD and MSc students who are interested in performing
 Eduroam or Helsinki UniGuest networks are available
 
 ## Organizers and teachers
-Docent Jenni Hultman, University of Helsinki
-Docent Antti Karkman, University of Helsinki
-PhD Tatiana Demina,  University of Helsinki
+Docent Jenni Hultman, University of Helsinki  
+Docent Antti Karkman, University of Helsinki  
+PhD Tatiana Demina,  University of Helsinki  
