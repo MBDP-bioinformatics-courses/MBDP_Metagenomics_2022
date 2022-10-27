@@ -16,8 +16,6 @@ __Table of Contents:__
 13. [Detection  of secondary  metabolites biosynthesis gene clusters](#detection-of-secondary-metabolites-biosynthesis-gene-clusters)
 14. [Comparison of secondary metabolites biosynthesis gene clusters](#comparison-of-secondary-metabolites-biosynthesis-gene-clusters)
 
-
-
 ## Setting up the course folders
 The main course directory is located in `/scratch/project_2005590`.  
 There you will set up your own directory where you will perform all the tasks for this course.  
