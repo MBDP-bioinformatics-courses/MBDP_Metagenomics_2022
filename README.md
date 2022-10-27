@@ -13,7 +13,7 @@ Microbial community structure and diversity, and population structure are fundam
 
 ## Before the course
 
-Follow the instructions [here](Practicals/installations.md). 
+Follow the instructions in [here](Practicals/installations.md). 
 
 ## Schedule
 
