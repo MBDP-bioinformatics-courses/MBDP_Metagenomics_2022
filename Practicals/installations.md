@@ -13,7 +13,7 @@ You will receive an email after you have been added to the course project at CSC
 * Go to https://my.csc.fi/
 * Go to "Log in" and then "Register with HAKA account"
 * Follow the instructions
-* After you are done please send me by e-mail your CSC username so I can add you to the course project on CSC
+* After you are done please send [Jenni] by e-mail your CSC username so I can add you to the course project on CSC
 * At some point you will receive an e-mail to join the course project; follow the instructions and accept the terms and conditions for access to Puhti
 
 ## Download and install the following software to your own computer
