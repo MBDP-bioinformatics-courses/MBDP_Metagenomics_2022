@@ -9,7 +9,9 @@
 
 ## General introduction
 
-Microbial community structure and diversity, and population structure are fundamental aspects to understand evolution, niche adaptation and demographic history of bacterial species. As HGT sequencing has become cost effective and accessible, sequencing populations of bacteria across the whole genome provides unprecedented resolution to investigate within-host evolution, transmission history, and population structure. During the one week course the students will learn and apply bioinformatic techniques to analyze bacterial genomes, perform population genetic analyses and visualize their results. The goal is to become familiar with the bioinformatic analysis tools and to be able to utilize them in own research after the course.
+Microbial community structure, diversity, and population structure are fundamental aspects to understand evolution, niche adaptation and demographic history of bacterial species. As high-throughput sequencing has become cost effective and accessible, sequencing populations of bacteria across the whole metagenome provides unprecedented resolution to investigate within-host evolution, transmission history and population structure. Moreover, analysis of genetic content of microbial communities through metagenomics has become the mainstream methodology. During this one-week course you will learn and apply bioinformatic techniques to perform population genetics and study microbial communities with metagenomic approaches. The goal is to become familiar with the bioinformatic analysis tools and to be able to utilize them in your own research after the course.
+
+Everything is possible thanks to the support of CSC.
 
 ## Before the course
 
