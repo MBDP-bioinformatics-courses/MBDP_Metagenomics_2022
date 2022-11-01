@@ -1,6 +1,6 @@
 # Schedule
 
-## Monday - WHERE
+## Monday - Porthania, P724
 | Time | Description|
 | --- | --- |
 | 10:00-10:30 | **Jenni Hultman**: [Introduction (including general structure of the course and group work)](Lectures/introduction.pdf)|
@@ -16,32 +16,32 @@
 | 14:45-15:30 | **Endrews Delbaje**: [Assembly hands-on](Practicals/README.md#Genome-assembly-with-Spades) |
 | 15:30-16:00 | **Students**: Student presentations|
 
-## Tuesday - WHERE
+## Tuesday - Päärakennus, U3043
 | Time | Description |
 | --- | --- |
-| 08:30-09:00 | **Tania Shishido Joutsen**: [Assembly QC lecture](Lectures/lecture_assemblyQC.pdf)|
-| 09:00-09:30 | **Endrews Delbaje**: [Cleaning the genome](Practicals/README.md#Eliminate-contaminant-contigs-with-Kaiju)|
-| 09:30-10:00 | **Endrews Delbaje**: [Assembly QC hands-on](Practicals/README.md#Assembly_QC)|
-| 10:00-10:30 | **Endrews Delbaje**: [Annotation lecture](Lectures/Genome_Annotation.pdf)|
-| 10:30-12:00 | **Endrews Delbaje**: Annotation hands-on|
-| 12:00-13:00 | **Lunch** |
-| 14:00-17:00 | _**Optional:**_ Lars Paulin retirement seminar: _From single nucleotides to large genomes using wide variety state-of-the-art sequencing technologies_ (Viikki, Bio2, 2041)|
+| 10:15-11:00 | **Tania Shishido Joutsen**: [Assembly QC lecture](Lectures/lecture_assemblyQC.pdf)|
+| 11:00-12:30 | **Endrews Delbaje**: [Cleaning the genome](Practicals/README.md#Eliminate-contaminant-contigs-with-Kaiju)|
+| 12:30-13:30 | **Lunch** |
+| 14:00-17:00 | _**Optional:**_ Lars Paulin retirement seminar: _From single nucleotides to large genomes using wide variety state-of-the-art sequencing technologies_ (Viikki, Bio2, 2041, pre-registeration needed)|
+| 15:00-16:00 | **Time for groupwork** |
 
 
-## Wednesday - WHERE
+## Wednesday - Päärakennus, U4079
 | Time | Description |
 | --- | --- |
-| 08:30-09:15 | **Antti Karkman**: [Introduction to Anvi'o](Lectures/Pangenomics.pdf)|
+| 10:15-11:00 | **Antti Karkman**: [Introduction to Anvi'o](Lectures/Pangenomics.pdf)|
 | 09:15-12:00 | **ALL**: [Pangenomics hands-on](Practicals/README.md#pangenomics-with-anvi'o) |
 | 12:00-13:00 | **Lunch**: |
 | 13:00-15:00 | **ALL**: Population genomics hands-on cont' and MBDP coffee break at 14:00|
 | 15:00-16:00 | **Time for groupwork** |
+| 18:00-21:00 | **Course dinner** |
 
 
-## Thursday - WHERE
+
+## Thursday - Päärakennus, U4075
 | Time | Description |
 | --- | --- |
-| 08:30-10:00 | **Time for groupwork** |
+| 10:15-11:00 | **Time for groupwork** |
 | 10:00-10:30 | **David Fewer**: Secondary metabolite lecture|
 | 10:30-12:00 | **Tania Shishido Joutsen**: Secondary metabolite hands-on:  [antiSMASH](Practicals/README.md#Detection-of-secondary-metabolites-biosynthesis-gene-clusters) and  [BiG-SCAPE/CORASON](Practicals/README.md#Comparison-of-secondary-metabolites-biosynthesis-gene-clusters)|
 | 12:00-13:00 | **Lunch** |
@@ -49,10 +49,10 @@
 | 14:30-16:00 | **something** |
 
 
-## Friday - WHERE
+## Friday - Päärakennus, U3039
 | Time | Description |
 | --- | --- |
-| 08:30-12:00 | **ALL**: Groupwork presentations|
+| 10:15-11:00 | **ALL**: Groupwork presentations|
 | 08:30-12:00 | **ALL**: Groupwork presentations|
 | 08:30-12:00 | **ALL**: Groupwork presentations|
 | 12:00-13:00 | **Lunch** |
