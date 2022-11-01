@@ -29,23 +29,23 @@ You should see the course project `MBDP_genomics_2022`.
 So let's create a folder for you inside the scratch folder, you can find the path in the output from the previous command.
 
 ```bash
-cd /scratch/project_2005590
+cd /scratch/project_2001499
 mkdir $USER
 ```
 
 Check with `ls`; which folder did `mkdir $USER` create?
 
-This directory (`/scratch/project_2005590/your-user-name`) is your working directory.  
+This directory (`/scratch/project_2001499/your-user-name`) is your working directory.  
 Every time you log into Puhti, you should use `cd` to navigate to this directory, and **all the scripts are to be run in this folder**.  
 
-The raw data used on this course can be found in `/scratch/project_2005590/COURSE_FILES/RAWDATA_ILLUMINA`.  
+The raw data used on this course can be found in `/scratch/project_2001499/COURSE_FILES/RAWDATA_ILLUMINA`.  
 Instead of copying the data we will use links to this folder in all of the needed tasks.  
 Why don't we want 14 students copying data to their own folders?
 
 
 ## Interactive use of Puhti
 
-Puhti uses a scheduling system called SLURM. Most jobs are sent to the queue,  but smaller jobs can be run interactively.
+Puhti uses a scheduling system called SLURM. Most jobs are sent to the queue, but smaller jobs can be run interactively.
 
 Interactive session is launched with `sinteractive`   .   
 You can specify the resources you need for you interactive work interactively with `sinteractive -i`. Or you can give them as options to `sinteractive`.  
@@ -75,7 +75,7 @@ QC does not require lot of memory and can be run on the interactive nodes using 
 Activate the biokit environment and open interactive node:
 
 ```bash
-sinteractive -A project_2005590
+sinteractive -A project_2001499
 module load biokit
 ```
 
@@ -83,7 +83,7 @@ Now each group will work with their own sequences. Create the variables R1 and R
 
 ```bash
 #### Illumina Raw sequences for the cyanobacteria strain 328
-R1=/scratch/project_2005590/COURSE_FILES/RAWDATA_ILLUMINA/A045-328-GGTCCATT-AGTAGGCT-Tania-Shishido-run20211223R_S45_L001_R1_001.fastq.gz
+R1=/scratch/project_2001499/COURSE_FILES/RAWDATA_ILLUMINA/A045-328-GGTCCATT-AGTAGGCT-Tania-Shishido-run20211223R_S45_L001_R1_001.fastq.gz
 R2=/scratch/project_2005590/COURSE_FILES/RAWDATA_ILLUMINA/A045-328-GGTCCATT-AGTAGGCT-Tania-Shishido-run20211223R_S45_L001_R2_001.fastq.gz
 
 #### Illumina Raw sequences for the cyanobacteria strain 327
