@@ -32,7 +32,7 @@ Thu 17.11.2022 klo 10.15–15.45, Päärakennus, U4075
 Fri 18.11.2022 klo 10.15–17.45, Päärakennus, U3039.
 
 
-[**-- Link to COURSE SCHEDULE --**](Schedule.md)  
+[**-- Link to COURSE SCHEDULE --**](Practicals/Schedule.md)  
 
 [**-- Link to PRACTICALS --**](Practicals/README.md)
 
