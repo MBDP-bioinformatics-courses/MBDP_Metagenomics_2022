@@ -19,13 +19,11 @@
 ## Tuesday - Päärakennus, U3043
 | Time | Description |
 | --- | --- |
-| 08:30-09:00 | **Tania Shishido Joutsen**: [Assembly QC lecture](Lectures/lecture_assemblyQC.pdf)|
-| 09:00-09:30 | **Endrews Delbaje**: [Cleaning the genome](Practicals/README.md#Eliminate-contaminant-contigs-with-Kaiju)|
-| 09:30-10:00 | **Endrews Delbaje**: [Assembly QC hands-on](Practicals/README.md#Assembly_QC)|
-| 10:00-10:30 | **Endrews Delbaje**: [Annotation lecture](Lectures/Genome_Annotation.pdf)|
-| 10:30-12:00 | **Endrews Delbaje**: Annotation hands-on|
-| 12:00-13:00 | **Lunch** |
+| 10:15-11:00 | **Tania Shishido Joutsen**: [Assembly QC lecture](Lectures/lecture_assemblyQC.pdf)|
+| 11:00-12:30 | **Endrews Delbaje**: [Cleaning the genome](Practicals/README.md#Eliminate-contaminant-contigs-with-Kaiju)|
+| 12:30-13:30 | **Lunch** |
 | 14:00-17:00 | _**Optional:**_ Lars Paulin retirement seminar: _From single nucleotides to large genomes using wide variety state-of-the-art sequencing technologies_ (Viikki, Bio2, 2041)|
+| 15:00-16:00 | **Time for groupwork** |
 
 
 ## Wednesday - Päärakennus, U4079
@@ -36,6 +34,8 @@
 | 12:00-13:00 | **Lunch**: |
 | 13:00-15:00 | **ALL**: Population genomics hands-on cont' and MBDP coffee break at 14:00|
 | 15:00-16:00 | **Time for groupwork** |
+| 18:00-21:00 | **Course dinner** |
+
 
 
 ## Thursday - Päärakennus, U4075
