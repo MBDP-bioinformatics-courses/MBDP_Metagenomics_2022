@@ -17,7 +17,10 @@ Follow the instructions in [here](Practicals/installations.md).
 
 ## Schedule
 
-The course will be from Monday 28th of March to Friday 1st of April in EE-building, Viikki.  
+The course will be from Monday 14th of November to Friday 18th of November in the City Centre Campus.
+
+Tue 15.11.2022 klo 10.15–17.45, Päärakennus, U3043. 
+Wed 16.11.2022 klo 10.15–13.45, uusi opetuspaikka: Päärakennus, U4079
 
 [**-- Link to COURSE SCHEDULE --**](Schedule.md)  
 
@@ -25,10 +28,10 @@ The course will be from Monday 28th of March to Friday 1st of April in EE-buildi
 
 
 ## Target group
-This course is targeted at PhD and MSc students who are interested in performing bacterial genome analyses
+This course is targeted at PhD and MSc students who are interested in performing metagenome analyses
 
 ## Learning outcomes
-* Foundational skills to work with bacterial genome data
+* Foundational skills to work with metagenomic data
 * Familiarity and practice with bioinformatics tools
 * Perspective and confidence to apply these skills in your own work
 * Empower you to ask and answer the questions you have of your own data
