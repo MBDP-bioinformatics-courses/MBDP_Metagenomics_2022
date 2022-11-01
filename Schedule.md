@@ -1,6 +1,6 @@
 # Schedule
 
-## Monday - WHERE
+## Monday - Porthania, P724
 | Time | Description|
 | --- | --- |
 | 10:00-10:30 | **Jenni Hultman**: [Introduction (including general structure of the course and group work)](Lectures/introduction.pdf)|
@@ -16,7 +16,7 @@
 | 14:45-15:30 | **Endrews Delbaje**: [Assembly hands-on](Practicals/README.md#Genome-assembly-with-Spades) |
 | 15:30-16:00 | **Students**: Student presentations|
 
-## Tuesday - WHERE
+## Tuesday - Päärakennus, U3043
 | Time | Description |
 | --- | --- |
 | 08:30-09:00 | **Tania Shishido Joutsen**: [Assembly QC lecture](Lectures/lecture_assemblyQC.pdf)|
@@ -28,7 +28,7 @@
 | 14:00-17:00 | _**Optional:**_ Lars Paulin retirement seminar: _From single nucleotides to large genomes using wide variety state-of-the-art sequencing technologies_ (Viikki, Bio2, 2041)|
 
 
-## Wednesday - WHERE
+## Wednesday - Päärakennus, U4079
 | Time | Description |
 | --- | --- |
 | 08:30-09:15 | **Antti Karkman**: [Introduction to Anvi'o](Lectures/Pangenomics.pdf)|
@@ -38,7 +38,7 @@
 | 15:00-16:00 | **Time for groupwork** |
 
 
-## Thursday - WHERE
+## Thursday - Päärakennus, U4075
 | Time | Description |
 | --- | --- |
 | 08:30-10:00 | **Time for groupwork** |
@@ -49,7 +49,7 @@
 | 14:30-16:00 | **something** |
 
 
-## Friday - WHERE
+## Friday - Päärakennus, U3039
 | Time | Description |
 | --- | --- |
 | 08:30-12:00 | **ALL**: Groupwork presentations|
