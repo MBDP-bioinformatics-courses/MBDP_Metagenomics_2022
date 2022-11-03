@@ -50,5 +50,5 @@
 | --- | --- |
 | 10:15-12:00 | **Tatiana Demina** : [Viromics hands-on](Practicals/README.md#pangenomics-with-anvi'o) |
 | 12:00-13:00 | **Lunch** |
-| 13:00-15:30 | **Antti Karkman** : [Metaphlan visualization](Practicals/README.md#pangenomics-with-anvi'o) |
-| 15:00-17:45 | **Q&A** & **Feedback** and MBDP coffee break at 14:00 |
+| 13:00-15:30 | **Antti Karkman** : [Metaphlan visualization](Practicals/README.md#pangenomics-with-anvi'o) (MBDP coffee break at 14.00) |
+| 15:00-17:45 | **Q&A** and  **Feedback**  |
