@@ -21,11 +21,14 @@ Follow the instructions in [here](Practicals/installations.md).
 
 The course will be from Monday 14th of November to Friday 18th of November in the City Centre Campus.
 
- - Mon  10.15–17.45, Porthania, P724.
- - Tue  10.15–17.45, Päärakennus, U3043. 
- - Wed  10.15–17.45, Päärakennus, U4079
- - Thu  10.15–15.45, Päärakennus, U4075
- - Fri  10.15–17.45, Päärakennus, U3039.
+__Class rooms:__
+| Day | Time | Location |  
+| --- | --- | --- |  
+| Monday | 10.15-17.45 | Porthania, P724     |
+| Tuesday | 10.15-13.00| Päärakennus, U3043  | 
+| Wednesday | 10.15-17.45 | Päärakennus, U4079  | 
+| Thursday | 10.15-17.45 | Päärakennus, U4075  |
+| Friday | 10.15-17.45 | Päärakennus, U3039  |
 
 [**-- Link to COURSE SCHEDULE --**](Practicals/Schedule.md)  
 
