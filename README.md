@@ -24,11 +24,11 @@ The course will be from Monday 14th of November to Friday 18th of November in th
 __Class rooms:__
 | Day | Time | Location |  
 | --- | --- | --- |  
-| Monday | 10.15-17.45 | Porthania, P724     |
-| Tuesday | 10.15-13.00| Päärakennus, U3043  | 
-| Wednesday | 10.15-17.45 | Päärakennus, U4079  | 
-| Thursday | 10.15-17.45 | Päärakennus, U4075  |
-| Friday | 10.15-17.45 | Päärakennus, U3039  |
+| Monday | 10.15-17.45 | :office: Porthania, P724     |
+| Tuesday | 10.15-13.00| :classical_building: Päärakennus, U3043  | 
+| Wednesday | 10.15-17.45 | :classical_building: Päärakennus, U4079  | 
+| Thursday | 10.15-17.45 | :classical_building: Päärakennus, U4075  |
+| Friday | 10.15-17.45 | :classical_building: Päärakennus, U3039  |
 
 [**-- Link to DETAILED SCHEDULE --**](Practicals/Schedule.md)  
 
@@ -49,6 +49,6 @@ This course is targeted at PhD and MSc students who are interested in performing
 Eduroam or Helsinki UniGuest networks are available
 
 ## Organizers and teachers
-Docent Jenni Hultman, University of Helsinki  
-Docent Antti Karkman, University of Helsinki  
-PhD Tatiana Demina,  University of Helsinki  
+:woman_technologist: Docent Jenni Hultman, University of Helsinki  
+:man_technologist: Docent Antti Karkman, University of Helsinki  
+:woman_technologist: PhD Tatiana Demina,  University of Helsinki  
