@@ -25,7 +25,7 @@ Mon 14.11.2022 klo 10.15–17.45, Porthania, P724.
 
 Tue 15.11.2022 klo 10.15–17.45, Päärakennus, U3043. 
 
-Wed 16.11.2022 klo 10.15–13.45, Päärakennus, U4079
+Wed 16.11.2022 klo 10.15–17.45, Päärakennus, U4079
 
 Thu 17.11.2022 klo 10.15–15.45, Päärakennus, U4075
 
