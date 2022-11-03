@@ -30,7 +30,7 @@ __Class rooms:__
 | Thursday | 10.15-17.45 | Päärakennus, U4075  |
 | Friday | 10.15-17.45 | Päärakennus, U3039  |
 
-[**-- Link to COURSE SCHEDULE --**](Practicals/Schedule.md)  
+[**-- Link to DETAILED SCHEDULE --**](Practicals/Schedule.md)  
 
 [**-- Link to PRACTICALS --**](Practicals/README.md)
 
