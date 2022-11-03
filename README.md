@@ -22,13 +22,13 @@ Follow the instructions in [here](Practicals/installations.md).
 The course will be from Monday 14th of November to Friday 18th of November in the City Centre Campus.
 
 __Class rooms:__
-| Day | Time | Location |  
+| Day | Time | Building | Room |  
 | --- | --- | --- |  
-| Monday | 10.15-17.45 | :office: Porthania, P724     |
-| Tuesday | 10.15-13.00| :classical_building: Main Building, U3043  | 
-| Wednesday | 10.15-17.45 | :classical_building: Main Building, U4079  | 
-| Thursday | 10.15-17.45 | :classical_building: Main Building, U4075  |
-| Friday | 10.15-17.45 | :classical_building: Main Building, U3039  |
+| Monday | 10.15-17.45 | :office: Porthania | P724     |
+| Tuesday | 10.15-13.00| :classical_building: Main Building | U3043  | 
+| Wednesday | 10.15-17.45 | :classical_building: Main Building | U4079  | 
+| Thursday | 10.15-17.45 | :classical_building: Main Building | U4075  |
+| Friday | 10.15-17.45 | :classical_building: Main Building | U3039  |
 
 [**-- Link to DETAILED SCHEDULE --**](Practicals/Schedule.md)  
 
