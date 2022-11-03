@@ -23,7 +23,7 @@ The course will be from Monday 14th of November to Friday 18th of November in th
 
 __Class rooms:__
 | Day | Time | Building | Room |  
-| --- | --- | --- | --- |
+| --- | --- | --- | --- |  
 | Monday    | 10.15-17.45   | :office: Porthania                 | __P724__   |
 | Tuesday   | 10.15-13.00   | :classical_building: Main Building | __U3043__  | 
 | Wednesday | 10.15-17.45   | :classical_building: Main Building | __U4079__  | 
