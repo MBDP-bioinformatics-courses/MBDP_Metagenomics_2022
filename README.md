@@ -25,10 +25,10 @@ __Class rooms:__
 | Day | Time | Location |  
 | --- | --- | --- |  
 | Monday | 10.15-17.45 | :office: Porthania, P724     |
-| Tuesday | 10.15-13.00| :classical_building: Päärakennus, U3043  | 
-| Wednesday | 10.15-17.45 | :classical_building: Päärakennus, U4079  | 
-| Thursday | 10.15-17.45 | :classical_building: Päärakennus, U4075  |
-| Friday | 10.15-17.45 | :classical_building: Päärakennus, U3039  |
+| Tuesday | 10.15-13.00| :classical_building: Main Building, U3043  | 
+| Wednesday | 10.15-17.45 | :classical_building: Main Building, U4079  | 
+| Thursday | 10.15-17.45 | :classical_building: Main Building, U4075  |
+| Friday | 10.15-17.45 | :classical_building: Main Building, U3039  |
 
 [**-- Link to DETAILED SCHEDULE --**](Practicals/Schedule.md)  
 
