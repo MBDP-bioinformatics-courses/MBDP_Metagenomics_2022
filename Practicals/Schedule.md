@@ -26,7 +26,7 @@
 ## Wednesday - Päärakennus, U4079
 | Time | Description |
 | --- | --- |
-| 10:15-10:45 | **Antti Karkman**: [Introduction to Anvi'o](Lectures/Pangenomics.pdf)|
+| 10:15-10:45 | **Antti Karkman**: [Genome-Resolved Metagenomics](Lectures/Pangenomics.pdf)|
 | 10:45-12:00 | **ALL**: [Preparing files for Anvio hands-on](Practicals/README.md#pangenomics-with-anvi'o) |
 | 12:00-13:00 | **Lunch**: |
 | 13:00-17:45 | **ALL**: Anvio cont' and MBDP coffee break at 14:00|
@@ -41,7 +41,7 @@
 | 11:00-11:00 | **Tatiana Demina** : [Viromics hands-on](Practicals/README.md#pangenomics-with-anvi'o) |
 | 12:00-13:00 | **Lunch** |
 | 13:00-14:45 | **ALL**: Anvio cont' |
-| 15:00-16:30 | **Jenni Hultman**: [Annotation with Bacta](Practicals/README.md#Eliminate-contaminant-contigs-with-Kaiju)|
+| 15:00-16:30 | **Jenni Hultman**: [Annotation with Bakta](Practicals/README.md#Eliminate-contaminant-contigs-with-Kaiju)|
 | 16:30-17:45 | **Jenni Hultman**: [Metaphlan](Practicals/README.md#Eliminate-contaminant-contigs-with-Kaiju)|
 
 
