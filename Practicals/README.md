@@ -130,6 +130,8 @@ __DO NOT RUN__
         --out-dir 03_ASSEMBLY
 ```
 
+Batch job script to assemble and polish
+
 ```bash
 #!/bin/bash -l
 #SBATCH --job-name flye
@@ -143,11 +145,20 @@ __DO NOT RUN__
 #SBATCH --account project_2001499
 #SBATCH --gres=nvme:200
 
+# assembly
 /scratch/project_2001499/envs/Flye/bin/flye  \
         --nano-raw 02_TRIMMED_DATA/SRR11673980_chop.fastq.gz \
         --threads $SLURM_CPUS_PER_TASK \
         --meta \
         --out-dir 03_ASSEMBLY
+
+# polishing
+/scratch/project_2001499/envs/medaka/bin/medaka_consensus \
+        -i 02_TRIMMED_DATA/SRR11673980_chop.fastq.gz \
+        -d 03_ASSEMBLY/assembly.fasta \
+        -o medaka_out \
+        -m r941_prom_high_g303 \
+        --threads $SLURM_CPUS_PER_TASK
 ```
 
 ## QC and trimming for Illumina reads
