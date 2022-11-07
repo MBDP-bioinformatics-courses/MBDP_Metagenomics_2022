@@ -110,7 +110,8 @@ Based on the results from NanoPlot:
 As in the article, we will use [Filtlong](https://github.com/rrwick/Filtlong) and [Porechop](https://github.com/rrwick/Porechop) for quality and adapter trimmming of the nanopore reads.
 
 As we have quite a lot of data, trimming also takes a while. Submitting it as batch job means we can use more resources and the job shoud also run faster.  
-Make a batch job script using the example. But remember to check all file paths before you submit the job. 
+Make a batch job script using the example and store the batch job script under `scripts`.  
+But remember to check all file paths before you submit the job. 
 
 ```bash
 #!/bin/bash -l
@@ -136,16 +137,42 @@ Make a batch job script using the example. But remember to check all file paths 
         --threads $SLURM_CPUS_PER_TASK
 ```
 
+Wheen you are sure everything is ok, submit thee job with `sbatch`. 
+
+```bash
+sbatch scripts/YOUR_SCRIPT.sh
+```
+
+After you have submitted the job, the system will print you the job id. Write that down.  
+You can also check the status of your job with `squeue`. 
+
+```bash
+squeue -l -u $USER
+```
+
+And when the job is finished, you can use `seff` to see how much resources were actually used.
+
+```bash
+seff JOBID
+```
+
+After the trimming has finished and everythin looks ok, we can move on. 
+
 ### Visualizing the trimmed data with NanoPlot
+
+It is always good idea to check that the trimming step did what it was supposed to do. So we'll the QC step on the trimemd data.   
 
 ```bash
 NanoPlot -o 02_TRIMMED_DATA/nanoplot_out -t 4 -f png --fastq 02_TRIMMED_DATA/SRR11673980_chop.fastq.gz
 ```
 
+And if it looks good as well, we can move on to the assembly step.  
+
 ## Metagenomic assembly with metaFlye
 
-
-Batch job script to assemble and polish
+Fo the assembly we will use [Flye](https://github.com/fenderglass/Flye). Flye is a long-read de novo assembler that handles also metagenomic data.  
+We will also polish the assmebly using [medaka](https://github.com/nanoporetech/medaka). 
+Batch job script to assemble and polish:
 
 ```bash
 #!/bin/bash -l
@@ -185,26 +212,15 @@ QC does not require lot of memory and can be run on the interactive nodes using 
 Activate the biokit environment and open interactive node:
 
 ```bash
-sinteractive -A project_2001499
+sinteractive -A project_2001499 -c 4
 module load biokit
 ```
 
 Now each group will work with their own sequences. Create the variables R1 and R2 to represent the path to your files. Do that just for the strain you will use:
 
 ```bash
-#### Illumina Raw sequences for the cyanobacteria strain 328
-R1=/scratch/project_2001499/COURSE_FILES/RAWDATA_ILLUMINA/A045-328-GGTCCATT-AGTAGGCT-Tania-Shishido-run20211223R_S45_L001_R1_001.fastq.gz
-R2=/scratch/project_2005590/COURSE_FILES/RAWDATA_ILLUMINA/A045-328-GGTCCATT-AGTAGGCT-Tania-Shishido-run20211223R_S45_L001_R2_001.fastq.gz
 
-#### Illumina Raw sequences for the cyanobacteria strain 327
-R1=/scratch/project_2005590/COURSE_FILES/RAWDATA_ILLUMINA/A044-327-2-CTTGCCTC-GTTATCTC-Tania-Shishido-run20211223R_S44_L001_R1_001.fastq.gz
-R2=/scratch/project_2005590/COURSE_FILES/RAWDATA_ILLUMINA/A044-327-2-CTTGCCTC-GTTATCTC-Tania-Shishido-run20211223R_S44_L001_R2_001.fastq.gz
-
-#### Illumina Raw sequences for the cyanobacteria strain 193
-R1=/scratch/project_2005590/COURSE_FILES/RAWDATA_ILLUMINA/Oscillatoriales-193_1.fastq.gz
-R2=/scratch/project_2005590/COURSE_FILES/RAWDATA_ILLUMINA/Oscillatoriales-193_2.fastq.gz
 ```
-
 
 You can check if your variable was set correctly by using:
 
@@ -213,14 +229,12 @@ echo $R1
 echo $R2
 ```
 
-
 ### Running fastQC
 Run `fastQC` to the files stored in the RAWDATA folder. What does the `-o` and `-t` flags refer to?
 
 ```bash
-fastqc $R1 -o fastqc_raw/ -t 1
+fastqc  -o fastqc_raw/ -t 4
 
-fastqc $R2 -o fastqc_raw/ -t 1
 ```
 
 Copy the resulting HTML file to your local machine with `scp` from the command line (Mac/Linux) or *WinSCP* on Windows.  
