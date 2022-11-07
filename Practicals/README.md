@@ -500,19 +500,11 @@ The CRISPR-Cas can be annotated using [CRISPRone](https://omics.informatics.indi
 Can you find any differences in the annotation of some specific genes when comparing the results of these tools with the Prokka annotation?
 
 
-## Name the strain
+## Metaphlan
 
-After we know the completeness and the amount of possible contamination in our assembly, next thing is to give a name to our strain. In other words, what species did we sequence.  
-We will use a tool called GTDB-tk to give some taxonomy to our genomes.
+Next we will also analyze individual reads in addition to the assembly based approaches. Which files would you use for this? 
 
-This will use a lot of memory (> 200G), so allocate a new computing node for this.
-
-```
-#############  (THIS HAS BEEN DONE ALREADY)  #########################
-## download gtdb database
-# wget https://data.ace.uq.edu.au/public/gtdb/data/releases/latest/auxillary_files/gtdbtk_data.tar.gz
-# tar -xzf gtdbtk_data.tar.gz
-#############  (THIS HAS BEEN DONE ALREADY)  #########################
+We will use a tool called [Metaphlan4](https://github.com/biobakery/biobakery/wiki/metaphlan4) to analyze these reads. 
 
 # run gtdbtk
 export GTDBTK_DATA_PATH=/scratch/project_2005590/databases/GTDB/release202/
