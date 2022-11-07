@@ -2,3 +2,4 @@ test_workflow.md
 *.html
 *.fastq
 *.fastq.gz
+.DS_Store
