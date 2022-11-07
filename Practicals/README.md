@@ -3,8 +3,9 @@
 __Table of Contents:__
 1. [Setting up](#setting-up-the-course-folders)
 2. [Interactive use of Puhti](#interactive-use-of-puhti)
-3. [QC and trimming for Illumina reads](#qc-and-trimming-for-illumina-reads)
-4. [QC and trimming for Nanopore reads](#qc-and-trimming-for-nanopore-reads)
+3. [QC and trimming for Nanopore reads](#qc-and-trimming-for-nanopore-reads)
+4. [Metagenomic assembly with metaFlye](#metagenomic-assembly-with-metaflye)
+4. [QC and trimming for Illumina reads](#qc-and-trimming-for-illumina-reads)
 5. [Genome assembly with Spades](#genome-assembly-with-spades)
 6. [Eliminate contaminant contigs with Kaiju](#eliminate-contaminant-contigs-with-kaiju)
 7. [Assembly QC](#assembly-qc)
@@ -17,19 +18,20 @@ __Table of Contents:__
 14. [Comparison of secondary metabolites biosynthesis gene clusters](#comparison-of-secondary-metabolites-biosynthesis-gene-clusters)
 
 ## Setting up the course folders
-The main course directory is located in `/scratch/project_2005590`.  
+The main course directory is located in `/scratch/project_2001499`.  
 There you will set up your own directory where you will perform all the tasks for this course.  
 
 First list all projects you're affiliated with in CSC.
+
 ```
 csc-workspaces
 ```
 
-You should see the course project `MBDP_genomics_2022`.
+You should see the course project `Metagenomics_2019`.
 So let's create a folder for you inside the scratch folder, you can find the path in the output from the previous command.
 
 ```bash
-cd /scratch/project_2001499
+cd PATH/TO/COURSE/SCRATCH
 mkdir $USER
 ```
 
@@ -38,10 +40,21 @@ Check with `ls`; which folder did `mkdir $USER` create?
 This directory (`/scratch/project_2001499/your-user-name`) is your working directory.  
 Every time you log into Puhti, you should use `cd` to navigate to this directory, and **all the scripts are to be run in this folder**.  
 
-The raw data used on this course can be found in `/scratch/project_2001499/COURSE_FILES/RAWDATA_ILLUMINA`.  
+__CLONE GIT REPOSITORY__ 
+```bash
+# code here
+```
+
+The raw data used on this course can be found in `/scratch/project_2001499/Data/`.  
 Instead of copying the data we will use links to this folder in all of the needed tasks.  
 Why don't we want 14 students copying data to their own folders?
 
+__MAKE SOFTLINK__
+
+```bash
+# create directories
+# make softlinks
+```
 
 ## Interactive use of Puhti
 
@@ -64,6 +77,49 @@ You always need to specify the accounting project (`-A`, `--account`). Otherwise
 
 
 [__Read more about interactive use of Puhti.__](https://docs.csc.fi/computing/running/interactive-usage/#sinteractive-in-puhti)   
+
+## QC and trimming for Nanopore reads
+
+The QC for the Nanopore reads can be done with NanoPlot. It is a plotting tools for long read sequencing data and alignments. You can read more about it from here: [NanoPlot](https://github.com/wdecoster/NanoPlot).
+
+This run will require computing resources, you can use `sinteractive` to log in to a computing node:
+
+```bash
+sinteractive -A project_2001499 -m 50G -c 4 
+```
+
+NanoPlot is not pre-installed to Puhti, but has been installed for the course under `/scratch/project_2001499/envs/nanoQC` and can be run from there.
+
+Generate graphs for visualization of reads quality and length distribution
+
+```bash
+/scratch/project_2001499/envs/nanoQC/bin/NanoPlot -o 00_DATA/nanoplot_out -t 4 -f png --fastq softlink-to/raw_nanopore_reads.fastq.gz
+```
+
+Transfer to the output from NanoPlot (`NanoPlot-report.html`) to your own computer and open it with any browser.
+
+Based on the results from NanoPlot:
+* How many reads do we have?
+* How much data we have overall?
+* How the read length distribution looks like and what is the mean read length?
+* How about the read quality? 
+* Can you see any pattern between read length and read quality?
+
+### Trimming and quality filtering of reads
+
+As in the article, we will use [Filtlong](https://github.com/rrwick/Filtlong) and [Porechop](https://github.com/rrwick/Porechop) for quality and adapter trimmming of the nanopore reads.
+
+```bash
+filtlong --min_length 4000 --min_mean_q 80 soflink-to/your_raw_nanopore_reads.fastq.gz | gzip > 02_TRIMMED_DATA/SRR11673980_trimmed.fastq.gz
+porechop -i 02_TRIMMED_DATA/SRR11673980_trimmed.fastq.gz -o 02_TRIMMED_DATA/SRR11673980_chop.fastq.gz --threads 8
+```
+
+### Optional - Visualizing the trimmed data with NanoPlot
+```bash
+NanoPlot -o 02_TRIMMED_DATA/nanoplot_out -t 4 -f png --fastq 02_TRIMMED_DATA/SRR11673980_chop.fastq.gz
+```
+
+## Metagenomic assembly with metaFlye
 
 
 ## QC and trimming for Illumina reads
@@ -104,8 +160,6 @@ echo $R2
 ```
 
 
-
-
 ### Running fastQC
 Run `fastQC` to the files stored in the RAWDATA folder. What does the `-o` and `-t` flags refer to?
 
@@ -115,8 +169,6 @@ fastqc $R1 -o fastqc_raw/ -t 1
 fastqc $R2 -o fastqc_raw/ -t 1
 ```
 
-
-
 Copy the resulting HTML file to your local machine with `scp` from the command line (Mac/Linux) or *WinSCP* on Windows.  
 Have a look at the QC report with your favourite browser.  
 
@@ -124,7 +176,6 @@ After inspecting the output, it should be clear that we need to do some trimming
 __What kind of trimming do you think should be done?__
 
 ### Running Cutadapt
-
 
 ```bash
 # To create a variable to your cyanobacterial strain:
@@ -149,7 +200,6 @@ cutadapt -a CTGTCTCTTATA -A CTGTCTCTTATA -o trimmed/"$strain"_cut_1.fastq -p tri
 
 ```
 
-
 ### Running fastQC on the trimmed reads
 You could now check the `cutadapt.log` and answer:
 
@@ -166,18 +216,13 @@ mkdir fastqc_out_trimmed
 fastqc trimmed/*.fastq -o fastqc_out_trimmed/ -t 1
 ```
 
-
-
 Copy the resulting HTML file to your local machine as earlier and look how well the trimming went.  
 Did you find problems with the sequences? We can further proceed to quality control using Prinseq.
-
 
 #### Running Prinseq
 
 You could check the different parameters that can be used in prinseq:
 http://prinseq.sourceforge.net/manual.html
-
-
 
 ```bash
 
@@ -202,15 +247,12 @@ prinseq-lite.pl \
 
 You can check the `prinseq.log` and run again FastQC on the Prinseq trimmed sequences and copy them to your computer. You can now compare the quality of these sequences with the raw and cutadapt trimmed sequences FastQC results. Did you find any difference?
 
-
-
 ```bash
 cd trimmed/
 
 fastqc "$strain"_pseq_*.fastq -o ../fastqc_out_trimmed/ -t 1
 
 ```
-
 
 ### Optional - To compare raw and trimmed sequences using multiqc
 
@@ -223,7 +265,6 @@ cp fastqc_raw/*zip combined_fastqc/
 cp fastqc_out_trimmed/*zip combined_fastqc/
 
 ```
-
 
 MultiQC is not pre-installed to Puhti, so we have created a virtual environment that has it.
 
@@ -239,73 +280,6 @@ multiqc . --interactive
 To leave the interactive node, type `exit`.  
 
 You can copy the file `multiqc_report.html` to your computer and open it in a web browser. Can you see any difference among the raw and trimmed reads?
-
-
-## QC and trimming for Nanopore reads
-
-The QC for the Nanopore reads can be done with NanoPlot and NanoQC. They are plotting tools for long read sequencing data and alignments. You can read more about them in: [NanoPlot](https://github.com/wdecoster/NanoPlot) and [NanoQC](https://github.com/wdecoster/nanoQC)
-
-
-The nanopore data you will use can be found in the folder `/scratch/project_2005590/COURSE_FILES/RAWDATA_NANOPORE`
-
-This run will require more computing resources, so you can apply for more memory or run in sbatch:
-
-First log out from the computing node
-
-```bash
-exit
-```
-
-Then open a new interactive task with more memory
-
-```bash
-sinteractive -A project_2005590 -m 45000
-```
-NanoPlot and NanoQC are not pre-installed to Puhti so we need to reset the modules and activate the virtual environment. If the environment is already loaded you can skip this step.
-
-```bash
-export PROJAPPL=/projappl/project_2005590
-module purge
-module load bioconda/3
-source activate mbdp_genomics
-```
-
-Generate graphs for visualization of reads quality and length distribution
-
-```bash
-NanoPlot -o nanoplot_out -t 4 -f png --fastq path-to/your_raw_nanopore_reads.fastq.gz
-```
-
-Transfer to your computer and check two plots inside the nanoplot output folder:
-Reads quality distribution: `LengthvsQualityScatterPlot_kde.png`
-Reads length distribution: `Non_weightedLogTransformed_HistogramReadlength.png`
-
-```bash
-nanoQC -o nanoQC_out path-to/your_raw_nanopore_reads.fastq.gz
-```
-
-Using the Puhti interactive mode, check the file `nanoQC.html` inside the ouput folder of the nanoQC job.
-
-* How is the quality at the beginning and at the end of the reads? How many bases would you cut from these regions?
-
-
-
-### Trimming and quality filtering of reads
-
-The following command will trim the first 30 bases and the last 20 bases of each read, exclude reads with a phred score below 12 and exclude reads with less than 1000 bp.
-
-```bash
-mkdir trimmed_nanopore
-
-cd trimmed_nanopore
-
-gunzip -c /scratch/project_2005590/COURSE_FILES/RAWDATA_NANOPORE/raw.nanopore.328.fastq.gz | NanoFilt -q 12 -l 1000 --headcrop 30 --tailcrop 20 | gzip > nanopore.trimmed.fastq.gz
-```
-
-### Optional - Visualizing the trimmed data
-```bash
-NanoPlot -o nanoplot_out -t 4 -f png --fastq nanopore.trimmed.fastq.gz
-```
 
 
 ## Genome assembly with Spades
