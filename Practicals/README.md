@@ -109,34 +109,49 @@ Based on the results from NanoPlot:
 
 As in the article, we will use [Filtlong](https://github.com/rrwick/Filtlong) and [Porechop](https://github.com/rrwick/Porechop) for quality and adapter trimmming of the nanopore reads.
 
+As we have quite a lot of data, trimming also takes a while. Submitting it as batch job means we can use more resources and the job shoud also run faster.  
+Make a batch job script using the example. But remember to check all file paths before you submit the job. 
+
 ```bash
-/scratch/project_2001499/envs/nanoFiltering/bin/filtlong --min_length 4000 --min_mean_q 80 soflink-to/your_raw_nanopore_reads.fastq.gz | gzip > 02_TRIMMED_DATA/SRR11673980_trimmed.fastq.gz
-/scratch/project_2001499/envs/nanoFiltering/bin/porechop -i 02_TRIMMED_DATA/SRR11673980_trimmed.fastq.gz -o 02_TRIMMED_DATA/SRR11673980_chop.fastq.gz --threads 4
+#!/bin/bash -l
+#SBATCH --job-name trimming
+#SBATCH --output 00_LOGS/trimming_out_%j.txt
+#SBATCH --error 00_LOGS/trimming_err_%j.txt
+#SBATCH --time 24:00:00
+#SBATCH --nodes 1
+#SBATCH --ntasks-per-node 1
+#SBATCH --cpus-per-task 16
+#SBATCH --mem 50G
+#SBATCH --account project_2001499
+#SBATCH --gres=nvme:200
+
+/scratch/project_2001499/envs/nanoFiltering/bin/filtlong \
+        --min_length 4000 \
+        --min_mean_q 80 soflink-to/your_raw_nanopore_reads.fastq.gz |\
+         gzip > 02_TRIMMED_DATA/SRR11673980_trimmed.fastq.gz
+
+/scratch/project_2001499/envs/nanoFiltering/bin/porechop \
+        -i 02_TRIMMED_DATA/SRR11673980_trimmed.fastq.gz \
+        -o 02_TRIMMED_DATA/SRR11673980_chop.fastq.gz \
+        --threads $SLURM_CPUS_PER_TASK
 ```
 
-### Optional - Visualizing the trimmed data with NanoPlot
+### Visualizing the trimmed data with NanoPlot
+
 ```bash
 NanoPlot -o 02_TRIMMED_DATA/nanoplot_out -t 4 -f png --fastq 02_TRIMMED_DATA/SRR11673980_chop.fastq.gz
 ```
 
 ## Metagenomic assembly with metaFlye
 
-__DO NOT RUN__
-```bash
-/scratch/project_2001499/envs/Flye/bin/flye 
-        --nano-raw 02_TRIMMED_DATA/SRR11673980_chop.fastq.gz
-        --threads $SLURM_CPUS_PER_TASK
-        --meta
-        --out-dir 03_ASSEMBLY
-```
 
 Batch job script to assemble and polish
 
 ```bash
 #!/bin/bash -l
-#SBATCH --job-name flye
-#SBATCH --output flye_out_%j.txt
-#SBATCH --error flye_err_%j.txt
+#SBATCH --job-name assembly
+#SBATCH --output 00_LOGS/assembly_out_%j.txt
+#SBATCH --error 00_LOGS/assembly_err_%j.txt
 #SBATCH --time 24:00:00
 #SBATCH --nodes 1
 #SBATCH --ntasks-per-node 1
@@ -158,7 +173,7 @@ Batch job script to assemble and polish
         -d 03_ASSEMBLY/assembly.fasta \
         -o medaka_out \
         -m r941_prom_high_g303 \
-        --threads $SLURM_CPUS_PER_TASK
+        -t $SLURM_CPUS_PER_TASK
 ```
 
 ## QC and trimming for Illumina reads
