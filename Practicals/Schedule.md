@@ -1,6 +1,6 @@
 # Schedule
 
-## Monday - Porthania, P724
+## Monday - :office: Porthania, P724
 | Time | Description|
 | --- | --- |
 | 10:00-10:30 | **Jenni Hultman**: [Introduction (including general structure of the course and group work)](Lectures/introduction.pdf)|
@@ -13,7 +13,7 @@
 | 14:45-15:30 | **Jenni Hultman**: [Assembly hands-on](Practicals/README.md#Genome-assembly-with-Spades) |
 | 15:30-17:45 | **Jenni Hultman**: [Illumina trimming and QC](Practicals/Sequencing101.pdf) |
 
-## Tuesday - Päärakennus, U3043
+## Tuesday - :classical_building: Main building, U3043
 | Time | Description |
 | --- | --- |
 | 10:15-11:00 | **Antti Karkman**: [Polishing the assembly](Practicals/Sequencing101.pdf)|
@@ -23,7 +23,7 @@
 | 14:00-17:00 | **video lecture** Reconstructing genomes from metagenomes - key concepts|
 
 
-## Wednesday - Päärakennus, U4079
+## Wednesday - :classical_building: Main building, U4079
 | Time | Description |
 | --- | --- |
 | 10:15-10:45 | **Antti Karkman**: [Genome-Resolved Metagenomics](Lectures/Pangenomics.pdf)|
@@ -34,7 +34,7 @@
 
 
 
-## Thursday - Päärakennus, U4075
+## Thursday - :classical_building: Main building, U4075
 | Time | Description |
 | --- | --- |
 | 10:15-11:00 | **Tatiana Demina** |[Introduction to viromics](Lectures/Pangenomics.pdf)|
@@ -45,7 +45,7 @@
 | 16:30-17:45 | **Jenni Hultman**: [Metaphlan](Practicals/README.md#Eliminate-contaminant-contigs-with-Kaiju)|
 
 
-## Friday - Päärakennus, U3039
+## Friday - :classical_building: Main building, U3039
 | Time | Description |
 | --- | --- |
 | 10:15-12:00 | **Tatiana Demina** : [Viromics hands-on](Practicals/README.md#pangenomics-with-anvi'o) |
