@@ -171,8 +171,7 @@ And if it looks good as well, we can move on to the assembly step.
 ## Metagenomic assembly with metaFlye
 
 Fo the assembly we will use [Flye](https://github.com/fenderglass/Flye). Flye is a long-read de novo assembler that handles also metagenomic data.  
-We will also polish the assmebly using [medaka](https://github.com/nanoporetech/medaka). 
-Batch job script to assemble and polish:
+Batch job script for assembly with metaFlye:
 
 ```bash
 #!/bin/bash -l
@@ -187,21 +186,14 @@ Batch job script to assemble and polish:
 #SBATCH --account project_2001499
 #SBATCH --gres=nvme:200
 
-# assembly
 /scratch/project_2001499/envs/Flye/bin/flye  \
         --nano-raw 02_TRIMMED_DATA/SRR11673980_chop.fastq.gz \
         --threads $SLURM_CPUS_PER_TASK \
         --meta \
         --out-dir 03_ASSEMBLY
 
-# polishing
-/scratch/project_2001499/envs/medaka/bin/medaka_consensus \
-        -i 02_TRIMMED_DATA/SRR11673980_chop.fastq.gz \
-        -d 03_ASSEMBLY/assembly.fasta \
-        -o medaka_out \
-        -m r941_prom_high_g303 \
-        -t $SLURM_CPUS_PER_TASK
 ```
+
 
 ## QC and trimming for Illumina reads
 QC for the raw data takes few minutes, depending on the allocation.  
@@ -216,7 +208,6 @@ sinteractive -A project_2001499 -c 4
 module load biokit
 ```
 
-Now each group will work with their own sequences. Create the variables R1 and R2 to represent the path to your files. Do that just for the strain you will use:
 
 ```bash
 
@@ -237,7 +228,7 @@ fastqc  -o fastqc_raw/ -t 4
 
 ```
 
-Copy the resulting HTML file to your local machine with `scp` from the command line (Mac/Linux) or *WinSCP* on Windows.  
+Copy the resulting HTML file to your local machine.
 Have a look at the QC report with your favourite browser.  
 
 After inspecting the output, it should be clear that we need to do some trimming.  
@@ -246,8 +237,7 @@ __What kind of trimming do you think should be done?__
 ### Running Cutadapt
 
 ```bash
-# To create a variable to your cyanobacterial strain:
-strain=328
+
 ```
 
 The adapter sequences that you want to trim are located after `-a` and `-A`.  
@@ -255,12 +245,6 @@ What is the difference with `-a` and `-A`?
 And what is specified with option `-p` or `-o`?
 And how about `-m` and `-j`?  
 You can find the answers from Cutadapt [manual](http://cutadapt.readthedocs.io).
-
-Before running the script, we need to create the directory where the trimmed data will be written:
-
-```bash
-mkdir trimmed
-```
 
 
 ```bash
@@ -287,33 +271,7 @@ fastqc trimmed/*.fastq -o fastqc_out_trimmed/ -t 1
 Copy the resulting HTML file to your local machine as earlier and look how well the trimming went.  
 Did you find problems with the sequences? We can further proceed to quality control using Prinseq.
 
-#### Running Prinseq
 
-You could check the different parameters that can be used in prinseq:
-http://prinseq.sourceforge.net/manual.html
-
-```bash
-
-module load prinseq
-
-```
-
-Run program using the previous trimmed reads:
-
-```bash
-prinseq-lite.pl \
--fastq trimmed/"$strain"_cut_1.fastq \
--fastq2 trimmed/"$strain"_cut_2.fastq \
--min_qual_mean 25 \
--trim_left 10 \
--trim_right 8 \
--trim_qual_right 36 \
--trim_qual_left 30 \
--min_len 80 \
--out_good trimmed/"$strain"_pseq -log prinseq.log
-```
-
-You can check the `prinseq.log` and run again FastQC on the Prinseq trimmed sequences and copy them to your computer. You can now compare the quality of these sequences with the raw and cutadapt trimmed sequences FastQC results. Did you find any difference?
 
 ```bash
 cd trimmed/
@@ -349,94 +307,39 @@ To leave the interactive node, type `exit`.
 
 You can copy the file `multiqc_report.html` to your computer and open it in a web browser. Can you see any difference among the raw and trimmed reads?
 
+## Polishig long-read assmebly with short-read data
 
-## Genome assembly with Spades
-Now that you have good trimmed sequences, we can assemble the reads.
-For assembling you will need more resources than the default.  
-Allocate 8 cpus, 20000 Mb of memory (20G) and 4 hours.  
-Remember also the accounting project, `project_2005590`.
+Mapping and pilon steps here. __Still draft.__
 
 ```bash
+module load bowtie2/2.4.4 
+bowtie2-build metaflye_polish_assembly/assembly.fasta \
+                metaflye_polish_assembly/assembly > metaflye_polish_assembly/pilon.log.txt
 
-# Remember to modify  this
-sinteractive --account --time --mem --cores
+bowtie2 -1 trimmed_data/SRR11674041_trimmed_1.fastq.gz \
+        -2 trimmed_data/SRR11674041_trimmed_2.fastq.gz \
+        -S metaflye_polish_assembly/assembly.sam \
+        -x metaflye_polish_assembly/assembly \
+        --threads $SLURM_CPUS_PER_TASK \
+        --no-unal >> metaflye_polish_assembly/pilon.log.txt
 
+module purge 
+module load samtools/1.6.1
 
-# Deactivate the current virtual environment and reset the modules before loading Spades
-source deactivate mbdp_genomics
+samtools view -F 4 -bS metaflye_polish_assembly/assembly.sam | samtools sort > metaflye_polish_assembly/assembly.bam
+samtools index metaflye_polish_assembly/assembly.bam
+
 module purge
+module load biojava/1.8
 
-
-# Activate program
-module load gcc/9.1.0
-module load spades/3.15.0
-
-
-# Cyano strain and processed reads
-strain=328
-R1=trimmed/"$strain"_pseq_1.fastq
-R2=trimmed/"$strain"_pseq_2.fastq
-
-```
-
-### Run Spades
-
-We will use the trimmed Illumina and Nanopore sequences to assemble the cyanobacteria genomes. Check the commands used using `spades.py -h`
-
-```bash
-spades.py --nanopore nanopore.trimmed.fastq.gz -1 $R1 -2 $R2 -o spades_hybrid_out -t 8
-```
-
-If you have time, you can try different options for assembly. Read more from [here](https://cab.spbu.ru/files/release3.15.0/manual.html) and experiment.  
-Remember to rename the output folder for your different experiments.
-
-After you're done, remember to close the interactive connection and free the resources with `exit`.
-
-
-
-## Eliminate contaminant contigs with Kaiju
-
-Kaiju is no pre-installed to Puhti so we need to reset the modules and activate the virtual environment again.
-
-```bash
-export PROJAPPL=/projappl/project_2005590
-module purge
-module load bioconda/3
-source activate mbdp_genomics
-```
-
-### Run kaiju batch script
-To run Kaiju you can use the script in `/scratch/project_2005590/COURSE_FILES/run_kaiju.sh`. This script takes your assembly as input and will eliminate all sequences not classified as cyanobacteria, creating a new "clean" file. You could go through the script and look at https://docs.csc.fi/computing/running/creating-job-scripts-puhti/ and `kaiju -h` before run in your folder:
-
-
-```bash
-sbatch /scratch/project_2005590/COURSE_FILES/run_kaiju.sh -i spades_hybrid_out/scaffolds.fasta -o kaiju_out
-```
-
-You can check the status of your job with:  
-
-```bash
-squeue -l -u $USER
-```
-
-After the job has finished, you can see how much resources it actually used and how many billing units were consumed.
-
-```bash
-seff JOBID
-```
-
-**NOTE:** Change **JOBID** the the job id number you got when you submitted the script.
-
-
-### Optional - Visualizing the taxonomic assignment of contigs with the Kaiju web server
-
-You can check the taxonomic assignment of the assembled contigs with some visuals using the [Kaiju web server](https://kaiju.binf.ku.dk/server).
-
-This web tool only accepts compressed FASTA files (or FASTQ), so we need to compress our assembled genome file using `gzip`. The parameters on the web server can be left as is.
-
-```bash
-gzip -c your_assembly.fasta > your_assembly.fasta.gz
-```
+java -Xmx128G -jar /scratch/project_2001499/envs/pilon/pilon-1.24.jar \
+        --genome metaflye_polish_assembly/assembly.fasta \
+        --bam metaflye_polish_assembly/assembly.bam \
+        --outdir metaflye_polish_assembly/ \
+        --output pilon \
+        --threads $SLURM_CPUS_PER_TASK \
+        --changes >> metaflye_polish_assembly/pilon.log.txt
+``` 
 
 
 ## Assembly QC
