@@ -27,7 +27,7 @@ First list all projects you're affiliated with in CSC.
 csc-workspaces
 ```
 
-You should see the course project `Metagenomics_2019`.
+You should see the course project `MBDP_Metagenomics_2022`.
 So let's create a folder for you inside the scratch folder, you can find the path in the output from the previous command.
 
 ```bash
