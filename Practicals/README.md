@@ -529,7 +529,7 @@ The CRISPR-Cas can be annotated using [CRISPRone](https://omics.informatics.indi
 Can you find any differences in the annotation of some specific genes when comparing the results of these tools with the Prokka annotation?
 
 
-## Metaphlan
+## Metaphlan JENNI IS WORKING ON THIS
 
 Next we will also analyze individual reads in addition to the assembly based approaches. Which files would you use for this? 
 
