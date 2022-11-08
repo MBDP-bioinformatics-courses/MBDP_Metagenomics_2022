@@ -18,7 +18,7 @@ You will receive an email after you have been added to the course project at CSC
 
 ## Download and install the following software to your own computer
 
-* [Virtual Studio Code](https://code.visualstudio.com/Download) (also available from UH software center)
+* [Visual Studio Code](https://code.visualstudio.com/Download) (also available from UH software center)
 * [Bandage](https://rrwick.github.io/Bandage/) (optional)
 
 ## Windows users ONLY
