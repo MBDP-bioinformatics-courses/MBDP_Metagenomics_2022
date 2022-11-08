@@ -27,7 +27,7 @@ First list all projects you're affiliated with in CSC.
 csc-workspaces
 ```
 
-You should see the course project `Metagenomics_2019`.
+You should see the course project `MBDP_Metagenomics_2022`.
 So let's create a folder for you inside the scratch folder, you can find the path in the output from the previous command.
 
 ```bash
@@ -529,7 +529,7 @@ The CRISPR-Cas can be annotated using [CRISPRone](https://omics.informatics.indi
 Can you find any differences in the annotation of some specific genes when comparing the results of these tools with the Prokka annotation?
 
 
-## Metaphlan
+## Metaphlan JENNI IS WORKING ON THIS
 
 Next we will also analyze individual reads in addition to the assembly based approaches. Which files would you use for this? 
 
