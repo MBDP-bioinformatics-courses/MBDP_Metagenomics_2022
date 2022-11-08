@@ -29,7 +29,7 @@
 | 10:15-10:45 | **Antti Karkman**: [Genome-Resolved Metagenomics](Lectures/Pangenomics.pdf)|
 | 10:45-12:00 | **ALL**: [Preparing files for Anvio hands-on](Practicals/README.md#pangenomics-with-anvi'o) |
 | 12:00-13:00 | **Lunch** :plate_with_cutlery: |
-| 13:00-17:45 | **ALL**: Anvio cont' and MBDP :coffee: break at 14:00|
+| 13:00-17:45 | **ALL**: Anvio cont' and MBDP :coffee: & :apple: break at 14:00|
 | 18:00-21:00 | **Course dinner** |
 
 
@@ -50,5 +50,5 @@
 | --- | --- |
 | 10:15-12:00 | **Tatiana Demina** : [Viromics hands-on](Practicals/README.md#pangenomics-with-anvi'o) |
 | 12:00-13:00 | **Lunch** :plate_with_cutlery: |
-| 13:00-15:30 | **Antti Karkman** : [Metaphlan visualization](Practicals/README.md#pangenomics-with-anvi'o) (MBDP :coffee: break at 14.00) |
+| 13:00-15:30 | **Antti Karkman** : [Metaphlan visualization](Practicals/README.md#pangenomics-with-anvi'o) (MBDP :coffee: & :apple: break at 14.00) |
 | 15:00-17:45 | **Q&A** and  **Feedback**  |
