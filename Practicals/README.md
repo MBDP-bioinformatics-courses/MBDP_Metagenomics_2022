@@ -313,32 +313,32 @@ Mapping and pilon steps here. __Still draft.__
 
 ```bash
 module load bowtie2/2.4.4 
-bowtie2-build metaflye_polish_assembly/assembly.fasta \
-                metaflye_polish_assembly/assembly > metaflye_polish_assembly/pilon.log.txt
+bowtie2-build 03_ASSEMBLY/assembly.fasta \
+                04_POLISH/assembly
 
-bowtie2 -1 trimmed_data/SRR11674041_trimmed_1.fastq.gz \
-        -2 trimmed_data/SRR11674041_trimmed_2.fastq.gz \
-        -S metaflye_polish_assembly/assembly.sam \
-        -x metaflye_polish_assembly/assembly \
+bowtie2 -1 02_TRIIMMED_DATA/SRR11674041_trimmed_1.fastq.gz \
+        -2 02_TRIIMMED_DATA//SRR11674041_trimmed_2.fastq.gz \
+        -S 04_POLISH/assembly.sam \
+        -x 04_POLISH//assembly \
         --threads $SLURM_CPUS_PER_TASK \
-        --no-unal >> metaflye_polish_assembly/pilon.log.txt
+        --no-unal
 
 module purge 
 module load samtools/1.6.1
 
-samtools view -F 4 -bS metaflye_polish_assembly/assembly.sam | samtools sort > metaflye_polish_assembly/assembly.bam
-samtools index metaflye_polish_assembly/assembly.bam
+samtools view -F 4 -bS 04_POLISH/assembly.sam | samtools sort > 04_POLISH/assembly.bam
+samtools index 04_POLISH/assembly.bam
 
 module purge
 module load biojava/1.8
 
 java -Xmx128G -jar /scratch/project_2001499/envs/pilon/pilon-1.24.jar \
-        --genome metaflye_polish_assembly/assembly.fasta \
-        --bam metaflye_polish_assembly/assembly.bam \
-        --outdir metaflye_polish_assembly/ \
+        --genome 03_ASSEMBLY/assembly.fasta \
+        --bam 04_POLISH/assembly.bam \
+        --outdir 04_POLISH/ \
         --output pilon \
         --threads $SLURM_CPUS_PER_TASK \
-        --changes >> metaflye_polish_assembly/pilon.log.txt
+        --changes
 ``` 
 
 
