@@ -290,8 +290,8 @@ do
         -A AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT \
         -o 02_TRIMMED_DATA/${file}_trimmed.fastq.gz \
         -p 02_TRIMMED_DATA/${file}_trimmed.fastq.gz \
-        01_DATA/${file}_1.fastq.gz \
-        01_DATA/${file}_2.fastq.gz \
+        01_DATA/Illumina/${file}_1.fastq.gz \
+        01_DATA/Illumina/${file}_2.fastq.gz \
         --minimum-length 50 \
         --cores 4 \
         > 00_LOGS/${file}_cutadapt.log
