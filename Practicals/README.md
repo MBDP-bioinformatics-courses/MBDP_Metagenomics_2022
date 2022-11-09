@@ -438,129 +438,101 @@ Next we will also analyze individual reads in addition to the assembly based app
 We will use a tool called [Metaphlan4](https://github.com/biobakery/biobakery/wiki/metaphlan4) to analyze these reads. 
 
 # run gtdbtk
+```bash 
 export GTDBTK_DATA_PATH=/scratch/project_2005590/databases/GTDB/release202/
 
 singularity exec --bind $GTDBTK_DATA_PATH:$GTDBTK_DATA_PATH,$PWD:$PWD,$TMPDIR:/tmp  \
                     /projappl/project_2005590/containers/gtdbtk_1.7.0.sif \
                     gtdbtk classify_wf -x fasta --genome_dir PATH/TO/GENOME/FOLDER \
                     --out_dir OUTPUT/FOLDER --cpus 4 --tmpdir gtdb_test
-```
-
-## Pangenomics with Anvi'o
-
-
-We will run the whole anvi'o part interactively. So again, allocate a computing node with enough memory (>40G) and 8 threads.  
-
-Make a new folder for pangenomics
-```
-mkdir pangenomics
-cd pangenomics
-```
-
-Make sure you have at least a copy of each of your genomes in one folder and make a new environmental variable pointing there.
-```
-GENOME_DIR=ABSOLUTE/PATH/TO/GENOME/DIR
-CONTAINERS=/projappl/project_2005590/containers/
-```
-
-Then we will polish the contig names for each of the genomes before doing anything with the genomes.  
-And also copy few annotated reference genomes to be included in our pangenome.  
-```
-singularity exec --bind $PWD:$PWD,$GENOME_DIR:/genomes $CONTAINERS/anvio_7.sif \
-          anvi-script-reformat-fasta --simplify-names -o Oscillatoriales_193.fasta \
-          -r reformat_193_report.txt /genomes/GENOME1.fasta
-
-singularity exec --bind $PWD:$PWD,$GENOME_DIR:/genomes $CONTAINERS/anvio_7.sif \
-          anvi-script-reformat-fasta --simplify-names -o Oscillatoriales_327_2.fasta \
-          -r reformat_327_2_report.txt /genomes/GENOME2.fasta
-
-singularity exec --bind $PWD:$PWD,$GENOME_DIR:/genomes $CONTAINERS/anvio_7.sif \
-          anvi-script-reformat-fasta --simplify-names -o Oscillatoriales_328.fasta \
-          -r reformat_328_report.txt /genomes/GENOME3.fasta
-
-# copy reference genomes to your own folder
-mkdir reference_genomes
-cp /scratch/project_2005590/COURSE_FILES/closest_oscillatoriales_genomes/*.gbf ./reference_genomes
-```
-
-Although you already annotated your genomes, we'll do it once more, because we changed the names of the contigs.
 
 ```
-module load biokit
-for strain in $(ls *.fasta); do prokka --cpus 8 --outdir ./${strain%.fasta}_PROKKA --prefix ${strain%.fasta} $strain; done
+
+## Anvi'o
+
+```bash 
+sinteractive -A project_2006616 --cores 6 --mem 50G --tmp 100
+module load anvio/7.1
 ```
 
-Now we have both Genbank files from the reference genomes and also from our own genomes.  
-Next things is to get the contigs, gene calls and annotations to separate files that anvi'o understands.
+```bash
+anvi-script-reformat-fasta \
+    --min-len 1000 \
+    --simplify-names \
+    -o 05_ANVIO/contigs.fasta \
+    --report-file 05_ANVIO/reformat_report.txt \
+    04_POLISH/INPUT.fasta
 
+anvi-gen-contigs-database \
+    -f 05_ANVIO/contigs.fasta \
+    -o 05_ANVIO/CONTIGS.db \
+    -n Long-read assembly \
+    -T 6
+
+anvi-run-hmms \
+    -c 05_ANVIO/CONTIGS.db \
+    -T 6
+
+anvi-run-ncbi-cogs \
+    -c 05_ANVIO/CONTIGS.db \
+    -T 6
+
+anvi-run-scg-taxonomy \
+    -c 05_ANVIO/CONTIGS.db \
+    -T 6
+
+anvi-estimate-scg-taxonomy \
+    -c 05_ANVIO/CONTIGS.db \
+    --metagenome-mode
 ```
-for genome in $(ls */*.gbf)
+
+Mapping script:
+
+```bash
+#!/bin/bash
+module load bowtie2/2.4.4  
+bowtie2-build 05_ANVIO/contigs 05_ANVIO/contigs.fasta
+
+for file in SRR11674041 SRR11674042 SRR11674043
 do
-    singularity exec --bind $PWD:$PWD $CONTAINERS/anvio_7.sif \
-                                        anvi-script-process-genbank \
-                                            -i $genome -O ${genome%.gbf} \
-                                            --annotation-source prodigal \
-                                            --annotation-version v2.6.3
-done
+    module load bowtie2/2.4.4
+    bowtie2 \
+        -1 02_TRIMMED_DATA/${file}_trimmed_1.fastq.gz \
+        -2 02_TRIMMED_DATA/${file}_trimmed_2.fastq.gz \
+        -x 05_ANVIO/contigs
+        -S 05_ANVIO/${file}.sam \
+        --threads 6 \
+        --no-unal
+
+    module purge
+    module load samtools
+
+    samtools view -F 4 -bS 05_ANVIO/${file}.sam |\
+        samtools sort > 05_ANVIO/${file}.bam
+    
+    samtools index 05_ANVIO/${file}.bam
+    
+    anvi-profile-blitz \
+        -i 05_ANVIO/${file}.bam \
+        -c 05_ANVIO/CONTIGS.db \
+        -S ${file} \
+        -o 05_ANVIO/${file}_PROFILE \
+        -T 6
+done 
 ```
 
-The pangenomcis part will be done using a anvi'o workflow (read more from here: )  
-And for that we need a file that specifies where the files from previous step are (called `fasta.txt`).  
+Run script
 
-```
-echo -e "name\tpath\texternal_gene_calls\tgene_functional_annotation" > fasta.txt
-for strain in $(ls */*-contigs.fa)
-do
-    strain_name=${strain#*/}
-    echo -e ${strain_name%-contigs.fa}"\t"$strain"\t"${strain%-contigs.fa}"-external-gene-calls.txt\t"${strain%-contigs.fa}"-external-functions.txt"
-done >> fasta.txt
-```
-In addition to the `fasta.txt` file we need also a configuration file.  
-So make a file called `config.json` containing the following.  
-
-```
-{
-    "workflow_name": "pangenomics",
-    "config_version": "2",
-    "max_threads": "8",
-    "project_name": "Oscillatoriales_pangenome",
-    "external_genomes": "external-genomes.txt",
-    "fasta_txt": "fasta.txt",
-    "anvi_gen_contigs_database": {
-        "--project-name": "{group}",
-        "--description": "",
-        "--skip-gene-calling": "",
-        "--ignore-internal-stop-codons": true,
-        "--skip-mindful-splitting": "",
-        "--contigs-fasta": "",
-        "--split-length": "",
-        "--kmer-size": "",
-        "--skip-predict-frame": "",
-        "--prodigal-translation-table": "",
-        "threads": ""
-    },
-    "anvi_pan_genome": {
-      "threads": "8"
-    }
-}
-```
-And then we're ready to run the whole pangenomics workflow.  
-
-```
-singularity exec --bind $PWD:$PWD $CONTAINERS/anvio_7.sif anvi-run-workflow -w pangenomics -c config.json
+```bash
+bash scripts/map2assembly.sh
 ```
 
-When the workflow is ready, we can visualise the results interactively in anvi'o.  
-For that we need to connect to Puhti bit differently.  
-Log out from the current computing node, open a screen session and a new interactive connection to computing node.
-Then take note of the computing node name, the login node number and your port number, you'll need them all in the next part.
-
-### Tunneling the interactive interafce
-Although you can install anvi'o on your own computer (and you're free to do so, but we won't have time to help in that), we will run anvi'o in Puhti and tunnel the interactive interface to your local computer.
-To be able to to do this, everyone needs to use a different port for tunneling and your port number will be given on the course.
-
-Connecting using a tunnel is a bit tricky and involves several steps, so pay special attention.
-Detach from your screen and note on which login node you're on. Then re-attach and note the ID of the computing node your logged in. Then you will also need to remember your port number.
+```bash
+anvi-merge \
+    -o 05_ANVIO/SAMPLES-MERGED \
+    -c 05_ANVIO/CONTIGS.db \
+    05_ANVIO/*_PROFILE/PROFILE.db 
+```
 
 Mini manual for screen:
 
@@ -575,6 +547,7 @@ Mini manual for screen:
 
 Then you can log out and log in again, but this time in a bit different way.
 You need to specify your PORT and the NODEID to which you connected and also the NUMBER of the login node you where your screen is running. Also change your username in the command below.
+
 ```
 ssh -L PORT:NODEID.bullx:PORT USERNAME@puhti-loginNUMBER.csc.fi
 ```
@@ -587,126 +560,3 @@ Click add and connect to the right login node, login1 or login2.
 
 Then go back to your screen and launch the interactive interface.
 Remember to change the PORT.
-
-```
-cd 03_PAN
-export ANVIOPORT=PORT
-singularity exec --bind $PWD:$PWD $CONTAINERS/anvio_7.sif \
-                                    anvi-display-pan \
-                                        -g Oscillatoriales_pangenome-GENOMES.db \
-                                        -p Oscillatoriales_pangenome-PAN.db \
-                                        --server-only -P $ANVIOPORT
-
-singularity exec --bind $PWD:$PWD $CONTAINERS/anvio_7.sif \
-                                    anvi-get-sequences-for-gene-clusters \
-                                        -p Oscillatoriales_pangenome-PAN.db \
-                                        -g Oscillatoriales_pangenome-GENOMES.db \
-                                        -C default -b SCG \
-                                        --concatenate-gene-clusters \
-                                        -o single-copy-core-genes.fa                               
-
-singularity exec --bind $PWD:$PWD $CONTAINERS/anvio_7.sif \
-                                    anvi-gen-phylogenomic-tree \
-                                        -f single-copy-core-genes.fa  \
-                                        -o SCG.tre
-
-# study the geosmin phylogeny
-singularity exec --bind $PWD:$PWD $CONTAINERS/anvio_7.sif \
-                                    anvi-get-sequences-for-gene-clusters \
-                                    -p Oscillatoriales_pangenome-PAN.db \
-                                    -g Oscillatoriales_pangenome-GENOMES.db \
-                                    --report-DNA-sequences \
-                                    -C default -b Geosmin -o geosmin.fasta
-
-# This time you need  to align the sequences (use  mafft) and construct the tree from  the aligned sequence file (raxml)
-# concatenate the header before alignment
-sed -i 's/[|:]/_/g' geosmin.fasta
-
-module load biokit
-ginsi geosmin.fasta > geosmin_aln.fasta
-
-module purge
-module load raxml
-raxmlHPC -f a -x 12345 -p 12345 -# 100 -m GTRGAMMA -s geosmin_aln.fasta -n geosmin
-```
-
-## Detection of secondary metabolites biosynthesis gene clusters
-
-Biosynthetic genes putatively involved in the synthesis of secondary metabolites can identified using `antiSMASH`
-
-Got to `https://antismash.secondarymetabolites.org/#!/start`. You can load the assembled genome you obtained and turn on all the extra features.
-
-When the analysis is ready, you may be able to answer the following questions:
-
-1. How many secondary metabolites biosynthetic gene clusters (BGC) were detected?
-2. Which different types of BGC were detected and what is the difference among these types?
-3. Do you think your strain produce all these metabolites? Why?
-
-
-## Comparison of secondary metabolites biosynthesis gene clusters
-
-Biosynthetic genes clusters can be compared using `BiG-SCAPE` (Biosynthetic Gene Similarity Clustering and Prospecting Engine) and `CORASON` (CORe Analysis of Syntenic Orthologs to prioritize Natural Product-Biosynthetic Gene Cluster)  https://bigscape-corason.secondarymetabolites.org/tutorial/index.html
-
-
-You can run BiG-SCAPE/CORASON in your folder, using the results obtained from antiSMASH. The .gbk files from the three studied strains and selected reference strains from NCBI are available here: `/scratch/project_2005590/COURSE_FILES/BIGSCAPE/combinedGBK`
-
-You need to load bigscape using a Conda environment:
-
-```bash
-export PROJAPPL=/projappl/project_2005590
-module load bioconda/3
-source activate bigscape
-```
-
-
-```bash
-sinteractive -A project_2005590
-```
-
-Now you can run BiG-SCAPE/CORASON in your user folder:
-
-```bash
-mkdir bigscape
-cd bigscape/
-
-python /scratch/project_2005590/COURSE_FILES/BIGSCAPE/BiG-SCAPE/bigscape.py -c 4 -i /scratch/project_2005590/COURSE_FILES/BIGSCAPE/combinedGBK --pfam_dir /scratch/project_2005590/COURSE_FILES/BIGSCAPE/Pfam_database -o bigscape_auto --anchorfile /scratch/project_2005590/COURSE_FILES/BIGSCAPE/anchor_domains.txt --mode auto --hybrids-off --mibig --cutoffs 0.40 0.50 0.60
-```
-
-Take a look what it means each parameter used: https://git.wageningenur.nl/medema-group/BiG-SCAPE/-/wikis/home
-
-Once the run is finished, you may transfer the folder to your own computer and observe the results.
-
-Can you find the geosmin and/or 2-methylisoborneol biosynthetic gene clusters?
-
-
-
-
-## Sandbox
-Place to store some scratch code while testing.
-
-### checkM
-checkM should work from singularity container. Need to pull the right container (tag: 1.1.3--py_0) to course folder and test it once again
-```
-# needs computing node, otherwise runs out of memory (40G)
-singularity exec --bind checkM_test/:/checkM_test /projappl/project_2005590/containers/checkM_1.1.3.sif \
-              checkm lineage_wf -x fasta /checkM_test /checkM_test -t 4 --tmpdir /checkM_test
-```
-### GTDB-tk
-Download database before running, needs >200G
-```
-# download gtdb database
-wget https://data.ace.uq.edu.au/public/gtdb/data/releases/latest/auxillary_files/gtdbtk_data.tar.gz
-tar -xzf gtdbtk_data.tar.gz
-
-# run gtdbtk
-export GTDBTK_DATA_PATH=/scratch/project_2005590 /databases/GTDB/release202/
-singularity exec --bind $GTDBTK_DATA_PATH:$GTDBTK_DATA_PATH,$PWD:$PWD  /projappl/project_2005590/containers/gtdbtk_1.7.0.sif \
-              gtdbtk classify_wf -x fasta --genome_dir checkM_test/ --out_dir gtdb_test --cpus 4  --tmpdir gtdb_test
-```
-
-### basecalling
-```
-
-~/projappl/ont-guppy/bin/guppy_basecaller -i fast5_pass/ -s BASECALLED/ -c ~/projappl/ont-guppy/data/dna_r9.4.1_450bps_hac.cfg --device auto --min_qscore 10
-cat BASECALLED/pass/*.fastq |gzip > BASECALLED/strain_328_nanopore.fastq.gz
-```
