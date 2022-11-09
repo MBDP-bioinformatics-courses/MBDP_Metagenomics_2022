@@ -316,7 +316,7 @@ module purge
 module load biokit
 
 mkdir 02_TRIMMED_DATA/FASTQC
-fastqc -o 02_TRIMMED_DATA/FASTQC 02_TRIMMED_DATA/*.fastq -t 4
+fastqc -o 02_TRIMMED_DATA/FASTQC 02_TRIMMED_DATA/*.fastq.gz -t 4
 ```
 
 MultiQC:
