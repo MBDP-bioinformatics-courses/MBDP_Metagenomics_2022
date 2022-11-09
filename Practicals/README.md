@@ -120,7 +120,7 @@ NanoPlot is not pre-installed to Puhti, but has been installed for the course un
 Generate graphs for visualization of reads quality and length distribution
 
 ```bash
-/scratch/project_2001499/envs/nanoQC/bin/NanoPlot -o 00_DATA/nanoplot_out -t 4 -f png --fastq softlink-to/raw_nanopore_reads.fastq.gz
+/scratch/project_2001499/envs/nanoQC/bin/NanoPlot -o 01_DATA/nanoplot_out -t 4 -f png --fastq softlink-to/raw_nanopore_reads.fastq.gz
 ```
 
 Transfer to the output from NanoPlot (`NanoPlot-report.html`) to your own computer and open it with any browser.
@@ -190,7 +190,7 @@ After the trimming has finished and everythin looks ok, we can move on.
 It is always good idea to check that the trimming step did what it was supposed to do. So we'll the QC step on the trimemd data.   
 
 ```bash
-NanoPlot -o 02_TRIMMED_DATA/nanoplot_out -t 4 -f png --fastq 02_TRIMMED_DATA/SRR11673980_chop.fastq.gz
+NanoPlot -o 02_TRIMMED_DATA/NANOPLOT -t 4 -f png --fastq 02_TRIMMED_DATA/SRR11673980_chop.fastq.gz
 ```
 
 And if it looks good as well, we can move on to the assembly step.  
@@ -221,38 +221,35 @@ Batch job script for assembly with metaFlye:
 
 ```
 
-
 ## QC and trimming for Illumina reads
-QC for the raw data takes few minutes, depending on the allocation.  
-Go to your working directory and make a folder called e.g. `fastqc_raw` for the QC reports.  
 
+QC for the raw data takes few minutes, depending on the allocation.  
 QC does not require lot of memory and can be run on the interactive nodes using `sinteractive`.
 
-Activate the biokit environment and open interactive node:
+Open interactive node and load the biokit module:
 
 ```bash
 sinteractive -A project_2001499 -c 4
 module load biokit
 ```
 
+### Running FastQC and MultiQC
+
+Run FastQC with the files stored in the Illumina folder. What does the `-o` and `-t` flags refer to?
 
 ```bash
-
+mkdir 01_DATA/FASTQC
+fastqc -o 01_DATA/FASTQC 01_DATA/Illumina/*.fastq.gz -t 4
 ```
 
-You can check if your variable was set correctly by using:
+FastQC makes a report for each file and as we have several, we can use MultiQC to combine them into one report.   
+MultiQC is not included in biokit, so we need to load it separately. It is wise to first unload all other modules with `module purge`. 
 
 ```bash
-echo $R1
-echo $R2
-```
+module purge
+module load multiqc/1.12  
 
-### Running fastQC
-Run `fastQC` to the files stored in the RAWDATA folder. What does the `-o` and `-t` flags refer to?
-
-```bash
-fastqc  -o fastqc_raw/ -t 4
-
+multiqc --interactive -o 01_DATA/ 01_DATA/FASTQC/*
 ```
 
 Copy the resulting HTML file to your local machine.
@@ -263,24 +260,44 @@ __What kind of trimming do you think should be done?__
 
 ### Running Cutadapt
 
-```bash
+We will do the trimming with [cutadapt]((http://cutadapt.readthedocs.io).
+Cutadapt module has to be loaded separately.
 
+```bash
+module purge
+module load cutadapt/3.5 
+```
+
+Have a look at the help pages for cutadapt. 
+
+```
+cutadapt -h
 ```
 
 The adapter sequences that you want to trim are located after `-a` and `-A`.  
 What is the difference with `-a` and `-A`?  
 And what is specified with option `-p` or `-o`?
 And how about `-m` and `-j`?  
-You can find the answers from Cutadapt [manual](http://cutadapt.readthedocs.io).
+You can also find the answers from Cutadapt [manual](http://cutadapt.readthedocs.io).
 
+Cutadapt can handle paired-end reads, but since we have several files, we will make a for loop that trims each sample separately. The for loop will replace the `${file}` in the script with each of the sample IDs specified on the first line.  
 
 ```bash
-cutadapt -a CTGTCTCTTATA -A CTGTCTCTTATA -o trimmed/"$strain"_cut_1.fastq -p trimmed/"$strain"_cut_2.fastq $R1 $R2 --minimum-length 80 > cutadapt.log
-
+for file in SRR11674041 SRR11674042 SRR11674043
+do
+    cutadapt \
+        -a CTGTCTCTTATA \
+        -A CTGTCTCTTATA \
+        -o 01_TRIMMED_DATA/${file}_trimmed.fastq.gz \
+        -p 01_TRIMMED_DATA/${file}_trimmed.fastq.gz \
+        01_DATA/${file}_1.fastq.gz \
+        01_DATA/${file}_2.fastq.gz \
+        --minimum-length 50 \
+        > ${file}_cutadapt.log
+done
 ```
 
-### Running fastQC on the trimmed reads
-You could now check the `cutadapt.log` and answer:
+You could now check each of the cutadapt log files and answer:
 
 * How many read pairs we had originally?
 * How many reads contained adapters?
@@ -288,51 +305,31 @@ You could now check the `cutadapt.log` and answer:
 * How many base calls were quality-trimmed?
 * Overall, what is the percentage of base pairs that were kept?
 
+### Running FastQC and MultiQC on the trimmed reads
+
 Then make a new folder (`FASTQC`) for the QC files of the trimmed data and run fastQC and multiQC again as you did before trimming:
 
+FastQC:
 ```bash
-mkdir fastqc_out_trimmed
-fastqc trimmed/*.fastq -o fastqc_out_trimmed/ -t 1
+module purge
+module load biokit
+
+mkdir 02_TRIMMED_DATA/FASTQC
+fastqc -o 02_TRIMMED_DATA/FASTQC 02_TRIMMED_DATA/*.fastq -t 4
+```
+
+MultiQC:
+```bash
+module purge
+module load multiqc/1.12  
+
+multiqc --interactive -o 02_TRIMMED_DATA/ 02_TRIMMED_DATA/FASTQC/*
 ```
 
 Copy the resulting HTML file to your local machine as earlier and look how well the trimming went.  
 Did you find problems with the sequences? We can further proceed to quality control using Prinseq.
 
-
-
-```bash
-cd trimmed/
-
-fastqc "$strain"_pseq_*.fastq -o ../fastqc_out_trimmed/ -t 1
-
-```
-
-### Optional - To compare raw and trimmed sequences using multiqc
-
-
-To combine all the reports .zip in a new `combined_fastqc` folder with multiQC:
-```bash
-mkdir combined_fastqc
-
-cp fastqc_raw/*zip combined_fastqc/
-cp fastqc_out_trimmed/*zip combined_fastqc/
-
-```
-
-MultiQC is not pre-installed to Puhti, so we have created a virtual environment that has it.
-
-```bash
-export PROJAPPL=/projappl/project_2005590
-module purge
-module load bioconda/3
-source activate mbdp_genomics
-cd combined_fastqc/
-multiqc . --interactive
-```
-
 To leave the interactive node, type `exit`.  
-
-You can copy the file `multiqc_report.html` to your computer and open it in a web browser. Can you see any difference among the raw and trimmed reads?
 
 ## Polishig long-read assmebly with short-read data
 
