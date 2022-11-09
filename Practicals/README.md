@@ -387,9 +387,6 @@ metaquast.py \
 Now you can move the file ` 03_ASSEMBLY/QUAST/report.html` to your computer and look for the quality control files in the web browser of your preference.
 
 
-
-
-
 __FOR LATER USE:__
 ## Genome completeness and contamination
 
@@ -415,14 +412,23 @@ singularity exec --bind $PWD:$PWD,$TMPDIR:/tmp /projappl/project_2005590/contain
 
 __ANTTI WILL ADD PARTS HERE AND COPY THE SOFTWARE AND DB TO THE COURSE FOLDER__
 
-Now we can annotate our genome assembly using [Prokka](https://github.com/tseemann/prokka)
+Now we can annotate some of our MAGs using [Bakta](https://github.com/oschwengers/bakta).  
+
+Allocate some resources for the job. 
 
 ```bash
-module purge
-module load biokit
-module load bioperl
+sinteractive -A project_2006616 -c 4
+```
 
-prokka --cpus 8 --outdir prokka_out --prefix your_strain_name path-to/your_assembly.fasta
+And then run Bakta on your favourite MAGs.  
+
+```bash
+/scratch/project_2001499/envs/bakta/bin/bakta \
+       INPUT \
+       --db /scratch/project_2001499/databases/bakta/db/ \
+       --prefix GENOME_NAME \
+       --threads 4 \
+       --output OUTPUT
 ```
 
 ## Metaphlan JENNI IS WORKING ON THIS
