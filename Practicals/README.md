@@ -37,24 +37,51 @@ mkdir $USER
 
 Check with `ls`; which folder did `mkdir $USER` create?
 
-This directory (`/scratch/project_2001499/your-user-name`) is your working directory.  
-Every time you log into Puhti, you should use `cd` to navigate to this directory, and **all the scripts are to be run in this folder**.  
+This directory (`/scratch/project_2001499/your-user-name`) is your own working directory.  
+Every time you log into Puhti, you should use `cd` to navigate to this directory.
 
-__CLONE GIT REPOSITORY__ 
+Go to your own folder and clone the course repository there. 
+
 ```bash
-# code here
+git clone https://github.com/MBDP-bioinformatics-courses/MBDP_Metagenomics_2022.git
 ```
+
+Check what was downloaded and go to that folder. Then again check what is inside. 
+**All the scripts are to be run in this folder**.  
 
 The raw data used on this course can be found in `/scratch/project_2001499/Data/`.  
 Instead of copying the data we will use links to this folder in all of the needed tasks.  
 Why don't we want 14 students copying data to their own folders?
 
-__MAKE SOFTLINK__
+
+We have both Nanopore long-read data and Illumina short-read data from one of the sewage treatment plants in the article. Make separate folders for both data types to your own data folder, `01_DATA`. 
 
 ```bash
-# create directories
-# make softlinks
+cd 01_DATA
+mkdir Nanopore
+mkdir Illumina
 ```
+
+Then go first to the `Nanopore` folder and make a softlink to the raw long-read data.  
+After making the softlink, check the content of the folder with `ls`. 
+
+```bash
+cd Nanopore
+ln -s /scratch/project_2001499/Data/Nanopore/SRR11673980.fastq.gz .
+cd ..
+```
+
+Then the same for the short-read data.  
+Again, after making the softlink, check the content of the folder with `ls`. 
+
+```bash
+cd Illumina 
+ln -s /scratch/project_2001499/Data/Illumina/*.fastq.gz .
+cd ..
+```
+
+How many files (links) did you have in the Nanopore folder? What about the Illumina?
+
 
 ## Interactive use of Puhti
 
@@ -137,7 +164,7 @@ But remember to check all file paths before you submit the job.
         --threads $SLURM_CPUS_PER_TASK
 ```
 
-Wheen you are sure everything is ok, submit thee job with `sbatch`. 
+Wheen you are sure everything is ok, submit the job with `sbatch`. 
 
 ```bash
 sbatch scripts/YOUR_SCRIPT.sh
