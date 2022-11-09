@@ -286,8 +286,8 @@ Cutadapt can handle paired-end reads, but since we have several files, we will m
 for file in SRR11674041 SRR11674042 SRR11674043
 do
     cutadapt \
-        -a CTGTCTCTTATA \
-        -A CTGTCTCTTATA \
+        -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCA \
+        -A AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT \
         -o 01_TRIMMED_DATA/${file}_trimmed.fastq.gz \
         -p 01_TRIMMED_DATA/${file}_trimmed.fastq.gz \
         01_DATA/${file}_1.fastq.gz \
