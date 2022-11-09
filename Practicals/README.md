@@ -293,6 +293,7 @@ do
         01_DATA/${file}_1.fastq.gz \
         01_DATA/${file}_2.fastq.gz \
         --minimum-length 50 \
+        --cores 4 \
         > ${file}_cutadapt.log
 done
 ```
