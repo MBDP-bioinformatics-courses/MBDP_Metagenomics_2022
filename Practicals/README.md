@@ -367,54 +367,30 @@ java -Xmx128G -jar /scratch/project_2001499/envs/pilon/pilon-1.24.jar \
         --changes
 ``` 
 
-
 ## Assembly QC
 
-After the assembly has finished we will use Quality Assessment Tool for Genome Assemblies, [Quast](http://quast.sourceforge.net/) for (comparing and) evaluating our assemblies. Quast can be found from Puhti, but since there might be some incompability issues with Python2 and Python3, we will use a Singularity container that has Quast installed.  
-More about Singularity: [More general introduction](https://sylabs.io/guides/3.5/user-guide/introduction.html) and [a bit more CSC specific](https://docs.csc.fi/computing/containers/run-existing/).
-
-```
-singularity exec --bind $PWD:$PWD /projappl/project_2005590/containers/quast_5.0.2.sif \
-                                                  quast.py -o quast_out kaiju_out_filtered.fasta -t 4
-```
-
-Now you can move the file `quast_out/report.html` to your computer and look for the quality control files in the web browser of your preference.
-
-
-## Calculate the genome coverage
-
-To calculate the genome coverage, all the reads used for the assembly must be mapped to the final genome. For that, we can use three programs: Bowtie2 to map the reads; Samtools to sort and make an index of the mapped reads; and bedtools to make the calculation.
-
-The entire workflow can take a long time, so the bedtools output with the sequencing depth for each base in the genome is available for each cyanobacterial strain in `/scratch/project_2005590/COURSE_FILES/RESULTS/coverage_[strain_number]/CoverageTotal.bedgraph` (don't forget to put the strain number).
-
-You can check the commands used in the workflow to generate this file in the script in: `/scratch/project_2005590/COURSE_FILES/SCRIPTS/genome_coverage_workflow.sh`.
-
-
-You can visualize the contents of the file `CoverageTotal.bedgraph` using the command `head` to show the first few lines.
-
-The first 10 lines of `CoverageTotal.bedgraph` for the strain 328 as an example:
-```bash
-NODE_2_length_2022818_cov_20.647969   0   1   19
-NODE_2_length_2022818_cov_20.647969   1   2   31
-NODE_2_length_2022818_cov_20.647969   2   3   53
-NODE_2_length_2022818_cov_20.647969   3   4   57
-NODE_2_length_2022818_cov_20.647969   4   6   60
-NODE_2_length_2022818_cov_20.647969   6   8   62
-NODE_2_length_2022818_cov_20.647969   8   9   69
-NODE_2_length_2022818_cov_20.647969   9   11  73
-NODE_2_length_2022818_cov_20.647969   11  12  74
-NODE_2_length_2022818_cov_20.647969   12  13  76
-```
-The first column refers to the contig name, the second and third column refers to the base position, and the fourth column is the sequencing depth of the base.
-
-In order to calculate the final genome coverage we must calculate the average sequencing depth of all the bases in the genome. We can achieve this by using `awk`.
-
-This command will sum all the numbers in the fourth column of the file `CoverageTotal.bedgraph` and divide by the total numbers of lines (number of bases), giving the average number. The final result will be printed in your screen (or you can save the result in a file using `> coverage.txt` in the end of the command).
+After the metagenomic assembly has finished we will use the metagenomic version of Quality Assessment Tool for Genome Assemblies, [Quast](http://quast.sourceforge.net/) for (comparing and) evaluating our assembly. 
 
 ```bash
-cat CoverageTotal.bedgraph | awk '{total+=$4} END {print total/NR}'
+module purge
+module load quast/5.2.0 
 ```
 
+```bash
+metaquast.py \
+    -o 03_ASSEMBLY/QUAST \
+    03_ASSEMBLY/assembly.fasta \
+    --fast \
+    --threads 4
+```
+
+Now you can move the file ` 03_ASSEMBLY/QUAST/report.html` to your computer and look for the quality control files in the web browser of your preference.
+
+
+
+
+
+__FOR LATER USE:__
 ## Genome completeness and contamination
 
 Now we have calculated different metrics for our genomes, but they don't really tell anything about the "real" quality of our genome.  
@@ -435,7 +411,9 @@ singularity exec --bind $PWD:$PWD,$TMPDIR:/tmp /projappl/project_2005590/contain
               checkm qa ./OUTPUT/lineage.ms ./OUTPUT
 ```
 
-## Genome annotation with Prokka
+## Genome annotation with Bakta 
+
+__ANTTI WILL ADD PARTS HERE AND COPY THE SOFTWARE AND DB TO THE COURSE FOLDER__
 
 Now we can annotate our genome assembly using [Prokka](https://github.com/tseemann/prokka)
 
@@ -446,17 +424,6 @@ module load bioperl
 
 prokka --cpus 8 --outdir prokka_out --prefix your_strain_name path-to/your_assembly.fasta
 ```
-
-Check the files inside the output folder. Can you find the genes involved in the synthesis of Geosmin in one or more of these files?
-
-### Optional - Annotation and visualization of CRISPR-Cas and Phages
-
-Some genome features are better annotated when considering the genome context of a region involving many genes, instead of looking at only one gene at the time. Two examples of this case are the CRISPR-Cas system and Phages.
-
-The CRISPR-Cas can be annotated using [CRISPRone](https://omics.informatics.indiana.edu/CRISPRone/denovo.php) and Phages can be annotated using [PHASTER](https://phaster.ca/).
-
-Can you find any differences in the annotation of some specific genes when comparing the results of these tools with the Prokka annotation?
-
 
 ## Metaphlan JENNI IS WORKING ON THIS
 
