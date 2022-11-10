@@ -594,9 +594,10 @@ Questions to think about:
 
 ## Running Virsorter2
 
-Make a directory called "Virsorter2" in your directory. Make a batch job script there. Sample script:
+Make a directory called `Virsorter2` in your directory. Make a batch job script there.  
+Sample script:
 
-```
+```bash
 #!/bin/bash
 #SBATCH --job-name=virsorter2
 #SBATCH --account=project_2001499
@@ -617,7 +618,7 @@ apptainer exec \
      -j 10 \
      all
 ```
-where, "virsorter.out" is the output (results) directory, you can name it yourself, and the "assembly.fasta" is the assembly input file. The option "--include-groups" specifies virus groups to search for (Virsorter version 2.2.3, which we have installed in Puhti, has only dsDNAphage and ssDNA virus groups to search for by default, we can add more). Explore more about the options from the [manual](https://github.com/jiarong/VirSorter2) or by calling 
+where, `virsorter.out` is the output (results) directory, you can name it yourself, and the `assembly.fasta` is the assembly input file. The option `--include-groups` specifies virus groups to search for (Virsorter version 2.2.3, which we have installed in Puhti, has only dsDNAphage and ssDNA virus groups to search for by default, we can add more). Explore more about the options from the [manual](https://github.com/jiarong/VirSorter2) or by calling 
 ```
 apptainer exec --bind $PWD:$PWD scratch/project_2001499/envs/virsorter2/virsorter2.sif virsorter run -h
 ```
@@ -646,7 +647,7 @@ The useful output files: final-viral-boundary.tsv, final-viral-score.tsv, and fi
 
 We will use [CheckV](https://www.nature.com/articles/s41587-020-00774-7) to assess the quality and completeness of the obtained viral contigs.
 
-The program can be run as an interactive job in Puhti. The database for CheckV is in /scratch/project_2001499/checkv-db.
+The program can be run as an interactive job in Puhti. The database for CheckV is in `/scratch/project_2001499/checkv-db`.
 
 
 ```
@@ -656,11 +657,11 @@ apptainer exec --bind $PWD:$PWD,/scratch/project_2001499/checkv-db/db:/db \
 /scratch/project_2001499/envs/checkV/checkV.sif checkv end_to_end final-viral-combined.fa \
 checkv_out -t 4 -d /db
 ```
-Note that you need to specify the path to your Virsorter2 results directory and name the CheckV output directory ("checkv_out" in this sample script).
+Note that you need to specify the path to your Virsorter2 results directory and name the CheckV output directory (`checkv_out` in this sample script).
 
 ## CheckV output files (results)
 
-The useful files: quality_summary.tsv, completeness.tsv, and complete_genomes.tsv. Copy them to your computer and explore.
+The useful files: `quality_summary.tsv`, `completeness.tsv`, and `complete_genomes.tsv`. Copy them to your computer and explore.
 
 **quality_summary.tsv** is the main output file.
 * Are there any proviruses predicted?
@@ -681,7 +682,7 @@ In practice, if you continue with downstream applications (not during this cours
 
 [Lazypipe](https://www.helsinki.fi/en/projects/lazypipe) is a pipeline for identifying virus sequences in metagenomes, developed at the University of Helsinki. It is available as a [preinstalled module](https://docs.csc.fi/apps/lazypipe/) in Puhti. The input for the pipeline is Next Generation Sequencing data. We will use Illumina reads from the same type of samples as the long reads data that you used for the assembly with Metaflye (and Virsorter2).
 
-Make a directory called "Lazypipe" in your directory. Note that you need to specify the path to the trimmed Illumina reads. Start the batch job from this directory:
+Make a directory called `Lazypipe` in your directory. Note that you need to specify the path to the trimmed Illumina reads. Start the batch job from this directory:
 
 ```
 module load r-env-singularity
@@ -701,7 +702,7 @@ accounting project:
 
 ## Lazypipe output files (results)
 
-Useful output files: qc.readsurv.jpeg, abund_table.xlsx, krona_graph.html, and contigs.annot.xlsx. Download them to your computer and explore.
+Useful output files: `qc.readsurv.jpeg`, `abund_table.xlsx`, `krona_graph.html`, and `contigs.annot.xlsx`. Download them to your computer and explore.
 
 **qc.readsurv.jpeg** is the quality control (QC) plot tracking retained reads after each pipeline step.
 
@@ -725,7 +726,7 @@ COMING SOON... WHEN THE WTP RUN WITH THE COURSE DATA IS READY
 
 ## Summary and downstream analyses of the identified viral sequences
 
-Compare the data you got from Virsorter2, What-the-Phage and Lazypipe. 
+Compare the data you got from __Virsorter2__, __What-the-Phage__ and __Lazypipe__. 
 * What have you learnt about the viruses present in the studied datasets with each of these tools?
 * What would you consider as pluses and minuses in the usage and the final data types when comparing the tested tools?
 * If you need to study viruses in a metagenome in future, which of the tested tools would you select for your own work?
