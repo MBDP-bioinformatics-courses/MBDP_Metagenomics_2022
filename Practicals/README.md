@@ -551,7 +551,7 @@ do
     bowtie2 \
         -1 02_TRIMMED_DATA/${file}_trimmed_R1.fastq.gz \
         -2 02_TRIMMED_DATA/${file}_trimmed_R2.fastq.gz \
-        -x 05_ANVIO/contigs
+        -x 05_ANVIO/contigs \
         -S 05_ANVIO/${file}.sam \
         --threads $SLURM_CPUS_PER_TASK \
         --no-unal
