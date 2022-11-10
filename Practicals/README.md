@@ -164,7 +164,7 @@ But remember to check all file paths before you submit the job.
         --threads $SLURM_CPUS_PER_TASK
 ```
 
-Wheen you are sure everything is ok, submit the job with `sbatch`. 
+When you are sure everything is ok, submit the job with `sbatch`. 
 
 ```bash
 sbatch scripts/YOUR_SCRIPT.sh
@@ -436,18 +436,26 @@ And then run Bakta on your favourite MAGs.
 
 Next we will also analyze individual reads in addition to the assembly based approaches. Which files would you use for this? 
 
-We will use a tool called [Metaphlan4](https://github.com/biobakery/biobakery/wiki/metaphlan4) to analyze these reads. 
+We will use a tool called [Metaphlan4](https://github.com/biobakery/biobakery/wiki/metaphlan4) to analyze these reads. We will use only R1 reads for the following analyses.
 
-# run gtdbtk
-```bash 
-export GTDBTK_DATA_PATH=/scratch/project_2005590/databases/GTDB/release202/
+```bash
+#!/bin/bash -l
+#SBATCH --job-name metaphlan
+#SBATCH --output 00_LOGS/metaphlan-%j.out
+#SBATCH --error 00_LOGS/metaphlan-%j.err
+#SBATCH --time 06:00:00
+#SBATCH --nodes 1
+#SBATCH --ntasks-per-node 1
+#SBATCH --cpus-per-task 8
+#SBATCH --mem 300G
+#SBATCH --account project_2001499
 
-singularity exec --bind $GTDBTK_DATA_PATH:$GTDBTK_DATA_PATH,$PWD:$PWD,$TMPDIR:/tmp  \
-                    /projappl/project_2005590/containers/gtdbtk_1.7.0.sif \
-                    gtdbtk classify_wf -x fasta --genome_dir PATH/TO/GENOME/FOLDER \
-                    --out_dir OUTPUT/FOLDER --cpus 4 --tmpdir gtdb_test
 
-```
+# load metaphlan4
+
+module purge
+module load metaphlan/4.0.2
+
 
 ## Anvi'o
 
