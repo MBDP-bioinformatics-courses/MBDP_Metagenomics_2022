@@ -190,7 +190,7 @@ After the trimming has finished and everythin looks ok, we can move on.
 It is always good idea to check that the trimming step did what it was supposed to do. So we'll the QC step on the trimemd data.   
 
 ```bash
-NanoPlot -o 02_TRIMMED_DATA/NANOPLOT -t 4 -f png --fastq 02_TRIMMED_DATA/SRR11673980_chop.fastq.gz
+/scratch/project_2001499/envs/nanoQC/bin/NanoPlot -o 02_TRIMMED_DATA/NANOPLOT -t 4 -f png --fastq 02_TRIMMED_DATA/SRR11673980_chop.fastq.gz
 ```
 
 And if it looks good as well, we can move on to the assembly step.  
