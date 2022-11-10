@@ -294,7 +294,7 @@ do
         01_DATA/Illumina/${file}_2.fastq.gz \
         --minimum-length 50 \
         --cores 4 \
-        > 00_LOGS/${file}_cutadapt.log
+        > 00_LOGS/cutadapt_${file}.log
 done
 ```
 
@@ -380,6 +380,7 @@ module load quast/5.2.0
 metaquast.py \
     -o 03_ASSEMBLY/QUAST \
     03_ASSEMBLY/assembly.fasta \
+    --max-ref-number 0 \
     --fast \
     --threads 4
 ```
@@ -417,7 +418,7 @@ Now we can annotate some of our MAGs using [Bakta](https://github.com/oschwenger
 Allocate some resources for the job. 
 
 ```bash
-sinteractive -A project_2006616 -c 4
+sinteractive -A project_2001499 -c 4
 ```
 
 And then run Bakta on your favourite MAGs.  
@@ -451,36 +452,42 @@ singularity exec --bind $GTDBTK_DATA_PATH:$GTDBTK_DATA_PATH,$PWD:$PWD,$TMPDIR:/t
 ## Anvi'o
 
 ```bash 
-sinteractive -A project_2006616 --cores 6 --mem 50G --tmp 100
+sinteractive -A project_2001499 --cores 6 --mem 50G --tmp 100
 module load anvio/7.1
 ```
 
 ```bash
+
+# 20 s
 anvi-script-reformat-fasta \
     --min-len 1000 \
     --simplify-names \
     -o 05_ANVIO/contigs.fasta \
     --report-file 05_ANVIO/reformat_report.txt \
-    04_POLISH/INPUT.fasta
+    03_ASSEMBLY/assembly.fasta
 
+# 
 anvi-gen-contigs-database \
     -f 05_ANVIO/contigs.fasta \
     -o 05_ANVIO/CONTIGS.db \
-    -n Long-read assembly \
+    -n LongReadAssembly \
     -T 6
 
+# 
 anvi-run-hmms \
     -c 05_ANVIO/CONTIGS.db \
     -T 6
 
+# 
 anvi-run-ncbi-cogs \
     -c 05_ANVIO/CONTIGS.db \
     -T 6
 
+# 
 anvi-run-scg-taxonomy \
     -c 05_ANVIO/CONTIGS.db \
     -T 6
-
+# 
 anvi-estimate-scg-taxonomy \
     -c 05_ANVIO/CONTIGS.db \
     --metagenome-mode
@@ -512,10 +519,11 @@ do
     
     samtools index 05_ANVIO/${file}.bam
     
-    anvi-profile-blitz \
+    anvi-profile \
         -i 05_ANVIO/${file}.bam \
         -c 05_ANVIO/CONTIGS.db \
         -S ${file} \
+        --min-contig-length 5000 \
         -o 05_ANVIO/${file}_PROFILE \
         -T 6
 done 

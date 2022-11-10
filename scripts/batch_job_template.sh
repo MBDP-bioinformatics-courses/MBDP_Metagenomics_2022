@@ -1,8 +1,8 @@
 #!/bin/bash -l
 #SBATCH --job-name=XX
 #SBATCH --account=project_XXX
-#SBATCH --error=slurm_logs/XX-%j.err
-#SBATCH --output=slurm_logs/XX-%j.out
+#SBATCH --error=00_LOGS/XX-%j.err
+#SBATCH --output=00_LOGS/XX-%j.out
 #SBATCH --time=XX:XX:XX
 #SBATCH --mem=XXG
 #SBATCH --partition=small
