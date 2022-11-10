@@ -543,7 +543,7 @@ Mapping batch job script:
 #SBATCH --gres=nvme:200
 
 module load bowtie2/2.4.4  
-bowtie2-build 05_ANVIO/contigs.fasta 05_ANVIO/contigs
+bowtie2-build --threads $SLURM_CPUS_PER_TASK 05_ANVIO/contigs.fasta 05_ANVIO/contigs
 
 for file in SRR11674041 SRR11674042 SRR11674043
 do
