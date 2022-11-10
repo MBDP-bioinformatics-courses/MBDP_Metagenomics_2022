@@ -143,8 +143,8 @@ But remember to check all file paths before you submit the job.
 ```bash
 #!/bin/bash -l
 #SBATCH --job-name trimming
-#SBATCH --output 00_LOGS/trimming_out_%j.txt
-#SBATCH --error 00_LOGS/trimming_err_%j.txt
+#SBATCH --output 00_LOGS/trimming-%j.out
+#SBATCH --error 00_LOGS/trimming-%j.err
 #SBATCH --time 24:00:00
 #SBATCH --nodes 1
 #SBATCH --ntasks-per-node 1
@@ -203,8 +203,8 @@ Batch job script for assembly with metaFlye:
 ```bash
 #!/bin/bash -l
 #SBATCH --job-name assembly
-#SBATCH --output 00_LOGS/assembly_out_%j.txt
-#SBATCH --error 00_LOGS/assembly_err_%j.txt
+#SBATCH --output 00_LOGS/assembly-%j.out
+#SBATCH --error 00_LOGS/assembly-%j.err
 #SBATCH --time 24:00:00
 #SBATCH --nodes 1
 #SBATCH --ntasks-per-node 1
@@ -288,8 +288,8 @@ do
     cutadapt \
         -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCA \
         -A AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT \
-        -o 02_TRIMMED_DATA/${file}_trimmed_1.fastq.gz \
-        -p 02_TRIMMED_DATA/${file}_trimmed_2.fastq.gz \
+        -o 02_TRIMMED_DATA/${file}_trimmed_R1.fastq.gz \
+        -p 02_TRIMMED_DATA/${file}_trimmed_R2.fastq.gz \
         01_DATA/Illumina/${file}_1.fastq.gz \
         01_DATA/Illumina/${file}_2.fastq.gz \
         --minimum-length 50 \
@@ -316,7 +316,7 @@ module purge
 module load biokit
 
 mkdir 02_TRIMMED_DATA/FASTQC
-fastqc -o 02_TRIMMED_DATA/FASTQC 02_TRIMMED_DATA/*_trimmed_?.fastq.gz  -t 4
+fastqc -o 02_TRIMMED_DATA/FASTQC 02_TRIMMED_DATA/*_trimmed_R?.fastq.gz  -t 4
 ```
 
 MultiQC:
@@ -342,8 +342,8 @@ module load bowtie2/2.4.4
 bowtie2-build 03_ASSEMBLY/assembly.fasta \
                 04_POLISH/assembly
 
-bowtie2 -1 02_TRIIMMED_DATA/SRR11674041_trimmed_1.fastq.gz \
-        -2 02_TRIIMMED_DATA//SRR11674041_trimmed_2.fastq.gz \
+bowtie2 -1 02_TRIIMMED_DATA/SRR11674041_trimmed_R1.fastq.gz \
+        -2 02_TRIIMMED_DATA//SRR11674041_trimmed_R2.fastq.gz \
         -S 04_POLISH/assembly.sam \
         -x 04_POLISH//assembly \
         --threads $SLURM_CPUS_PER_TASK \
