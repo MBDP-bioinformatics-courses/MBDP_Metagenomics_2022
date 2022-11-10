@@ -10,6 +10,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 
+# load needed module
 module load XXX
 
 # use this to specify the number of threads 
