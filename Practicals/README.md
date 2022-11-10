@@ -436,7 +436,7 @@ And then run Bakta on your favourite MAGs.
 
 Next we will also analyze individual reads in addition to the assembly based approaches. Which files would you use for this? 
 
-We will use a tool called [Metaphlan4](https://github.com/biobakery/biobakery/wiki/metaphlan4) to analyze these reads. We will use only R1 reads for the following analyses.
+We will use a tool called [Metaphlan4](https://github.com/biobakery/biobakery/wiki/metaphlan4) to analyze these reads. We will use only R1 reads for the following analyses. Metaphlan takes fasta-formatted files and our filtered data is in fastq.gz format. We have reformatted them for you with a too `fastq_to_fasta which can be found from biokit (´module load biokit´)
 
 ```bash
 #!/bin/bash -l
@@ -455,6 +455,11 @@ We will use a tool called [Metaphlan4](https://github.com/biobakery/biobakery/wi
 
 module purge
 module load metaphlan/4.0.2
+
+for file in SRR11674041 SRR11674042 SRR11674043
+do
+    metaphlan
+    
 
 
 ## Anvi'o
