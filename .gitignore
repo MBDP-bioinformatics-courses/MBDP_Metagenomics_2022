@@ -3,3 +3,4 @@ test_workflow.md
 *.fastq
 *.fastq.gz
 .DS_Store
+*.pptx

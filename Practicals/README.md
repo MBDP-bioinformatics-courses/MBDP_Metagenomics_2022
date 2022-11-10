@@ -479,7 +479,7 @@ anvi-script-reformat-fasta \
     --report-file 05_ANVIO/reformat_report.txt \
     03_ASSEMBLY/assembly.fasta
 
-# 
+# 78 min - BATCH job?
 anvi-gen-contigs-database \
     -f 05_ANVIO/contigs.fasta \
     -o 05_ANVIO/CONTIGS.db \
