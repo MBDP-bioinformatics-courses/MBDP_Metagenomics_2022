@@ -478,29 +478,50 @@ anvi-script-reformat-fasta \
     -o 05_ANVIO/contigs.fasta \
     --report-file 05_ANVIO/reformat_report.txt \
     03_ASSEMBLY/assembly.fasta
+```
+Batch job:
+```bash
+#!/bin/bash -l
+#SBATCH --job-name anvi-contigs-db
+#SBATCH --output 00_LOGS/anvi-contigs-db-%j.out
+#SBATCH --error 00_LOGS/anvi-contigs-db-%j.err
+#SBATCH --time 03:00:00
+#SBATCH --nodes 1
+#SBATCH --ntasks-per-node 1
+#SBATCH --cpus-per-task 24
+#SBATCH --mem 80G
+#SBATCH --account project_2001499
+#SBATCH --gres=nvme:200
 
-# 78 min - BATCH job?
+module purge
+module load anvio/7.1
+
+# generate contigs DB
 anvi-gen-contigs-database \
     -f 05_ANVIO/contigs.fasta \
     -o 05_ANVIO/CONTIGS.db \
     -n LongReadAssembly \
-    -T 6
+    -T $SLURM_CPUS_PER_TASK
 
-# 
+# annotate marker genes
 anvi-run-hmms \
     -c 05_ANVIO/CONTIGS.db \
-    -T 6
+    -T $SLURM_CPUS_PER_TASK
 
-# 
+# annotate COGs
 anvi-run-ncbi-cogs \
     -c 05_ANVIO/CONTIGS.db \
-    -T 6
+    -T $SLURM_CPUS_PER_TASK
 
-# 
+# annotate single-copy core genes
 anvi-run-scg-taxonomy \
     -c 05_ANVIO/CONTIGS.db \
-    -T 6
-# 
+    --scgs-taxonomy-data-dir /scratch/project_2001499/databases/anvio \
+    -T $SLURM_CPUS_PER_TASK
+```
+
+Estimate taxonomy based on SCGs
+```bash
 anvi-estimate-scg-taxonomy \
     -c 05_ANVIO/CONTIGS.db \
     --metagenome-mode
@@ -517,8 +538,8 @@ for file in SRR11674041 SRR11674042 SRR11674043
 do
     module load bowtie2/2.4.4
     bowtie2 \
-        -1 02_TRIMMED_DATA/${file}_trimmed_1.fastq.gz \
-        -2 02_TRIMMED_DATA/${file}_trimmed_2.fastq.gz \
+        -1 02_TRIMMED_DATA/${file}_trimmed_R1.fastq.gz \
+        -2 02_TRIMMED_DATA/${file}_trimmed_R2.fastq.gz \
         -x 05_ANVIO/contigs
         -S 05_ANVIO/${file}.sam \
         --threads 6 \
@@ -531,6 +552,9 @@ do
         samtools sort > 05_ANVIO/${file}.bam
     
     samtools index 05_ANVIO/${file}.bam
+    
+    module purge
+    module load anvio/7.1
     
     anvi-profile \
         -i 05_ANVIO/${file}.bam \
