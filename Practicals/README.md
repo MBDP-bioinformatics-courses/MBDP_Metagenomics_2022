@@ -581,3 +581,157 @@ Click add and connect to the right login node, login1 or login2.
 
 Then go back to your screen and launch the interactive interface.
 Remember to change the PORT.
+
+
+## Identifying viral contings from the metagenome
+
+The assembled bulk metagenome contains also viral sequences. There are various bioinformatics tools for detecting viral sequences in metagenomes, and they are based on different algorithms and thus, perform differently. During this course, we will use [Virsorter2](https://microbiomejournal.biomedcentral.com/articles/10.1186/s40168-020-00990-y) and [Lazypipe](https://www.helsinki.fi/en/projects/lazypipe). We will also look at the [What-the-Phage](https://www.biorxiv.org/content/10.1101/2020.07.24.219899v3.full) pipeline sample results (you will get ready output files).
+
+Questions to think about:
+
+* Why does the metagenome contain also viral DNA? 
+* Which types of viruses can be seen from a bulk metagenome obtained from the environmental DNA sample? Can we find, e.g., RNA viruses there?
+
+## Running Virsorter2
+
+Make a directory called "Virsorter2" in your directory. Make a batch job script there. Sample script:
+
+```
+#!/bin/bash
+#SBATCH --job-name=virsorter2
+#SBATCH --account=project_2001499
+#SBATCH --time=2-00:00:00
+#SBATCH --cpus-per-task=10
+#SBATCH --mem=15G
+#SBATCH --partition=small
+#SBATCH --error=virsorter2_err_%j.txt
+
+apptainer exec \
+     --bind $PWD:$PWD \
+     /scratch/project_2001499/envs/virsorter2/virsorter2.sif \
+     virsorter run \
+     -w virsorter2.out \
+     -i /PATH_TO_YOUR_ASSEMBLY/assembly.fasta \
+     --min-length 1500 \
+     --include-groups "dsDNAphage,ssDNA,RNA,NCLDV,lavidaviridae"
+     -j 10 \
+     all
+```
+where, "virsorter.out" is the output (results) directory, you can name it yourself, and the "assembly.fasta" is the assembly input file. The option "--include-groups" specifies virus groups to search for (Virsorter version 2.2.3, which we have installed in Puhti, has only dsDNAphage and ssDNA virus groups to search for by default, we can add more). Explore more about the options from the [manual](https://github.com/jiarong/VirSorter2) or by calling 
+```
+apptainer exec --bind $PWD:$PWD scratch/project_2001499/envs/virsorter2/virsorter2.sif virsorter run -h
+```
+Note that you need to specify the path to your assembly file.
+
+Submit a batch job.
+
+## Virsorter2 output files (results)
+
+The useful output files: final-viral-boundary.tsv, final-viral-score.tsv, and final-viral-combined.fa. Copy them to your computer and explore.
+
+**final-viral-boundary.tsv** file contains information about contigs that were identified as viral. Full sequences identified as viral have suffix "||full"; partial sequences identified as viral have suffix "||{i}index_partial" ("{I}" can be numbers starting from 0 to max number of viral fragments found in that contig).
+* How many contigs were annotated as viral? How many full and partial?
+* Which virus groups were predicted?
+* Which groups can Virsorter2 identify (check the [publication](https://microbiomejournal.biomedcentral.com/articles/10.1186/s40168-020-00990-y)) and which would you expect to see in our sample? Compare this to the ones predicted.
+
+**final-viral-score.tsv** shows the score of each viral sequences across groups. The score is ranging from 0 to 1, and higher means more like to be viral. 
+* Check the score for different contigs, how many have 1.000? 
+* Check the number of hallmark genes found for different contigs: are there many viral contings with 0 viral genes and what is the maximum number found?
+* Why some contigs with 0 viral genes are still annotated as viral? Check the Virsorter2 work principles from the [publication](https://microbiomejournal.biomedcentral.com/articles/10.1186/s40168-020-00990-y).
+* What is the length of the contigs? The smallest vs the biggest? What is the average bacteriophage genome length in principle?
+
+**final-viral-combined.fa** contains the viral contigs sequences in the fasta format. They can be used for the downstream analyses. 
+
+## Checking the quality of Virsorter2 predicted contigs with CheckV.
+
+We will use [CheckV](https://www.nature.com/articles/s41587-020-00774-7) to assess the quality and completeness of the obtained viral contigs.
+
+The program can be run as an interactive job in Puhti. The database for CheckV is in /scratch/project_2001499/checkv-db.
+
+
+```
+sinteractive
+cd scratch/project_2001499/YOUR_VIRSORTER2_OUTPUT_DIRECTORY
+apptainer exec --bind $PWD:$PWD,/scratch/project_2001499/checkv-db/db:/db \
+/scratch/project_2001499/envs/checkV/checkV.sif checkv end_to_end final-viral-combined.fa \
+checkv_out -t 4 -d /db
+```
+Note that you need to specify the path to your Virsorter2 results directory and name the CheckV output directory ("checkv_out" in this sample script).
+
+## CheckV output files (results)
+
+The useful files: quality_summary.tsv, completeness.tsv, and complete_genomes.tsv. Copy them to your computer and explore.
+
+**quality_summary.tsv** is the main output file.
+* Are there any proviruses predicted?
+* Are most contigs of low, medium or high quality? See how the quality corresponds to completeness.
+* Are there 100% complete viral genomes listed?
+* Are there contigs with kmer_freq > 1? This indicates that the viral genome is represented multiple times in the contig, which is quite rare.
+* What warnings does the table contain?
+
+**completeness.tsv** shows how the completeness was estimated, i.e. AAI- and HMM-based completeness. See the [publication](https://www.nature.com/articles/s41587-020-00774-7) and [FAQs](https://bitbucket.org/berkeleylab/checkv/src/master/) for more details about these two methods.
+
+**complete_genomes.tsv** shows all viral genomes identified as complete ones.
+* How many complete genomes are there in your dataset?
+* What are the confidence levels for complete genomes predictions?
+
+In practice, if you continue with downstream applications (not during this course), you might want to get rid of possible false positives in the final set of contigs identified as viral. For example, a subset of viral contigs that have at least 1 viral gene or at least 10 kbp long and 50% complete can be selected. The exact selection criteria would depend on specific research questions you have and thus, on the type of analysis you would like to perform.
+
+## Lazypipe
+
+[Lazypipe](https://www.helsinki.fi/en/projects/lazypipe) is a pipeline for identifying virus sequences in metagenomes, developed at the University of Helsinki. It is available as a [preinstalled module](https://docs.csc.fi/apps/lazypipe/) in Puhti. The input for the pipeline is Next Generation Sequencing data. We will use Illumina reads from the same type of samples as the long reads data that you used for the assembly with Metaflye (and Virsorter2).
+
+Make a directory called "Lazypipe" in your directory. Note that you need to specify the path to the trimmed Illumina reads. Start the batch job from this directory:
+
+```
+module load r-env-singularity
+module load biokit
+module load lazypipe
+cp /appl/soft/bio/lazypipe/2.0/lazypipe/default.config.yaml config.yaml
+lazypipe.pl
+sbatch-lazypipe -1 /PATH_TO_TRIMMED_ILLUMINA_READS/SRR11674042_R1.fastq
+
+```
+You will be interactively asked for information that is needed to construct a batch job:
+accounting project:
+* maximum duration of the job (default 24 hours) - choose 24 hours
+* memory reservation (default 8G) - choose 20G
+* number of computing cores to use (default 8)
+* email notifications - provide your email address to be notified when the batch job is finished.
+
+## Lazypipe output files (results)
+
+Useful output files: qc.readsurv.jpeg, abund_table.xlsx, krona_graph.html, and contigs.annot.xlsx. Download them to your computer and explore.
+
+**qc.readsurv.jpeg** is the quality control (QC) plot tracking retained reads after each pipeline step.
+
+**abund_table.xlsx** shows which taxa were identified in the sample and how many read pairs (readn) and contigs (consign) were assigned to some taxon. Search for viruses.
+* What viral taxa can be found? 
+* Do they have many contigs assigned?
+
+**krona_graph.html** displays estimated taxon abundancies. This graph is interactive: you can zoom into different groups and see their abundance as %. Select the viruses piece of the graph to see which virus groups were identified.
+* What is the abundance of viruses in the studied sample?
+* Which of the identified virus groups are the most and the least abundant?
+* Which bacterial groups are the most abundant?
+
+**contigs.annot.xlsx** contains all info for the classified contigs separately for viruses (not bacteriophages), bacteria, bacteriophages, eukaryotes, and unknown. Explore the viruses and bacteriophages tabs. 
+* Which putative ORF functions could be found for viral (including bacteriophages) sequences?
+
+Viral contigs for the possible downstream analyses are found from **contigs_vi.fa**.
+
+## What-the-Phage sample output files
+
+COMING SOON... WHEN THE WTP RUN WITH THE COURSE DATA IS READY
+
+## Summary and downstream analyses of the identified viral sequences
+
+Compare the data you got from Virsorter2, What-the-Phage and Lazypipe. 
+* What have you learnt about the viruses present in the studied datasets with each of these tools?
+* What would you consider as pluses and minuses in the usage and the final data types when comparing the tested tools?
+* If you need to study viruses in a metagenome in future, which of the tested tools would you select for your own work?
+
+We are not proceeding with further viromics analyses during this course, but if you would like to test other viral identification tools and pipelines, see references in the lecture slides. 
+For downstream applications, you could check, for example:
+* [vConTACT v.2.0](https://pubmed.ncbi.nlm.nih.gov/31061483/) for taxonomic assignments of the identified virus genomes;
+* [iVirus 2.0](https://www.nature.com/articles/s43705-021-00083-3), an analytic platform with many tools, protocols and public datasets;
+* [IMG/VR](https://academic.oup.com/nar/article/49/D1/D764/5952208), the largest collection of viral sequences obtained from metagenomes.
