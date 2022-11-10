@@ -452,7 +452,7 @@ singularity exec --bind $GTDBTK_DATA_PATH:$GTDBTK_DATA_PATH,$PWD:$PWD,$TMPDIR:/t
 ## Anvi'o
 
 ```bash 
-sinteractive -A project_2001499 --cores 6 --mem 50G --tmp 100
+sinteractive -A project_2001499 --cores 6 --mem 70G --tmp 200
 module load anvio/7.1
 ```
 
