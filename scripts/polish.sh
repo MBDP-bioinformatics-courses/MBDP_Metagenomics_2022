@@ -4,7 +4,7 @@
 #SBATCH --error=00_LOGS/polish-%j.err
 #SBATCH --output=00_LOGS/polish-%j.out
 #SBATCH --time=2-00:00:00
-#SBATCH --mem=150GG
+#SBATCH --mem=150G
 #SBATCH --partition=small
 #SBATCH --cpus-per-task=40
 #SBATCH --nodes=1
@@ -34,7 +34,7 @@ java -Xmx128G -jar /scratch/project_2001499/envs/pilon/pilon-1.24.jar \
         --genome 03_ASSEMBLY/assembly.fasta \
         --bam 04_POLISH/assembly.bam \
         --outdir 04_POLISH/ \
-	--output pilon \
+	    --output pilon \
         --threads $SLURM_CPUS_PER_TASK \
         --changes
         --output pilon \
