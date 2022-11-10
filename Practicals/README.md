@@ -527,12 +527,23 @@ anvi-estimate-scg-taxonomy \
     --metagenome-mode
 ```
 
-Mapping script:
+Mapping batch job script:
 
 ```bash
-#!/bin/bash
+#!/bin/bash -l
+#SBATCH --job-name anvi-mapping
+#SBATCH --output 00_LOGS/anvi-mapping-%j.out
+#SBATCH --error 00_LOGS/anvi-mapping-%j.err
+#SBATCH --time 12:00:00
+#SBATCH --nodes 1
+#SBATCH --ntasks-per-node 1
+#SBATCH --cpus-per-task 24
+#SBATCH --mem 80G
+#SBATCH --account project_2001499
+#SBATCH --gres=nvme:200
+
 module load bowtie2/2.4.4  
-bowtie2-build 05_ANVIO/contigs 05_ANVIO/contigs.fasta
+bowtie2-build 05_ANVIO/contigs.fasta 05_ANVIO/contigs
 
 for file in SRR11674041 SRR11674042 SRR11674043
 do
@@ -542,16 +553,16 @@ do
         -2 02_TRIMMED_DATA/${file}_trimmed_R2.fastq.gz \
         -x 05_ANVIO/contigs
         -S 05_ANVIO/${file}.sam \
-        --threads 6 \
+        --threads $SLURM_CPUS_PER_TASK \
         --no-unal
 
     module purge
     module load samtools
 
-    samtools view -F 4 -bS 05_ANVIO/${file}.sam |\
-        samtools sort > 05_ANVIO/${file}.bam
+    samtools view -@ $SLURM_CPUS_PER_TASK -F 4 -bS 05_ANVIO/${file}.sam |\
+        samtools sort -@ $SLURM_CPUS_PER_TASK > 05_ANVIO/${file}.bam
     
-    samtools index 05_ANVIO/${file}.bam
+    samtools index -@ $SLURM_CPUS_PER_TASK 05_ANVIO/${file}.bam
     
     module purge
     module load anvio/7.1
@@ -562,7 +573,7 @@ do
         -S ${file} \
         --min-contig-length 5000 \
         -o 05_ANVIO/${file}_PROFILE \
-        -T 6
+        -T $SLURM_CPUS_PER_TASK
 done 
 ```
 
