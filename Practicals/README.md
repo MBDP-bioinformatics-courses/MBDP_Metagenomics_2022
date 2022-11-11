@@ -333,7 +333,7 @@ Did you find problems with the sequences? We can further proceed to quality cont
 To leave the interactive node, type `exit`.  
 
 
-## Polishig long-read assembly with short-read data
+## Polishing long-read assembly with short-read data
 
 Mapping and pilon steps here. __Still draft.__
 
@@ -431,8 +431,11 @@ And then run Bakta on your favourite MAGs.
        --threads 4 \
        --output OUTPUT
 ```
+## GTDP _from older courses, Physalia?
 
-## Metaphlan JENNI IS WORKING ON THIS
+
+
+## Metaphlan _JENNI IS WORKING ON THIS_
 
 Next we will also analyze individual reads in addition to the assembly based approaches. Which files would you use for this? 
 
