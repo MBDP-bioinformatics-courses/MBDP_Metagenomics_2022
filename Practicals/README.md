@@ -473,6 +473,7 @@ sinteractive -A project_2001499 --cores 6 --mem 70G --tmp 200
 module load anvio/7.1
 ```
 
+Script to run anvio
 ```bash
 
 # 20 s
