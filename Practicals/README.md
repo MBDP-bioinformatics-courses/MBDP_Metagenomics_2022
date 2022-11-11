@@ -335,36 +335,39 @@ To leave the interactive node, type `exit`.
 
 ## Polishing long-read assembly with short-read data
 
-Mapping and pilon steps here. __Still draft.__
+It is possible to polish the long-read assembly using either the original reads, as was done in the article, or by using better quality data, such as short-reads, from the same sample.  
+
+However, the polishing step is very slow, so we wonät run it on hte course. We will rely on hte polishing step done by metaFlye. 
+
+But as an example, here are the steps for polishing our assembly using the trimmed short-read data from thee same sample.
 
 ```bash
-module load bowtie2/2.4.4 
-bowtie2-build 03_ASSEMBLY/assembly.fasta \
-                04_POLISH/assembly
+# module load bowtie2/2.4.4 
+# bowtie2-build 03_ASSEMBLY/assembly.fasta \
+#                 04_POLISH/assembly
 
-bowtie2 -1 02_TRIIMMED_DATA/SRR11674041_trimmed_R1.fastq.gz \
-        -2 02_TRIIMMED_DATA//SRR11674041_trimmed_R2.fastq.gz \
-        -S 04_POLISH/assembly.sam \
-        -x 04_POLISH//assembly \
-        --threads $SLURM_CPUS_PER_TASK \
-        --no-unal
+# bowtie2 -1 02_TRIIMMED_DATA/SRR11674041_trimmed_R1.fastq.gz \
+#         -2 02_TRIIMMED_DATA//SRR11674041_trimmed_R2.fastq.gz \
+#         -S 04_POLISH/assembly.sam \
+#         -x 04_POLISH//assembly \
+#         --threads $SLURM_CPUS_PER_TASK \
+#         --no-unal
 
-module purge 
-module load samtools/1.6.1
+# module purge 
+# module load samtools/1.6.1
 
-samtools view -F 4 -bS 04_POLISH/assembly.sam | samtools sort > 04_POLISH/assembly.bam
-samtools index 04_POLISH/assembly.bam
+# samtools view -F 4 -bS 04_POLISH/assembly.sam | samtools sort > 04_POLISH/assembly.bam
+# samtools index 04_POLISH/assembly.bam
 
-module purge
-module load biojava/1.8
+# module purge
+# module load biojava/1.8
 
-java -Xmx128G -jar /scratch/project_2001499/envs/pilon/pilon-1.24.jar \
-        --genome 03_ASSEMBLY/assembly.fasta \
-        --bam 04_POLISH/assembly.bam \
-        --outdir 04_POLISH/ \
-        --output pilon \
-        --threads $SLURM_CPUS_PER_TASK \
-        --changes
+# java -Xmx128G -jar /scratch/project_2001499/envs/pilon/pilon-1.24.jar \
+#         --genome 03_ASSEMBLY/assembly.fasta \
+#         --bam 04_POLISH/assembly.bam \
+#         --outdir 04_POLISH/ \
+#         --output pilon \
+#         --changes
 ``` 
 
 ## Assembly QC
