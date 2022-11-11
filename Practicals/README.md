@@ -149,7 +149,7 @@ But remember to check all file paths before you submit the job.
 #SBATCH --nodes 1
 #SBATCH --ntasks-per-node 1
 #SBATCH --cpus-per-task 16
-#SBATCH --mem 50G
+#SBATCH --mem 100G
 #SBATCH --account project_2001499
 #SBATCH --gres=nvme:200
 
