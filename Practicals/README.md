@@ -577,13 +577,13 @@ Refine a bin
 
 ```bash
 anvi-refine
-``
+```
 
 Rename all bins and make a new collection from those
 
 ```bash
 anvi-rename-bins
-````
+```
 
 Summarize a collection
 
