@@ -103,7 +103,16 @@ You always need to specify the accounting project (`-A`, `--account`). Otherwise
 | -g, --gpu     | Number of GPUs       | 0     | 0 |  
 
 
-[__Read more about interactive use of Puhti.__](https://docs.csc.fi/computing/running/interactive-usage/#sinteractive-in-puhti)   
+[__Read more about interactive use of Puhti.__](https://docs.csc.fi/computing/running/interactive-usage/#sinteractive-in-puhti)  
+
+Mini manual for screen: 
+- `screen -S NAME` - open a screen and give it a session name NAME
+- `screen` - open new screen without specifying any name
+- `screen -ls` - list all open sessions
+- `ctrl + a + d` - to detach from a session (from inside the screen)
+- `screen -r NAME` - re-attach to a detached session using the name
+- `screen -rD` - re-attach to a attached session
+- `exit` - close the screen and kill all processes running inside the screen (from inside the screen)
 
 ## QC and trimming for Nanopore reads
 
@@ -388,55 +397,7 @@ metaquast.py \
     --threads 4
 ```
 
-Now you can move the file ` 03_ASSEMBLY/QUAST/report.html` to your computer and look for the quality control files in the web browser of your preference.
-
-
-__FOR LATER USE:__
-## Genome completeness and contamination
-
-Now we have calculated different metrics for our genomes, but they don't really tell anything about the "real" quality of our genome.  
-We will use checkM to calculate the completeness and possible contamination in our genomes.  
-Allocate some resources (>40G memory & 4 threads) and run checkM (v. 1.1.3.) from a singularity container.  
-
-Before running checkM, it might be good to put all genomes to one folder.
-
-```
-singularity exec --bind $PWD:$PWD,$TMPDIR:/tmp /projappl/project_2005590/containers/checkM_1.1.3.sif \
-              checkm lineage_wf -x fasta PATH/TO/GENOME/FOLDER OUTPUT/FOLDER -t 4 --tmpdir /tmp
-```
-
-If you missed the output of checkM, you can re-run just the last part with:
-
-```
-singularity exec --bind $PWD:$PWD,$TMPDIR:/tmp /projappl/project_2005590/containers/checkM_1.1.3.sif \
-              checkm qa ./OUTPUT/lineage.ms ./OUTPUT
-```
-
-## Genome annotation with Bakta 
-
-__ANTTI WILL ADD PARTS HERE AND COPY THE SOFTWARE AND DB TO THE COURSE FOLDER__
-
-Now we can annotate some of our MAGs using [Bakta](https://github.com/oschwengers/bakta).  
-
-Allocate some resources for the job. 
-
-```bash
-sinteractive -A project_2001499 -c 4
-```
-
-And then run Bakta on your favourite MAGs.  
-
-```bash
-/scratch/project_2001499/envs/bakta/bin/bakta \
-       INPUT \
-       --db /scratch/project_2001499/databases/bakta/db/ \
-       --prefix GENOME_NAME \
-       --threads 4 \
-       --output OUTPUT
-```
-## GTDP _from older courses, Physalia?
-
-
+Now you can move the file ` 03_ASSEMBLY/QUAST/report.html` to your computer and look for the quality control files in the web browser of your preference.  
 
 ## Metaphlan _JENNI IS WORKING ON THIS_
 
@@ -469,24 +430,8 @@ do
 
 ```
 
-## Anvi'o
+## Genome-resolved metagenomics with anvi'o
 
-```bash 
-sinteractive -A project_2001499 --cores 6 --mem 70G --tmp 200
-module load anvio/7.1
-```
-
-Script to run anvio
-```bash
-
-# 20 s
-anvi-script-reformat-fasta \
-    --min-len 1000 \
-    --simplify-names \
-    -o 05_ANVIO/contigs.fasta \
-    --report-file 05_ANVIO/reformat_report.txt \
-    03_ASSEMBLY/assembly.fasta
-```
 Batch job:
 ```bash
 #!/bin/bash -l
@@ -503,6 +448,15 @@ Batch job:
 
 module purge
 module load anvio/7.1
+
+# reformat fasta file
+anvi-script-reformat-fasta \
+    --min-len 1000 \
+    --simplify-names \
+    -o 05_ANVIO/contigs.fasta \
+    --report-file 05_ANVIO/reformat_report.txt \
+    03_ASSEMBLY/assembly.fasta
+
 
 # generate contigs DB
 anvi-gen-contigs-database \
@@ -528,13 +482,6 @@ anvi-run-scg-taxonomy \
     -c 05_ANVIO/CONTIGS.db \
     --scgs-taxonomy-data-dir /scratch/project_2001499/databases/anvio/ \
     -T $SLURM_CPUS_PER_TASK
-```
-
-Estimate taxonomy based on SCGs
-```bash
-anvi-estimate-scg-taxonomy \
-    -c 05_ANVIO/CONTIGS.db \
-    --metagenome-mode
 ```
 
 Mapping batch job script:
@@ -593,6 +540,24 @@ Run script
 bash scripts/map2assembly.sh
 ```
 
+Allocate resources for the last steps
+
+```bash 
+sinteractive -A project_2001499 --cores 6 --mem 70G --tmp 200
+module load anvio/7.1
+export $ANVIOPORT=YOUR_PORT_HERE
+```
+
+Estimate taxonomy based on SCGs
+
+```bash
+anvi-estimate-scg-taxonomy \
+    -c 05_ANVIO/CONTIGS.db \
+    --metagenome-mode
+```
+
+Merge all profiles
+
 ```bash
 anvi-merge \
     -o 05_ANVIO/SAMPLES-MERGED \
@@ -600,33 +565,48 @@ anvi-merge \
     05_ANVIO/*_PROFILE/PROFILE.db 
 ```
 
-Mini manual for screen:
+Start interactive interface
 
-    screen -S NAME - open a screen and give it a session name NAME
-    screen - open new screen without specifying any name
-    screen -ls - list all open sessions
-    ctrl + a + d - to detach from a session (from inside the screen)
-    screen -r NAME - re-attach to a detached session using the name
-    screen -rD - re-attach to a attached session
-    exit - close the screen and kill all processes running inside the screen (from inside the screen)
-
-
-Then you can log out and log in again, but this time in a bit different way.
-You need to specify your PORT and the NODEID to which you connected and also the NUMBER of the login node you where your screen is running. Also change your username in the command below.
-
+```bash
+anvi-interactive -c 05_ANVIO/CONTIGS.db -p 05_ANVIO/SAMPLES_MERGED/PROFILE.db --server-only --port-number $ANVIOPORT
 ```
-ssh -L PORT:NODEID.bullx:PORT USERNAME@puhti-loginNUMBER.csc.fi
+
+Some useful commands for :
+
+```bash
+# refinee a bin
+anvi-refine
+
+# rename all bins and make a new collection from those
+anvi-rename-bins
+
+# summarize a collection
+anvi-summarize
 ```
-And in windows using Putty:
-In SSH tab select "tunnels". Add:
 
-Source port: PORT
-Destination: NODEID.bullx:PORT
-Click add and connect to the right login node, login1 or login2.
+## Taxonomic annotation  with GTDB-Tk
 
-Then go back to your screen and launch the interactive interface.
-Remember to change the PORT.
 
+## Genome annotation of MAGs with Bakta 
+
+Now we can annotate some of our MAGs using [Bakta](https://github.com/oschwengers/bakta).  
+
+Allocate some resources for the job. 
+
+```bash
+sinteractive -A project_2001499 -c 4
+```
+
+And then run Bakta on your favourite MAGs.  
+
+```bash
+/scratch/project_2001499/envs/bakta/bin/bakta \
+       INPUT \
+       --db /scratch/project_2001499/databases/bakta/db/ \
+       --prefix GENOME_NAME \
+       --threads 4 \
+       --output OUTPUT
+```
 
 ## Identifying viral contings from the metagenome
 
