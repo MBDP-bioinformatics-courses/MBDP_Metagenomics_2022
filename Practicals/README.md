@@ -761,11 +761,10 @@ Viral contigs for the possible downstream analyses are found from **contigs_vi.f
 
 ## What-the-Phage sample output files
 
-COMING SOON... WHEN THE WTP RUN WITH THE COURSE DATA IS READY
-
 ## Summary and downstream analyses of the identified viral sequences
 
 Compare the data you got from __Virsorter2__, __What-the-Phage__ and __Lazypipe__. 
+
 * What have you learnt about the viruses present in the studied datasets with each of these tools?
 * What would you consider as pluses and minuses in the usage and the final data types when comparing the tested tools?
 * If you need to study viruses in a metagenome in future, which of the tested tools would you select for your own work?
