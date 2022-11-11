@@ -516,12 +516,14 @@ anvi-run-hmms \
 # annotate COGs
 anvi-run-ncbi-cogs \
     -c 05_ANVIO/CONTIGS.db \
+    --cog-data-dir /scratch/project_2001499/databases/anvio/ \
+     --search-with blastp \
     -T $SLURM_CPUS_PER_TASK
 
 # annotate single-copy core genes
 anvi-run-scg-taxonomy \
     -c 05_ANVIO/CONTIGS.db \
-    --scgs-taxonomy-data-dir /scratch/project_2001499/databases/anvio \
+    --scgs-taxonomy-data-dir /scratch/project_2001499/databases/anvio/ \
     -T $SLURM_CPUS_PER_TASK
 ```
 
