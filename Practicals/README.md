@@ -681,24 +681,27 @@ We will use [CheckV](https://www.nature.com/articles/s41587-020-00774-7) to asse
 
 The database for CheckV is in `/scratch/project_2001499/checkv-db`.
 
-Create a batch job script:
+CheckV can be run interactively:
+```
+sinteractive -i
+```
+For resources choose:
+
+* Maximum run time (hours:min:sec): 01:00:00
+* Maximum memory (MB): 10G 
+* $TMPDIR size (GB): 50G
+* Number of cores/threads: 8 
+* Accounting project: project_2001499
+
+Then run the job:
 
 ```
-#!/bin/bash
-#SBATCH --job-name=checkv
-#SBATCH --account=project_2001499
-#SBATCH --time=1-00:00:00
-#SBATCH --cpus-per-task=8
-#SBATCH --mem=10G
-#SBATCH --partition=small
-#SBATCH --error=checkv_err_%j.txt
-
 cd scratch/project_2001499/YOUR_VIRSORTER2_OUTPUT_DIRECTORY
 apptainer exec --bind $PWD:$PWD,/scratch/project_2001499/checkv-db/db:/db \
 /scratch/project_2001499/envs/checkV/checkV.sif checkv end_to_end final-viral-combined.fa \
 checkv_out -t 8 -d /db
 ```
-Note that you need to specify the path to your Virsorter2 results directory and name the CheckV output directory (`checkv_out` in this sample script). Submit a batch job.
+Note that you need to specify the path to your Virsorter2 results directory and name the CheckV output directory (`checkv_out` in this sample script).
 
 ## CheckV output files (results)
 
