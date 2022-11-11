@@ -754,6 +754,36 @@ Viral contigs for the possible downstream analyses are found from **contigs_vi.f
 
 ## What-the-Phage sample output files
 
+“What the Phage” (WtP) is a parallel multitool pipeline for phage prediction combined with annotation and classification. It includes [11 phage-predicting tools](https://mult1fractal.github.io/wtp-documentation/#example-result-output) that are all run in parallel. The user can then compare the results of the different prediction tools summarised in charts and tables and make own decisions which dataset to proceed with. 
+
+Due to time limits and some technical challenges associated with running this pipeline, we will only see sample output files during this course. However, you could try it later yourself, following the [authors' instructions](https://mult1fractal.github.io/wtp-documentation/installation/quick_installation/) as well as [CSC notes](https://docs.csc.fi/support/tutorials/nextflow-puhti/) about this pipeline installation. 
+
+The sample output files for this course were obtained from XXX datasets. Files to download and explore can be found at /scratch/project_2001499/XXX: upsetr.svg, phage-distribution.pdf, contigs_quality_summary.tsv, and contigs_tax-class.tsv. 
+
+**upsetr.svg** shows a plot summarizing the prediction performance of each tool for the studied sample. Blue bars on the left show the total number of identified phage contigs per tool. Black bars show the number of contigs that each tool (or a combination of tools) has uniquely identified. A dot matrix below refers to the combinations of tools that identified the same contigs as phages.
+
+* Which tools were applied for phage predictions?
+* Which tool gave the highest number of phage contigs? Which gave the lowest? 
+* Are the predicted phage contigs consistent between different tools (see the dots matrix)?
+
+**phage-distribution.pdf** contains a list of all predicted phage contigs and shows which tool gave which prediction.
+* Do predictions from different tools overlap?
+
+**contigs_quality_summary.tsv** lists all the predicted contigs and shows their quality based on CheckV.
+* What is the typical phage contig length in this dataset? What is the lowest and highest?
+* Are most contigs of high/low/medium quality?
+* Are there complete contigs in the list?
+* Are there proviruses?
+* Are there contigs with no viral genes?
+
+**contigs_tax-class.tsv** shows taxonomical predictions for phage contigs.
+* Could any contigs be classified?
+
+To sum up, how would you proceed with the WtP results taking into account the possibility of having false positives? For further analyses, would you
+* take all predictions? Or
+* take predictions only from some tools? Or
+* make a subset based on the quality check? 
+
 ## Summary and downstream analyses of the identified viral sequences
 
 Compare the data you got from __Virsorter2__, __What-the-Phage__ and __Lazypipe__. 
