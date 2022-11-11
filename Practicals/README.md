@@ -571,16 +571,23 @@ Start interactive interface
 anvi-interactive -c 05_ANVIO/CONTIGS.db -p 05_ANVIO/SAMPLES_MERGED/PROFILE.db --server-only --port-number $ANVIOPORT
 ```
 
-Some useful commands for :
+__Some useful commands for binning workflow:__
+
+Refine a bin
 
 ```bash
-# refinee a bin
 anvi-refine
+``
 
-# rename all bins and make a new collection from those
+Rename all bins and make a new collection from those
+
+```bash
 anvi-rename-bins
+````
 
-# summarize a collection
+Summarize a collection
+
+```bash
 anvi-summarize
 ```
 
