@@ -474,7 +474,6 @@ anvi-run-hmms \
 anvi-run-ncbi-cogs \
     -c 05_ANVIO/CONTIGS.db \
     --cog-data-dir /scratch/project_2001499/databases/anvio/ \
-     --search-with blastp \
     -T $SLURM_CPUS_PER_TASK
 
 # annotate single-copy core genes
@@ -551,9 +550,9 @@ export $ANVIOPORT=YOUR_PORT_HERE
 Estimate taxonomy based on SCGs
 
 ```bash
-anvi-estimate-scg-taxonomy \
-    -c 05_ANVIO/CONTIGS.db \
-    --metagenome-mode
+# anvi-estimate-scg-taxonomy \
+#     -c 05_ANVIO/CONTIGS.db \
+#     --metagenome-mode
 ```
 
 Merge all profiles
@@ -562,6 +561,7 @@ Merge all profiles
 anvi-merge \
     -o 05_ANVIO/SAMPLES-MERGED \
     -c 05_ANVIO/CONTIGS.db \
+    --enforce-hierarchical-clustering \
     05_ANVIO/*_PROFILE/PROFILE.db 
 ```
 
