@@ -3,17 +3,17 @@
 ## Monday - :office: Porthania, P724
 | Time | Description|
 | --- | --- |
-| 10:00-10:30 | **Jenni Hultman**: [Introduction (including general structure of the course and group work)](Lectures/introduction.pdf)|
-| 10:30-10:45 | **Antti Karkman**: [Basic usage of computing service at CSC](Lectures/CSC_basics.pdf) |
-| 10:45-11:15 | **Antti Karkman**: [Working with the command line - hands-on](Practicals/commandline.md) |
-| 11.15-11:30 | **Antti Karkman**: [Setting up the course folder](Practicals/README.md#setting-up-the-course-folders) |
-| 11:30-12:00 | **Jenni Hultman**: [Seq trimming and QC hands-on for Nanopore data](Practicals/QC_filtering.pdf) |
+| 10:15-11:00 | **Jenni Hultman**: [Introduction (including general structure of the course and group work)](Lectures/introduction.pdf)|
+| 11:00-11:10 | **Antti Karkman**: [Basic usage of computing service at CSC](Lectures/CSC_basics.pdf) |
+| 11:10-11:30 | **Antti Karkman**: [Working with the command line - hands-on](Practicals/commandline.md) |
+| 11.30-11:40 | **Antti Karkman**: [Setting up the course folder](Practicals/README.md#setting-up-the-course-folders) |
+| 11:40-12:00 | **Jenni Hultman**: [Seq trimming and QC hands-on for Nanopore data](Practicals/QC_filtering.pdf) |
 | 12:00-13:00 | **Lunch** :plate_with_cutlery: |
 | 13:00-13:15 | **Antti Karkman**: [Nanopore trimming QC](Practicals/Sequencing101.pdf) |
 | 14:45-15:30 | **Jenni Hultman**: [Assembly hands-on](Practicals/README.md#Genome-assembly-with-Spades) |
 | 15:30-17:45 | **Jenni Hultman**: [Illumina trimming and QC](Practicals/Sequencing101.pdf) |
 
-## Tuesday - :classical_building: Main building, U3043
+## Tuesday - :classical_building: Main building, U3043 PUHTI SERVICE BREAK
 | Time | Description |
 | --- | --- |
 | 10:15-11:00 | **Antti Karkman**: [Polishing the assembly](Practicals/Sequencing101.pdf)|
@@ -30,6 +30,7 @@
 | 10:45-12:00 | **ALL**: [Preparing files for Anvio hands-on](Practicals/README.md#pangenomics-with-anvi'o) |
 | 12:00-13:00 | **Lunch** :plate_with_cutlery: |
 | 13:00-17:45 | **ALL**: Anvio cont' and MBDP :coffee: & :apple: break at 14:00|
+| 13:00-17:45 | **Tatiana Demina** : [Viromics hands-on](Practicals/README.md#pangenomics-with-anvi'o) |
 | 18:00-21:00 | **Course dinner** |
 
 
@@ -38,7 +39,7 @@
 | Time | Description |
 | --- | --- |
 | 10:15-11:00 | **Tatiana Demina** |[Introduction to viromics](Lectures/Pangenomics.pdf)|
-| 11:00-11:00 | **Tatiana Demina** : [Viromics hands-on](Practicals/README.md#pangenomics-with-anvi'o) |
+| 11:00-11:00 | **Jenni Hultman** : [Anvio hands-on cont'](Practicals/README.md#pangenomics-with-anvi'o) |
 | 12:00-13:00 | **Lunch** :plate_with_cutlery: |
 | 13:00-14:45 | **ALL**: Anvio cont' |
 | 15:00-16:30 | **Jenni Hultman**: [Annotation with Bakta](Practicals/README.md#Eliminate-contaminant-contigs-with-Kaiju)|
