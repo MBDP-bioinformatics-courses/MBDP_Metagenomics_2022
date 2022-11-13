@@ -158,7 +158,7 @@ But remember to check all file paths before you submit the job.
 #SBATCH --nodes 1
 #SBATCH --ntasks-per-node 1
 #SBATCH --cpus-per-task 16
-#SBATCH --mem 100G
+#SBATCH --mem 80G
 #SBATCH --account project_2001499
 #SBATCH --gres=nvme:200
 
@@ -399,11 +399,13 @@ metaquast.py \
 
 Now you can move the file ` 03_ASSEMBLY/QUAST/report.html` to your computer and look for the quality control files in the web browser of your preference.  
 
-## Metaphlan _JENNI IS WORKING ON THIS_
+## Metaphlan 
 
 Next we will also analyze individual reads in addition to the assembly based approaches. Which files would you use for this? 
 
-We will use a tool called [Metaphlan4](https://github.com/biobakery/biobakery/wiki/metaphlan4) to analyze these reads. We will use only R1 reads for the following analyses. Metaphlan takes fasta-formatted files and our filtered data is in fastq.gz format. We have reformatted them for you with a too `fastq_to_fasta which can be found from biokit (´module load biokit´)
+We will use a tool called [Metaphlan4](https://github.com/biobakery/biobakery/wiki/metaphlan4) to analyze these reads. From the paired end Illumina reads only R1 reads are used for the following analyses. Metaphlan takes fastq or fasta-formatted files but cannot read compressed files. Our filtered data is in fastq.gz format so it we need to do some uncompressing with command `gunzip`. 
+
+Use flag `-h` for help (or Google) to check how the command works and uncompress your files.
 
 ```bash
 #!/bin/bash -l
@@ -420,15 +422,23 @@ We will use a tool called [Metaphlan4](https://github.com/biobakery/biobakery/wi
 
 # load metaphlan4
 
-module purge
 module load metaphlan/4.0.2
+
+# compare the three fastq-files against metaphlan databases we have downloaded and formatted to the databases-folder
 
 for file in SRR11674041 SRR11674042 SRR11674043
 do
-    metaphlan
-    
-
+    metaphlan \
+       02_TRIIMMED_DATA/${file}_trimmed_1.fastq \
+        --input_type fastq \
+        --bowtie2db /scratch/project_2001499/databases/metaphlan/ \
+        --bowtie2out ${file}.bowtie2.bz2 \
+        --nproc $SLURM_CPUS_PER_TASK \
+        -o ${file}_metaphlan.txt \
+      
+done
 ```
+    
 
 ## Genome-resolved metagenomics with anvi'o
 
