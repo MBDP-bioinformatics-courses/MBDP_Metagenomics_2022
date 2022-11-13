@@ -424,6 +424,8 @@ Use flag `-h` for help (or Google) to check how the command works and uncompress
 
 module load metaphlan/4.0.2
 
+mkdir 06_METAPHLAN
+
 # compare the three fastq-files against metaphlan databases we have downloaded and formatted to the databases-folder
 
 for file in SRR11674041 SRR11674042 SRR11674043
@@ -432,9 +434,9 @@ do
        02_TRIIMMED_DATA/${file}_trimmed_R1.fastq \
         --input_type fastq \
         --bowtie2db /scratch/project_2001499/databases/metaphlan/ \
-        --bowtie2out ${file}.bowtie2.bz2 \
+        --bowtie2out 06_METAPHLAN/${file}.bowtie2.bz2 \
         --nproc $SLURM_CPUS_PER_TASK \
-        -o ${file}_metaphlan.txt \
+        -o 06_METAPHLAN/${file}_metaphlan.txt \
       
 done
 ```
