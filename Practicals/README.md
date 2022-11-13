@@ -346,7 +346,7 @@ To leave the interactive node, type `exit`.
 
 It is possible to polish the long-read assembly using either the original reads, as was done in the article, or by using better quality data, such as short-reads, from the same sample.  
 
-However, the polishing step is very slow, so we wonät run it on hte course. We will rely on hte polishing step done by metaFlye. 
+However, the polishing step is very slow, so we won't run it on the course. We will rely on the polishing step done by metaFlye. 
 
 But as an example, here are the steps for polishing our assembly using the trimmed short-read data from thee same sample.
 
@@ -416,7 +416,7 @@ Use flag `-h` for help (or Google) to check how the command works and uncompress
 #SBATCH --nodes 1
 #SBATCH --ntasks-per-node 1
 #SBATCH --cpus-per-task 8
-#SBATCH --mem 300G
+#SBATCH --mem 100G
 #SBATCH --account project_2001499
 
 
