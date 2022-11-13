@@ -691,7 +691,7 @@ Sample script:
 #SBATCH --job-name=virsorter2
 #SBATCH --account=project_2001499
 #SBATCH --time=2-00:00:00
-#SBATCH --cpus-per-task=10
+#SBATCH --cpus-per-task=30
 #SBATCH --mem=15G
 #SBATCH --partition=small
 #SBATCH --error=virsorter2_err_%j.txt
@@ -704,7 +704,7 @@ apptainer exec \
      -i /PATH_TO_YOUR_ASSEMBLY/assembly.fasta \
      --min-length 1500 \
      --include-groups "dsDNAphage,ssDNA,RNA,NCLDV,lavidaviridae"
-     -j 10 \
+     -j 30 \
      all
 ```
 where, `virsorter.out` is the output (results) directory, you can name it yourself, and the `assembly.fasta` is the assembly input file. The option `--include-groups` specifies virus groups to search for (Virsorter version 2.2.3, which we have installed in Puhti, has only dsDNAphage and ssDNA virus groups to search for by default, we can add more). Explore more about the options from the [manual](https://github.com/jiarong/VirSorter2) or by calling 
