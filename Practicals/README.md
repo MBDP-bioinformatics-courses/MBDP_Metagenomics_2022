@@ -607,7 +607,7 @@ anvi-rename-bins \
     -p 05_ANVIO/SAMPLES-MERGED/PROFILE.db \
     --collection-to-read PreCluster \
     --collection-to-write PreBins \
-    --prefix PreBin \
+    --prefix Preliminary \
     --report-file 05_ANVIO/PreBin_report.txt
 ```
 And then we can make a summary of the cluster or bins we have so far. 
