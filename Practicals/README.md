@@ -568,10 +568,55 @@ anvi-merge \
 Start interactive interface
 
 ```bash
-anvi-interactive -c 05_ANVIO/CONTIGS.db -p 05_ANVIO/SAMPLES_MERGED/PROFILE.db --server-only --port-number $ANVIOPORT
+anvi-interactive \
+    -c 05_ANVIO/CONTIGS.db \
+    -p 05_ANVIO/SAMPLES_MERGED/PROFILE.db \
+    --server-only \
+    --port-number $ANVIOPORT
 ```
 
-### Some useful commands for binning workflow
+After making hthe pre-clustering, start refining the clusters.
+
+```bash
+anvi-refine \
+    -c 05_ANVIO/CONTIGS.db \
+    -p 05_ANVIO/SAMPLES-MERGED/PROFILE.db \
+    --server-only \
+    --port-number $ANVIOPORT \
+    --collection-name PreCluster \
+    --bin-id Bin_1
+```
+
+When all cluster have been refined a bit more, we can make a new collection from these. 
+
+```bash
+anvi-rename-bins \
+    -c 05_ANVIO/CONTIGS.db \
+    -p 05_ANVIO/SAMPLES-MERGED/PROFILE.db \
+    --collection-to-read PreCluster \
+    --collection-to-write PreBins \
+    --prefix PreBin \
+    --report-file 05_ANVIO/PreBin_report.txt
+```
+And then we can make a summary of the cluster or bins we have so far. 
+
+```bash
+anvi-summarize \
+    -c 05_ANVIO/CONTIGS.db \
+    -p 05_ANVIO/SAMPLES-MERGED/PROFILE.db \
+    --collection-name PreBins \
+    --output-dir 05_ANVIO/PreBins_SUMMARY \
+    --quick-summary
+```
+
+Download the output folder to your own computer and have a look at the `index.html` file in the output folder. Do you have any promising bins?  
+Then proceed with refining the most promising bins that you have with `anvi-refine`. Remember to specify the new collection name and check the new bin names.  
+
+The goal is to get at least few good bins that we can call MAGs. 
+
+Then when you're happy with your work, you can run the `anvi-summarize` command on your collection without the `--quick-summary` option. 
+
+### Useful commands for binning workflow
 
 __Refine a bin__
 
@@ -588,7 +633,7 @@ anvi-rename-bins
 __Summarize a collection__
 
 ```bash
-anvi-summarize
+anvi-summarize 
 ```
 
 ## Taxonomic annotation  with GTDB-Tk
