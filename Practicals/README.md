@@ -429,7 +429,7 @@ module load metaphlan/4.0.2
 for file in SRR11674041 SRR11674042 SRR11674043
 do
     metaphlan \
-       02_TRIIMMED_DATA/${file}_trimmed_1.fastq \
+       02_TRIIMMED_DATA/${file}_trimmed_R1.fastq \
         --input_type fastq \
         --bowtie2db /scratch/project_2001499/databases/metaphlan/ \
         --bowtie2out ${file}.bowtie2.bz2 \
