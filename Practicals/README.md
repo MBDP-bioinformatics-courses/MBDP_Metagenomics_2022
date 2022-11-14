@@ -479,7 +479,14 @@ done
 Anvi'o is an analysis and visualization platform for omics data. We will use anvi'o for binning contigs into metagenome-assembled genomes (MAGs).  
 You should definitely take a look at their [website](https://anvio.org/) and maybe even join their [discord channel](https://discord.gg/C6He6mSNY4).
 
-Batch job:
+### Nucleotide composition and the contigs database
+
+The first step in our genome-resolved metagenomics pipeline is the contruction of contigs database from our metagenomic contigs. During this step anvi'o calls genes, calculates the nucleotide composition for each contigs and annotates the identified genes in two different steps.  
+
+We will run the first steps as a batch job. 
+
+Example batch job script. Save it to the `scripts` folder. 
+
 ```bash
 #!/bin/bash -l
 #SBATCH --job-name anvi-contigs-db
@@ -530,7 +537,18 @@ anvi-run-scg-taxonomy \
     -T $SLURM_CPUS_PER_TASK
 ```
 
-Mapping batch job script:
+Submit the job.
+
+``` bash 
+sbatch  scripts/YOUR_SCRIPT_NAME
+```
+
+### Differential coverage and the profile database
+
+The differential coverage for each contig is calculated by mapping seequencing reads to the assembly.  
+We will use Bowtie2 to map the short-read Illumina data to our assembly (the anvio-reformatted version of it). 
+
+Mapping batch job script, again save it to the `scripts` folder:
 
 ```bash
 #!/bin/bash -l
@@ -583,8 +601,12 @@ done
 Run script
 
 ```bash
-bash scripts/map2assembly.sh
+bash scripts/YOUR_SCRIPT_NAME
 ```
+
+### Merging the profile databases
+
+When the contigs database and three profile databases are ready, we can merge all three profile databases into one. 
 
 Allocate resources for the last steps
 
@@ -592,14 +614,6 @@ Allocate resources for the last steps
 sinteractive -A project_2001499 --cores 6 --mem 70G --tmp 200
 module load anvio/7.1
 export $ANVIOPORT=YOUR_PORT_HERE
-```
-
-Estimate taxonomy based on SCGs
-
-```bash
-# anvi-estimate-scg-taxonomy \
-#     -c 05_ANVIO/CONTIGS.db \
-#     --metagenome-mode
 ```
 
 Merge all profiles
@@ -611,6 +625,11 @@ anvi-merge \
     --enforce-hierarchical-clustering \
     05_ANVIO/*_PROFILE/PROFILE.db 
 ```
+
+### Manual binning and the anvi'o interactive interface
+
+Then everything should  be ready and we can start the manual binning part.  
+We will go thru the first steps together. 
 
 Start interactive interface
 
@@ -687,6 +706,9 @@ anvi-summarize
 
 After binning you hopefully have some good quality MAGs. The next step is to give some names to these metagenome assembled genomes. We will use Genome Taxonomy Database (GTDB) and a tool called GTDB-Tk for this. 
 
+```bash
+# gtdb-tk 
+```
 
 ## Genome annotation of MAGs with Bakta 
 
