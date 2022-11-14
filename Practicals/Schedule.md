@@ -25,7 +25,7 @@
 ## Wednesday - :classical_building: Main building, U4079
 | Time | Description |
 | --- | --- |
-| 10:15-10:45 | **Antti Karkman**: [Genome-Resolved Metagenomics](Lectures/genome-resolved-metagenomics.pdf)|
+| 10:15-10:45 | **Antti Karkman**: [Genome-Resolved Metagenomics](../Lectures/genome-resolved-metagenomics.pdf)|
 | 10:45-12:00 | **ALL**: [Preparing files for Anvio hands-on](Practicals/README.md#genome-resolved-metagenomics-with-anvio) |
 | 12:00-13:00 | **Lunch** :plate_with_cutlery: |
 | 13:00-17:45 | **ALL**: [Anvio cont'](Practicals/README.md#genome-resolved-metagenomics-with-anvio) and MBDP :coffee: & :apple: break at 14:00|
@@ -36,7 +36,7 @@
 ## Thursday - :classical_building: Main building, U4075
 | Time | Description |
 | --- | --- |
-| 10:15-11:00 | **Tatiana Demina** |[Introduction to viromics](Lectures/Pangenomics.pdf)|
+| 10:15-11:00 | **Tatiana Demina** |[Introduction to viromics](../Lectures/Pangenomics.pdf)|
 | 11:00-11:00 | **Jenni Hultman** : [Anvio hands-on cont'](Practicals/README.md#pangenomics-with-anvi'o) |
 | 12:00-13:00 | **Lunch** :plate_with_cutlery: |
 | 13:00-14:45 | **ALL**: Anvio cont' |
