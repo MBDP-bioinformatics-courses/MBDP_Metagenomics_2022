@@ -21,7 +21,6 @@
 | 14:00-17:00 | _**Optional:**_ Lars Paulin retirement seminar :birthday:: _From single nucleotides to large genomes using wide variety state-of-the-art sequencing technologies_ (Viikki, Bio2, 2041, pre-registeration needed)|
 
 
-
 ## Wednesday - :classical_building: Main building, U4079
 | Time | Description |
 | --- | --- |
