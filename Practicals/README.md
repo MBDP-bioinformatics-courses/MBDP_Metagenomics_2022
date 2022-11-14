@@ -14,6 +14,7 @@ __Table of Contents:__
 11. [Genome taxonomy](#taxonomic-annotation-of-mags-with-gtdb-tk)
 12. [Genome annotation with Bakta](#genome-annotation-of-mags-with-bakta)
 13. [Viromics](#identifying-viral-contings-from-the-metagenome)
+14. [Visualizing metaphlan results](#visualizing-metaphlan-results-with-r)
 
 ## Connecting to Puhti with Visual Studio Code
 
@@ -884,3 +885,7 @@ For downstream applications, you could check, for example:
 * [vConTACT v.2.0](https://pubmed.ncbi.nlm.nih.gov/31061483/) for taxonomic assignments of the identified virus genomes;
 * [iVirus 2.0](https://www.nature.com/articles/s43705-021-00083-3), an analytic platform with many tools, protocols and public datasets;
 * [IMG/VR](https://academic.oup.com/nar/article/49/D1/D764/5952208), the largest collection of viral sequences obtained from metagenomes.
+
+## Visualizing Metaphlan results with R
+
+open Rstudio
