@@ -12,7 +12,8 @@
 | 14.00-14.30 | MBDP :coffee: & :apple: break |
 | 14:00-17:45 | **Jenni Hultman**: [Illumina trimming and QC](README.md#qc-and-trimming-for-illumina-reads) |
 
-## Tuesday - :classical_building: Main building, U3043 PUHTI SERVICE BREAK (8-12)
+## Tuesday - :classical_building: Main building, U3043 
+_PUHTI SERVICE BREAK (8-12)_
 | Time | Description |
 | --- | --- |
 | 10:15-11:00 | **Antti Karkman**: [Polishing the assembly](README.md#polishing-long-read-assembly-with-short-read-data)|
