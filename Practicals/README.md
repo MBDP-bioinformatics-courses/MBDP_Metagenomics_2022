@@ -184,7 +184,8 @@ But remember to check all file paths before you submit the job.
 
 /scratch/project_2001499/envs/nanoFiltering/bin/filtlong \
         --min_length 4000 \
-        --min_mean_q 80 soflink-to/your_raw_nanopore_reads.fastq.gz |\
+        --min_mean_q 80 \
+        soflink-to/your_raw_nanopore_reads.fastq.gz |\
          gzip > 02_TRIMMED_DATA/SRR11673980_trimmed.fastq.gz
 
 /scratch/project_2001499/envs/nanoFiltering/bin/porechop \

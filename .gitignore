@@ -5,3 +5,6 @@ test_workflow.md
 .DS_Store
 *.pptx
 05_ANVIO/*
+*.gfa
+*.fastq
+*.fastq.gz
