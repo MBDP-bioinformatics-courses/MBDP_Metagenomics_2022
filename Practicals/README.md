@@ -343,7 +343,7 @@ To leave the interactive node, type `exit`.
 
 It is possible to polish the long-read assembly using either the original reads, as was done in the article, or by using better quality data, such as short-reads, from the same sample.  
 
-However, the polishing step is very slow, so we wonät run it on hte course. We will rely on hte polishing step done by metaFlye. 
+However, the polishing step is very slow, so we won't run it on the course. We will rely on the polishing step done by metaFlye. 
 
 But as an example, here are the steps for polishing our assembly using the trimmed short-read data from thee same sample.
 
@@ -413,7 +413,7 @@ Use flag `-h` for help (or Google) to check how the command works and uncompress
 #SBATCH --nodes 1
 #SBATCH --ntasks-per-node 1
 #SBATCH --cpus-per-task 8
-#SBATCH --mem 300G
+#SBATCH --mem 100G
 #SBATCH --account project_2001499
 
 
@@ -690,7 +690,7 @@ Sample script:
 #SBATCH --job-name=virsorter2
 #SBATCH --account=project_2001499
 #SBATCH --time=2-00:00:00
-#SBATCH --cpus-per-task=10
+#SBATCH --cpus-per-task=30
 #SBATCH --mem=15G
 #SBATCH --partition=small
 #SBATCH --error=virsorter2_err_%j.txt
@@ -703,7 +703,7 @@ apptainer exec \
      -i /PATH_TO_YOUR_ASSEMBLY/assembly.fasta \
      --min-length 1500 \
      --include-groups "dsDNAphage,ssDNA,RNA,NCLDV,lavidaviridae"
-     -j 10 \
+     -j 30 \
      all
 ```
 where, `virsorter.out` is the output (results) directory, you can name it yourself, and the `assembly.fasta` is the assembly input file. The option `--include-groups` specifies virus groups to search for (Virsorter version 2.2.3, which we have installed in Puhti, has only dsDNAphage and ssDNA virus groups to search for by default, we can add more). Explore more about the options from the [manual](https://github.com/jiarong/VirSorter2) or by calling 
