@@ -3,7 +3,7 @@
 ## Monday - :office: Porthania, P724
 | Time | Description|
 | --- | --- |
-| 10:15-11:00 | **Jenni Hultman**: [Introduction (including general structure of the course and group work)](Lectures/MBDP_MG_introduction_2022.pdf)|
+| 10:15-11:00 | **Jenni Hultman**: [Introduction (including general structure of the course and group work)](../Lectures/MBDP_MG_introduction_2022.pdf)|
 | 11.00-11.15 | **Antti Karkman**  [Setting up Visual Studio Code](Practicals/README.md#connecting-to-puhti-with-visual-studio-code)
 | 11.15-11:30 | **Antti Karkman**: [Setting up the course folder](Practicals/README.md#setting-up-the-course-folders) |
 | 11:30-12:00 | **Jenni Hultman**: [Seq trimming and QC hands-on for Nanopore data](Practicals/QC_filtering.pdf) |
