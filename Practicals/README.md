@@ -14,7 +14,7 @@ __Table of Contents:__
 11. [Genome taxonomy](#taxonomic-annotation-of-mags-with-gtdb-tk)
 12. [Genome annotation with Bakta](#genome-annotation-of-mags-with-bakta)
 13. [Viromics](#identifying-viral-contings-from-the-metagenome)
-14. [Visualizing metaphlan results](#visualizing-metaphlan-results-with-r)
+14. [Visualizing Metaphlan results](#visualizing-metaphlan-results-with-r)
 
 ## Connecting to Puhti with Visual Studio Code
 
