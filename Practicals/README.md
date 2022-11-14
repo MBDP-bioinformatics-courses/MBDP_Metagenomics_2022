@@ -233,7 +233,7 @@ And if it looks good as well, we can move on to the assembly step.
 Fo the assembly we will use [Flye](https://github.com/fenderglass/Flye). Flye is a long-read de novo assembler that handles also metagenomic data.  
 Before you start the assembly, have a look at the Flye manual, escpecially the parts about Nanopore data and metagenome assembly.  
 
-After you have read the manual and you can make a batch job script for Flye in the `scripts` folder. 
+After you have read the manual you can make a batch job script for Flye in the `scripts` folder. 
 
 Batch job script for assembly with metaFlye:
 
@@ -257,11 +257,13 @@ Batch job script for assembly with metaFlye:
         --out-dir 03_ASSEMBLY
 ```
 
-Submit the joc to the queue.
+Submit the job to the queue.
 
 ```bash 
 sbatch scripts/YOUR_SCRIPT_NAME
 ```
+
+Using the commands from above, you can check if your job is already running.  
 
 ## QC and trimming for Illumina reads
 
@@ -381,7 +383,7 @@ It is possible to polish the long-read assembly using either the original reads,
 
 However, the polishing step is very slow, so we won't run it on the course. We will rely on the polishing step done by metaFlye. 
 
-But as an example, here are the steps for polishing our assembly using the trimmed short-read data from thee same sample.
+But as an example, here are the steps for polishing our assembly using the trimmed short-read data from the same sample.
 
 ```bash
 # module load bowtie2/2.4.4 
@@ -457,8 +459,6 @@ Use flag `-h` for help (or Google) to check how the command works and uncompress
 
 module load metaphlan/4.0.2
 
-mkdir 06_METAPHLAN
-
 # compare the three fastq-files against metaphlan databases we have downloaded and formatted to the databases-folder
 
 for file in SRR11674041 SRR11674042 SRR11674043
@@ -467,9 +467,9 @@ do
        02_TRIIMMED_DATA/${file}_trimmed_R1.fastq \
         --input_type fastq \
         --bowtie2db /scratch/project_2001499/databases/metaphlan/ \
-        --bowtie2out 06_METAPHLAN/${file}.bowtie2.bz2 \
+        --bowtie2out 07_METAPHLAN/${file}.bowtie2.bz2 \
         --nproc $SLURM_CPUS_PER_TASK \
-        -o 06_METAPHLAN/${file}_metaphlan.txt \
+        -o 07_METAPHLAN/${file}_metaphlan.txt \
       
 done
 ```    
