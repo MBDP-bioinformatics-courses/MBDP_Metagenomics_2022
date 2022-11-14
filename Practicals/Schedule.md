@@ -8,8 +8,8 @@
 | 11.15-11:30 | **Antti Karkman**: [Setting up the course folder](README.md#setting-up-the-course-folders) |
 | 11:30-12:00 | **Antti Karkman**: [Nanopore trimming & QC - hands-on](README.md#qc-and-trimming-for-nanopore-reads) |
 | 12:00-13:00 | **Lunch** :plate_with_cutlery: |
-| 14:45-15:30 | **Jenni Hultman**: [Assembly hands-on](README.md#metagenomic-assembly-with-metaflye) |
-| 15:30-17:45 | **Jenni Hultman**: [Illumina trimming and QC](README.md#qc-and-trimming-for-illumina-reads) |
+| 13:00-14:00 | **Jenni Hultman**: [Assembly hands-on](README.md#metagenomic-assembly-with-metaflye) |
+| 14:00-17:45 | **Jenni Hultman**: [Illumina trimming and QC](README.md#qc-and-trimming-for-illumina-reads) |
 
 ## Tuesday - :classical_building: Main building, U3043 PUHTI SERVICE BREAK (8-12)
 | Time | Description |
