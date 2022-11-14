@@ -9,6 +9,7 @@
 | 11:30-12:00 | **Antti Karkman**: [Nanopore trimming & QC - hands-on](README.md#qc-and-trimming-for-nanopore-reads) |
 | 12:00-13:00 | **Lunch** :plate_with_cutlery: |
 | 13:00-14:00 | **Jenni Hultman**: [Assembly hands-on](README.md#metagenomic-assembly-with-metaflye) |
+| 14.00-14.30 | MBDP :coffee: & :apple: break |
 | 14:00-17:45 | **Jenni Hultman**: [Illumina trimming and QC](README.md#qc-and-trimming-for-illumina-reads) |
 
 ## Tuesday - :classical_building: Main building, U3043 PUHTI SERVICE BREAK (8-12)
@@ -27,8 +28,9 @@
 | 10:15-10:45 | **Antti Karkman**: [Genome-Resolved Metagenomics](../Lectures/genome-resolved-metagenomics.pdf)|
 | 10:45-12:00 | **ALL**: [Preparing files for Anvio hands-on](README.md#genome-resolved-metagenomics-with-anvio) |
 | 12:00-13:00 | **Lunch** :plate_with_cutlery: |
-| 13:00-17:45 | **ALL**: [Anvio cont'](README.md#genome-resolved-metagenomics-with-anvio) and MBDP :coffee: & :apple: break at 14:00|
-| 13:00-17:45 | **Tatiana Demina** : [Viromics hands-on](README.md#pangenomics-with-anvi'o) |
+| 13:00-14:00 | **ALL**: [Anvio cont'](README.md#genome-resolved-metagenomics-with-anvio) 
+| 14.00-14.30 | MBDP :coffee: & :apple: break at 14:00 |
+| 14:30-17:45 | **Tatiana Demina** : [Viromics hands-on](README.md#pangenomics-with-anvi'o) |
 | 18:00-21:00 | **Course dinner** |
 
 
@@ -38,8 +40,9 @@
 | 10:15-11:00 | **Tatiana Demina** [Introduction to viromics](../Lectures/viromics.pdf)|
 | 11:00-11:00 | **Jenni Hultman** : [Anvio hands-on cont'](README.md#genome-resolved-metagenomics-with-anvio) |
 | 12:00-13:00 | **Lunch** :plate_with_cutlery: |
-| 13:00-14:45 | **ALL**: Anvio cont' |
-| 15:00-16:30 | **Jenni Hultman**: [Annotation with Bakta](README.md#genome-annotation-of-mags-with-bakta)|
+| 13:00-14:00 | **ALL**: [Anvio cont'](README.md#genome-resolved-metagenomics-with-anvio) |
+| 14.00-14.30 | MBDP :coffee: & :apple: break |
+| 14:30-16:30 | **Jenni Hultman**: [Annotation with Bakta](README.md#genome-annotation-of-mags-with-bakta)|
 | 16:30-17:45 | **Jenni Hultman**: [Metaphlan](README.md#taxonomic-composition-with-metaphlan-using-short-reads)|
 
 
@@ -48,5 +51,7 @@
 | --- | --- |
 | 10:15-12:00 | **Tatiana Demina** : [Viromics hands-on](README.md#pangenomics-with-anvi'o) |
 | 12:00-13:00 | **Lunch** :plate_with_cutlery: |
-| 13:00-15:30 | **Antti Karkman** : [Metaphlan visualization](README.md#visualizing-metaphlan-results-with-r) (MBDP :coffee: & :apple: break at 14.00) |
+| 13:00-14:00 | **Antti Karkman** : [Metaphlan visualization](README.md#visualizing-metaphlan-results-with-r) 
+| 14.00-14.30 | MBDP :coffee: & :apple: break |
+| 14.30-15.00 | **Antti Karkman** : [Metaphlan visualization](README.md#visualizing-metaphlan-results-with-r) 
 | 15:00-17:45 | **Q&A** and  **Feedback**  |
