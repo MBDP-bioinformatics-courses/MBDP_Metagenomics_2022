@@ -36,11 +36,11 @@
 | Time | Description |
 | --- | --- |
 | 10:15-11:00 | **Tatiana Demina** |[Introduction to viromics](../Lectures/Pangenomics.pdf)|
-| 11:00-11:00 | **Jenni Hultman** : [Anvio hands-on cont'](README.md#pangenomics-with-anvi'o) |
+| 11:00-11:00 | **Jenni Hultman** : [Anvio hands-on cont'](README.md#genome-resolved-metagenomics-with-anvio) |
 | 12:00-13:00 | **Lunch** :plate_with_cutlery: |
 | 13:00-14:45 | **ALL**: Anvio cont' |
-| 15:00-16:30 | **Jenni Hultman**: [Annotation with Bakta](README.md#Eliminate-contaminant-contigs-with-Kaiju)|
-| 16:30-17:45 | **Jenni Hultman**: [Metaphlan](README.md#Eliminate-contaminant-contigs-with-Kaiju)|
+| 15:00-16:30 | **Jenni Hultman**: [Annotation with Bakta](README.md#genome-annotation-of-mags-with-bakta)|
+| 16:30-17:45 | **Jenni Hultman**: [Metaphlan](README.md#taxonomic-composition-with-metaphlan-using-short-reads)|
 
 
 ## Friday - :classical_building: Main building, U3039
