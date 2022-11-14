@@ -609,6 +609,23 @@ Run script
 bash scripts/YOUR_SCRIPT_NAME
 ```
 
+### Quick look at the taxonomic content of our metagenome
+
+We can quickly estimate the taxonomic composition of our assembled metagenome based on the  single-copy cores genes found in there. 
+
+```bash
+anvi-estimate-scg-taxonomy \
+    -c 05_ANVIO/CONTIGS.db \
+    --metagenome-mode  \
+    --output-file 05_ANVIO/scg-taxonomy.txt
+```
+
+Have a look at the output.
+
+```bash 
+less -S 05_ANVIO/scg-taxonomy.txt
+```
+
 ### Merging the profile databases
 
 When the contigs database and three profile databases are ready, we can merge all three profile databases into one. 
