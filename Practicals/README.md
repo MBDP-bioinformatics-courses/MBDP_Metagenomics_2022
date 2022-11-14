@@ -220,6 +220,10 @@ After the trimming has finished and everythin looks ok, we can move on.
 It is always good idea to check that the trimming step did what it was supposed to do. So we'll the QC step on the trimemd data.   
 
 ```bash
+sinteractive -A project_2001499 -m 50G -c 4 
+```
+
+```bash
 /scratch/project_2001499/envs/nanoQC/bin/NanoPlot \
     -o 02_TRIMMED_DATA/NANOPLOT \
     -t 4 \
