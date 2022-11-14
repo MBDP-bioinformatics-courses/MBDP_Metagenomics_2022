@@ -675,7 +675,7 @@ anvi-summarize \
     --quick-summary
 ```
 
-Download the output folder to your own computer and have a look at the `index.html` file in the output folder. Do you have any promising bins?  
+Download the output folder to your own computer and have a look at the `index.html` file in the output folder. __Do you have any promising bins?__  
 Then proceed with refining the most promising bins that you have with `anvi-refine`. Remember to specify the new collection name and check the new bin names.  
 
 The goal is to get at least few good bins that we can call MAGs. 
