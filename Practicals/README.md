@@ -9,7 +9,7 @@ __Table of Contents:__
 6. [Polishing](#polishing-long-read-assembly-with-short-read-data)
 7. [Assembly QC](#assembly-qc)
 8. [Taxonomic composition](#taxonomic-composition-with-metaphlan-using-short-reads)
-9. [Genome-resolved metagenomics[(#genome-resolved-metagenomics-with-anvio)
+9. [Genome-resolved metagenomics](#genome-resolved-metagenomics-with-anvio)
 10. [Genome taxonomy](#taxonomic-annotation-of-mags-with-gtdb-tk)
 11. [Genome annotation with Bakta](#genome-annotation-of-mags-with bakta)
 12. [Viromics](#identifying-viral-contings-from-the-metagenome)
