@@ -4,16 +4,15 @@
 | Time | Description|
 | --- | --- |
 | 10:15-11:00 | **Jenni Hultman**: [Introduction (including general structure of the course and group work)](Lectures/introduction.pdf)|
-| 11:00-11:10 | **Antti Karkman**: [Basic usage of computing service at CSC](Lectures/CSC_basics.pdf) |
-| 11:10-11:30 | **Antti Karkman**: [Working with the command line - hands-on](Practicals/commandline.md) |
-| 11.30-11:40 | **Antti Karkman**: [Setting up the course folder](Practicals/README.md#setting-up-the-course-folders) |
-| 11:40-12:00 | **Jenni Hultman**: [Seq trimming and QC hands-on for Nanopore data](Practicals/QC_filtering.pdf) |
+| 11.00-11.15 | **Antti Karkman**  [Setting up Visual Studio Code](Practicals/README.md#connecting-to-puhti-with-visual-studio-code)
+| 11.15-11:30 | **Antti Karkman**: [Setting up the course folder](Practicals/README.md#setting-up-the-course-folders) |
+| 11:30-12:00 | **Jenni Hultman**: [Seq trimming and QC hands-on for Nanopore data](Practicals/QC_filtering.pdf) |
 | 12:00-13:00 | **Lunch** :plate_with_cutlery: |
-| 13:00-13:15 | **Antti Karkman**: [Nanopore trimming QC](Practicals/Sequencing101.pdf) |
-| 14:45-15:30 | **Jenni Hultman**: [Assembly hands-on](Practicals/README.md#Genome-assembly-with-Spades) |
-| 15:30-17:45 | **Jenni Hultman**: [Illumina trimming and QC](Practicals/Sequencing101.pdf) |
+| 13:00-13:15 | **Antti Karkman**: [Nanopore trimming & QC - hands-on](Practicals/README.md#qc-and-trimming-for-nanopore-reads) |
+| 14:45-15:30 | **Jenni Hultman**: [Assembly hands-on](Practicals/README.md#metagenomic-assembly-with-metaflye) |
+| 15:30-17:45 | **Jenni Hultman**: [Illumina trimming and QC](Practicals/README.md#qc-and-trimming-for-illumina-reads) |
 
-## Tuesday - :classical_building: Main building, U3043 PUHTI SERVICE BREAK
+## Tuesday - :classical_building: Main building, U3043 PUHTI SERVICE BREAK (8-12)
 | Time | Description |
 | --- | --- |
 | 10:15-11:00 | **Antti Karkman**: [Polishing the assembly](Practicals/Sequencing101.pdf)|

@@ -2,17 +2,35 @@
 
 __Table of Contents:__
 1. [Setting up](#setting-up-the-course-folders)
-2. [Interactive use of Puhti](#interactive-use-of-puhti)
-3. [QC and trimming for Nanopore reads](#qc-and-trimming-for-nanopore-reads)
-4. [Metagenomic assembly with metaFlye](#metagenomic-assembly-with-metaflye)
-5. [QC and trimming for Illumina reads](#qc-and-trimming-for-illumina-reads)
-6. [Assembly polishing](#polishing-long-read-assembly-with-short-read-data)
-7. [Assembly QC](#assembly-qc)
-8. [Taxonomic composition](#taxonomic-composition-with-metaphlan-using-short-reads)
-9. [Genome-resolved metagenomics](#genome-resolved-metagenomics-with-anvio)
-10. [Genome taxonomy](#taxonomic-annotation-of-mags-with-gtdb-tk)
-11. [Genome annotation with Bakta](#genome-annotation-of-mags-with-bakta)
-12. [Viromics](#identifying-viral-contings-from-the-metagenome)
+2. [Connnecting to Puhti](#connecting-to-puhti-with-visual-studio-code)
+3. [Interactive use of Puhti](#interactive-use-of-puhti)
+4. [QC and trimming for Nanopore reads](#qc-and-trimming-for-nanopore-reads)
+5. [Metagenomic assembly with metaFlye](#metagenomic-assembly-with-metaflye)
+6. [QC and trimming for Illumina reads](#qc-and-trimming-for-illumina-reads)
+7. [Assembly polishing](#polishing-long-read-assembly-with-short-read-data)
+8. [Assembly QC](#assembly-qc)
+9. [Taxonomic composition](#taxonomic-composition-with-metaphlan-using-short-reads)
+10. [Genome-resolved metagenomics](#genome-resolved-metagenomics-with-anvio)
+11. [Genome taxonomy](#taxonomic-annotation-of-mags-with-gtdb-tk)
+12. [Genome annotation with Bakta](#genome-annotation-of-mags-with-bakta)
+13. [Viromics](#identifying-viral-contings-from-the-metagenome)
+
+## Connecting to Puhti with Visual Studio Code
+
+* Launch Visual Studio Code
+* _Only on the first time:_ 
+    - _Open `Extensions` (one of the icons on the left) and install `Remote - SSH`_  
+* Down left corner you will have a (green) button with "><" (hoover over it and it says "Open a Remote Window"), click it 
+* Choose "Connect Current Window to Host..."
+* Type in the **user<span>@puhti.csc.fi** and hit "Enter" (change "user" for your own CSC username) 
+* Type your password and hit "Enter"
+* In the following dialogue, type **yes** and hit "Enter"
+
+When the down left corner says `SSH:puhti.csc.fi`, you're connected.
+* From the menu select `Terminal > New Terminal` and you should see a new panel. This is the __command line__.
+
+* When you need to logout just type **exit** in the terminal/command line and hit "Enter"  
+(or you can click the down left corner and choose "Close Remote Connection")
 
 ## Setting up the course folders
 The main course directory is located in `/scratch/project_2001499`.  
@@ -436,10 +454,11 @@ do
         -o 06_METAPHLAN/${file}_metaphlan.txt \
       
 done
-```
-    
+```    
 
 ## Genome-resolved metagenomics with anvi'o
+
+
 
 Batch job:
 ```bash
