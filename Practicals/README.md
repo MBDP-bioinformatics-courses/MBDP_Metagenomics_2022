@@ -5,17 +5,14 @@ __Table of Contents:__
 2. [Interactive use of Puhti](#interactive-use-of-puhti)
 3. [QC and trimming for Nanopore reads](#qc-and-trimming-for-nanopore-reads)
 4. [Metagenomic assembly with metaFlye](#metagenomic-assembly-with-metaflye)
-4. [QC and trimming for Illumina reads](#qc-and-trimming-for-illumina-reads)
-5. [Genome assembly with Spades](#genome-assembly-with-spades)
-6. [Eliminate contaminant contigs with Kaiju](#eliminate-contaminant-contigs-with-kaiju)
+5. [QC and trimming for Illumina reads](#qc-and-trimming-for-illumina-reads)
+6. [Polishing](#polishing-long-read-assembly-with-short-read-data)
 7. [Assembly QC](#assembly-qc)
-8. [Calculate the genome coverage](#calculate-the-genome-coverage)
-9. [Genome completeness and contamination](#genome-completeness-and-contamination)
-10. [Genome annotation with Prokka](#genome-annotation-with-prokka)
-11. [Name the strain](#name-the-strain)
-12. [Pangenomics](#pangenomics-with-anvio)
-13. [Detection  of secondary  metabolites biosynthesis gene clusters](#detection-of-secondary-metabolites-biosynthesis-gene-clusters)
-14. [Comparison of secondary metabolites biosynthesis gene clusters](#comparison-of-secondary-metabolites-biosynthesis-gene-clusters)
+8. [Taxonomic composition](#taxonomic-composition-with-metaphlan-using-short-reads)
+9. [Genome-resolved metagenomics[(#genome-resolved-metagenomics-with-anvio)
+10. [Genome taxonomy](#taxonomic-annotation-of-mags-with-gtdb-tk)
+11. [Genome annotation with Bakta](#genome-annotation-of-mags-with bakta)
+12. [Viromics](#identifying-viral-contings-from-the-metagenome)
 
 ## Setting up the course folders
 The main course directory is located in `/scratch/project_2001499`.  
@@ -399,7 +396,7 @@ metaquast.py \
 
 Now you can move the file ` 03_ASSEMBLY/QUAST/report.html` to your computer and look for the quality control files in the web browser of your preference.  
 
-## Metaphlan 
+## Taxonomic composition with Metaphlan using short-reads 
 
 Next we will also analyze individual reads in addition to the assembly based approaches. Which files would you use for this? 
 
@@ -648,7 +645,9 @@ __Summarize a collection__
 anvi-summarize 
 ```
 
-## Taxonomic annotation  with GTDB-Tk
+## Taxonomic annotation of MAGs with GTDB-Tk
+
+After binning you hopefully have some good quality MAGs. The next step is to give some names to these metagenome assembled genomes. We will use Genome Taxonomy Database (GTDB) and a tool called GTDB-Tk for this. 
 
 
 ## Genome annotation of MAGs with Bakta 
@@ -681,7 +680,7 @@ Questions to think about:
 * Why does the metagenome contain also viral DNA? 
 * Which types of viruses can be seen from a bulk metagenome obtained from the environmental DNA sample? Can we find, e.g., RNA viruses there?
 
-## Running Virsorter2
+### Running Virsorter2
 
 Make a directory called `Virsorter2` in your directory. Make a batch job script there.  
 Sample script:
@@ -715,7 +714,7 @@ Note that you need to specify the path to your assembly file.
 
 Submit a batch job.
 
-## Virsorter2 output files (results)
+### Virsorter2 output files (results)
 
 The useful output files: final-viral-boundary.tsv, final-viral-score.tsv, and final-viral-combined.fa. Copy them to your computer and explore.
 
@@ -732,7 +731,7 @@ The useful output files: final-viral-boundary.tsv, final-viral-score.tsv, and fi
 
 **final-viral-combined.fa** contains the viral contigs sequences in the fasta format. They can be used for the downstream analyses. 
 
-## Checking the quality of Virsorter2 predicted contigs with CheckV.
+### Checking the quality of Virsorter2 predicted contigs with CheckV.
 
 We will use [CheckV](https://www.nature.com/articles/s41587-020-00774-7) to assess the quality and completeness of the obtained viral contigs.
 
@@ -760,7 +759,7 @@ checkv_out -t 8 -d /db
 ```
 Note that you need to specify the path to your Virsorter2 results directory and name the CheckV output directory (`checkv_out` in this sample script).
 
-## CheckV output files (results)
+### CheckV output files (results)
 
 The useful files: `quality_summary.tsv`, `completeness.tsv`, and `complete_genomes.tsv`. Copy them to your computer and explore.
 
@@ -779,7 +778,7 @@ The useful files: `quality_summary.tsv`, `completeness.tsv`, and `complete_genom
 
 In practice, if you continue with downstream applications (not during this course), you might want to get rid of possible false positives in the final set of contigs identified as viral. For example, a subset of viral contigs that have at least 1 viral gene or at least 10 kbp long and 50% complete can be selected. The exact selection criteria would depend on specific research questions you have and thus, on the type of analysis you would like to perform.
 
-## Lazypipe
+### Lazypipe
 
 [Lazypipe](https://www.helsinki.fi/en/projects/lazypipe) is a pipeline for identifying virus sequences in metagenomes, developed at the University of Helsinki. It is available as a [preinstalled module](https://docs.csc.fi/apps/lazypipe/) in Puhti. The input for the pipeline is Next Generation Sequencing data. We will use Illumina reads from the same type of samples as the long reads data that you used for the assembly with Metaflye (and Virsorter2).
 
@@ -801,7 +800,7 @@ accounting project:
 * number of computing cores to use (default 8)
 * email notifications - provide your email address to be notified when the batch job is finished.
 
-## Lazypipe output files (results)
+### Lazypipe output files (results)
 
 Useful output files: `qc.readsurv.jpeg`, `abund_table.xlsx`, `krona_graph.html`, and `contigs.annot.xlsx`. Download them to your computer and explore.
 
@@ -821,7 +820,7 @@ Useful output files: `qc.readsurv.jpeg`, `abund_table.xlsx`, `krona_graph.html`,
 
 Viral contigs for the possible downstream analyses are found from **contigs_vi.fa**.
 
-## What-the-Phage sample output files
+### What-the-Phage sample output files
 
 “What the Phage” (WtP) is a parallel multitool pipeline for phage prediction combined with annotation and classification. It includes [11 phage-predicting tools](https://mult1fractal.github.io/wtp-documentation/#example-result-output) that are all run in parallel. The user can then compare the results of the different prediction tools summarised in charts and tables and make own decisions which dataset to proceed with. 
 
@@ -853,7 +852,7 @@ To sum up, how would you proceed with the WtP results taking into account the po
 * take predictions only from some tools? Or
 * make a subset based on the quality check? 
 
-## Summary and downstream analyses of the identified viral sequences
+### Summary and downstream analyses of the identified viral sequences
 
 Compare the data you got from __Virsorter2__, __What-the-Phage__ and __Lazypipe__. 
 
