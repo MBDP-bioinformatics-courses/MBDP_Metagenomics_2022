@@ -309,7 +309,7 @@ __What kind of trimming do you think should be done?__
 
 ### Running Cutadapt
 
-We will do the trimming with [cutadapt]((http://cutadapt.readthedocs.io).
+We will do the trimming with [cutadapt](http://cutadapt.readthedocs.io).
 Cutadapt module has to be loaded separately.
 
 ```bash
