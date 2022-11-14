@@ -476,7 +476,8 @@ done
 
 ## Genome-resolved metagenomics with anvi'o
 
-
+Anvi'o is an analysis and visualization platform for omics data. We will use anvi'o for binning contigs into metagenome-assembled genomes (MAGs).  
+You should definitely take a look at their [website](https://anvio.org/) and maybe even join their [discord channel](https://discord.gg/C6He6mSNY4).
 
 Batch job:
 ```bash
