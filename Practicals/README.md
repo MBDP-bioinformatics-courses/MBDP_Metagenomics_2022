@@ -145,7 +145,11 @@ NanoPlot is not pre-installed to Puhti, but has been installed for the course un
 Generate graphs for visualization of reads quality and length distribution
 
 ```bash
-/scratch/project_2001499/envs/nanoQC/bin/NanoPlot -o 01_DATA/nanoplot_out -t 4 -f png --fastq softlink-to/raw_nanopore_reads.fastq.gz
+/scratch/project_2001499/envs/nanoQC/bin/NanoPlot \
+    -o 01_DATA/nanoplot_out \
+    -t 4 \
+    -f png \
+    --fastq softlink-to/raw_nanopore_reads.fastq.gz
 ```
 
 Transfer to the output from NanoPlot (`NanoPlot-report.html`) to your own computer and open it with any browser.
@@ -215,7 +219,11 @@ After the trimming has finished and everythin looks ok, we can move on.
 It is always good idea to check that the trimming step did what it was supposed to do. So we'll the QC step on the trimemd data.   
 
 ```bash
-/scratch/project_2001499/envs/nanoQC/bin/NanoPlot -o 02_TRIMMED_DATA/NANOPLOT -t 4 -f png --fastq 02_TRIMMED_DATA/SRR11673980_chop.fastq.gz
+/scratch/project_2001499/envs/nanoQC/bin/NanoPlot \
+    -o 02_TRIMMED_DATA/NANOPLOT \
+    -t 4 \
+    -f png \
+    --fastq 02_TRIMMED_DATA/SRR11673980_chop.fastq.gz
 ```
 
 And if it looks good as well, we can move on to the assembly step.  
@@ -223,6 +231,10 @@ And if it looks good as well, we can move on to the assembly step.
 ## Metagenomic assembly with metaFlye
 
 Fo the assembly we will use [Flye](https://github.com/fenderglass/Flye). Flye is a long-read de novo assembler that handles also metagenomic data.  
+Before you start the assembly, have a look at the Flye manual, escpecially the parts about Nanopore data and metagenome assembly.  
+
+After you have read the manual and you can make a batch job script for Flye in the `scripts` folder. 
+
 Batch job script for assembly with metaFlye:
 
 ```bash
@@ -243,7 +255,12 @@ Batch job script for assembly with metaFlye:
         --threads $SLURM_CPUS_PER_TASK \
         --meta \
         --out-dir 03_ASSEMBLY
+```
 
+Submit the joc to the queue.
+
+```bash 
+sbatch scripts/YOUR_SCRIPT_NAME
 ```
 
 ## QC and trimming for Illumina reads
@@ -604,7 +621,7 @@ anvi-interactive \
     --port-number $ANVIOPORT
 ```
 
-After making hthe pre-clustering, start refining the clusters.
+After making the pre-clustering, start refining the clusters.
 
 ```bash
 anvi-refine \
@@ -758,7 +775,8 @@ We will use [CheckV](https://www.nature.com/articles/s41587-020-00774-7) to asse
 The database for CheckV is in `/scratch/project_2001499/checkv-db`.
 
 CheckV can be run interactively:
-```
+
+```bash
 sinteractive -i
 ```
 For resources choose:
@@ -771,11 +789,12 @@ For resources choose:
 
 Then run the job:
 
-```
+```bash
 cd scratch/project_2001499/YOUR_VIRSORTER2_OUTPUT_DIRECTORY
+
 apptainer exec --bind $PWD:$PWD,/scratch/project_2001499/checkv-db/db:/db \
-/scratch/project_2001499/envs/checkV/checkV.sif checkv end_to_end final-viral-combined.fa \
-checkv_out -t 8 -d /db
+    /scratch/project_2001499/envs/checkV/checkV.sif checkv end_to_end final-viral-combined.fa \
+    checkv_out -t 8 -d /db
 ```
 Note that you need to specify the path to your Virsorter2 results directory and name the CheckV output directory (`checkv_out` in this sample script).
 
@@ -804,11 +823,13 @@ In practice, if you continue with downstream applications (not during this cours
 
 Make a directory called `Lazypipe` in your directory. Note that you need to specify the path to the trimmed Illumina reads. Start the batch job from this directory:
 
-```
+```bash
 module load r-env-singularity
 module load biokit
 module load lazypipe
+
 cp /appl/soft/bio/lazypipe/2.0/lazypipe/default.config.yaml config.yaml
+
 lazypipe.pl
 sbatch-lazypipe -1 /PATH_TO_TRIMMED_ILLUMINA_READS/SRR11674042_R1.fastq
 

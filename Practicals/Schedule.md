@@ -17,8 +17,9 @@
 | 10:15-11:00 | **Antti Karkman**: [Polishing the assembly](README.md#polishing-long-read-assembly-with-short-read-data)|
 | 11:00-12:30 | **Jenni Hultman**: [Assembly QC](README.md#assembly-qc)|
 | 12:30-13:30 | **Lunch** :plate_with_cutlery: |
-| 14:00-17:00 | _**Optional:**_ Lars Paulin retirement seminar :birthday:: _From single nucleotides to large genomes using wide variety state-of-the-art sequencing technologies_ (Viikki, Bio2, 2041, pre-registeration needed)|
 | 14:00-17:00 | **Video lecture** [Reconstructing genomes from metagenomes - key concepts](https://youtu.be/RjNdHGK4ruo)|
+| 14:00-17:00 | _**Optional:**_ Lars Paulin retirement seminar :birthday:: _From single nucleotides to large genomes using wide variety state-of-the-art sequencing technologies_ (Viikki, Bio2, 2041, pre-registeration needed)|
+
 
 
 ## Wednesday - :classical_building: Main building, U4079
