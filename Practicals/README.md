@@ -6,7 +6,7 @@ __Table of Contents:__
 3. [QC and trimming for Nanopore reads](#qc-and-trimming-for-nanopore-reads)
 4. [Metagenomic assembly with metaFlye](#metagenomic-assembly-with-metaflye)
 5. [QC and trimming for Illumina reads](#qc-and-trimming-for-illumina-reads)
-6. [Polishing](#polishing-long-read-assembly-with-short-read-data)
+6. [Assembly polishing](#polishing-long-read-assembly-with-short-read-data)
 7. [Assembly QC](#assembly-qc)
 8. [Taxonomic composition](#taxonomic-composition-with-metaphlan-using-short-reads)
 9. [Genome-resolved metagenomics](#genome-resolved-metagenomics-with-anvio)
