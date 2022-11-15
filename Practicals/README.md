@@ -656,7 +656,7 @@ bash scripts/YOUR_SCRIPT_NAME
 
 ### Quick look at the taxonomic content of our metagenome
 
-We can quickly estimate the taxonomic composition of our assembled metagenome based on the single-copy cores genes found in there. 
+While the profile job is running, we can quickly estimate the taxonomic composition of our assembled metagenome based on the single-copy cores genes found in there. 
 
 ```bash
 module load anvio/7.1
