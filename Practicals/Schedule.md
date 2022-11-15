@@ -27,7 +27,7 @@ _PUHTI SERVICE BREAK (8-12)_
 | Time | Description |
 | --- | --- |
 | 10:15-10:45 | **Antti Karkman**: [Genome-Resolved Metagenomics](../Lectures/genome-resolved-metagenomics.pdf)|
-| 10:45-12:00 | **ALL**: [Preparing files for Anvio hands-on](README.md#genome-resolved-metagenomics-with-anvio) |
+| 10:45-12:00 | **ALL**: [Preparing files for Anvio - hands-on](README.md#genome-resolved-metagenomics-with-anvio) |
 | 12:00-13:00 | **Lunch** :plate_with_cutlery: |
 | 13:00-14:00 | **ALL**: [Anvio cont'](README.md#genome-resolved-metagenomics-with-anvio) 
 | 14.00-14.30 | MBDP :coffee: & :apple: break |
