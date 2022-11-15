@@ -396,7 +396,7 @@ But as an example, here are the steps for polishing our assembly using the trimm
 #                 04_POLISH/assembly
 
 # bowtie2 -1 02_TRIMMED_DATA/SRR11674041_trimmed_R1.fastq.gz \
-#         -2 02_TRIMMED_DATA//SRR11674041_trimmed_R2.fastq.gz \
+#         -2 02_TRIMMED_DATA/SRR11674041_trimmed_R2.fastq.gz \
 #         -S 04_POLISH/assembly.sam \
 #         -x 04_POLISH/assembly \
 #         --threads $SLURM_CPUS_PER_TASK \
