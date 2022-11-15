@@ -759,8 +759,8 @@ And the actual commands were:
 ```bash
 #############  (THIS HAS BEEN DONE ALREADY)  #########################
 ## download gtdb database
-# wget https://data.ace.uq.edu.au/public/gtdb/data/releases/latest/auxillary_files/gtdbtk_data.tar.gz
-# tar -xzf gtdbtk_data.tar.gz
+# wget https://data.ace.uq.edu.au/public/gtdb/data/releases/latest/auxillary_files/gtdbtk_v2_data.tar.gz
+# tar -xzf gtdbtk_v2_data.tar.gz
 #############  (THIS HAS BEEN DONE ALREADY)  #########################
 ```
 
@@ -772,7 +772,7 @@ sinteractive -A project_2001499 --mem 70G -c 6
 First we need to store to location of the database to `$GTDBTK_DATA_PATH` environment variable. Otherwise GTDB-Tk wonät find it and will complain. 
 
 ```bash
-export GTDBTK_DATA_PATH=/scratch/project_2001499/databases/GTDB/
+export GTDBTK_DATA_PATH=/scratch/project_2001499/databases/GTDB/releaseXX
 ```
 
 Then we can have a look at the different options of the tool.
