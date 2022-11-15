@@ -503,7 +503,7 @@ anvi-script-reformat-fasta \
 
 ### Nucleotide composition and the contigs database
 
-The first step in our genome-resolved metagenomics pipeline is the contruction of contigs database from our metagenomic contigs. During this step anvi'o calls genes, calculates the nucleotide composition for each contigs and annotates the identified genes in two different steps.  
+The first step in our genome-resolved metagenomics pipeline is the contruction of contigs database from our metagenomic contigs. During this step anvi'o calls genes, calculates the nucleotide composition for each contigs and annotates the identified genes in three different steps.  
 
 We will run the first steps as a batch job. 
 
