@@ -828,7 +828,7 @@ Questions to think about:
 
 ### Running Virsorter2
 
-Make a directory called `Virsorter2` in your directory. Make a batch job script there.  
+Make a directory called `Virsorter2` in your `06_VIROMICS` directory. Make a batch job script there.  
 Sample script:
 
 ```bash
@@ -862,11 +862,12 @@ Submit a batch job.
 
 ### Virsorter2 output files (results)
 
-The useful output files: final-viral-boundary.tsv, final-viral-score.tsv, and final-viral-combined.fa. Copy them to your computer and explore.
+The useful output files: `final-viral-boundary.tsv`, `final-viral-score.tsv`, and `final-viral-combined.fa`. Copy them to your computer and explore.
 
 **final-viral-boundary.tsv** file contains information about contigs that were identified as viral. Full sequences identified as viral have suffix "||full"; partial sequences identified as viral have suffix "||{i}index_partial" ("{I}" can be numbers starting from 0 to max number of viral fragments found in that contig).
 * How many contigs were annotated as viral? How many full and partial?
-* Which virus groups were predicted?
+* Which virus groups were predicted? 
+* The group column is the classifier of viral group that gives a high score, but can it be used as a reliable classification?
 * Which groups can Virsorter2 identify (check the [publication](https://microbiomejournal.biomedcentral.com/articles/10.1186/s40168-020-00990-y)) and which would you expect to see in our sample? Compare this to the ones predicted.
 
 **final-viral-score.tsv** shows the score of each viral sequences across groups. The score is ranging from 0 to 1, and higher means more like to be viral. 
@@ -881,28 +882,20 @@ The useful output files: final-viral-boundary.tsv, final-viral-score.tsv, and fi
 
 We will use [CheckV](https://www.nature.com/articles/s41587-020-00774-7) to assess the quality and completeness of the obtained viral contigs.
 
-The database for CheckV is in `/scratch/project_2001499/checkv-db`.
+CheckV needs the database, it is in `/scratch/project_2001499/checkv-db` (and this is specified in the script below).
 
-CheckV can be run interactively:
+Make a `CheckV` directory in your `06_VIROMICS` directory and run CheckV interactively from there:
 
 ```bash
-sinteractive -i
+sinteractive -A project_2001499 -m 10G -c 8 
 ```
-For resources choose:
-
-* Maximum run time (hours:min:sec): 01:00:00
-* Maximum memory (MB): 10G 
-* $TMPDIR size (GB): 50G
-* Number of cores/threads: 8 
-* Accounting project: project_2001499
-
-Then run the job:
+Run the job:
 
 ```bash
 cd scratch/project_2001499/YOUR_VIRSORTER2_OUTPUT_DIRECTORY
 
 apptainer exec --bind $PWD:$PWD,/scratch/project_2001499/checkv-db/db:/db \
-    /scratch/project_2001499/envs/checkV/checkV.sif checkv end_to_end final-viral-combined.fa \
+    /scratch/project_2001499/envs/checkV/checkV.sif checkv end_to_end PATH_TO_VIRSORTER2_OUTPUT/final-viral-combined.fa \
     checkv_out -t 8 -d /db
 ```
 Note that you need to specify the path to your Virsorter2 results directory and name the CheckV output directory (`checkv_out` in this sample script).
@@ -924,13 +917,13 @@ The useful files: `quality_summary.tsv`, `completeness.tsv`, and `complete_genom
 * How many complete genomes are there in your dataset?
 * What are the confidence levels for complete genomes predictions?
 
-In practice, if you continue with downstream applications (not during this course), you might want to get rid of possible false positives in the final set of contigs identified as viral. For example, a subset of viral contigs that have at least 1 viral gene or at least 10 kbp long and 50% complete can be selected. The exact selection criteria would depend on specific research questions you have and thus, on the type of analysis you would like to perform.
+In practice, if you continue with downstream applications (not during this course), you might want to get rid of possible false positives in the final set of contigs identified as viral. For example, a subset of viral contigs that have at least 1 viral gene or at least 10 kbp long and 50% complete can be selected. The exact selection criteria would depend on specific research questions you have and thus, on the type of analysis you would like to perform. [Here](https://www.protocols.io/view/viral-sequence-identification-sop-with-virsorter2-5qpvoyqebg4o/v3) you can find a useful protocol for manual curation of Virsorter2 output.
 
 ### Lazypipe
 
 [Lazypipe](https://www.helsinki.fi/en/projects/lazypipe) is a pipeline for identifying virus sequences in metagenomes, developed at the University of Helsinki. It is available as a [preinstalled module](https://docs.csc.fi/apps/lazypipe/) in Puhti. The input for the pipeline is Next Generation Sequencing data. We will use Illumina reads from the same type of samples as the long reads data that you used for the assembly with Metaflye (and Virsorter2).
 
-Make a directory called `Lazypipe` in your directory. Note that you need to specify the path to the trimmed Illumina reads. Start the batch job from this directory:
+Make a directory called `Lazypipe` in your `06_VIROMICS` directory and call for the Lazypipe batch job from there. Note that you need to specify the path to the Illumina reads. 
 
 ```bash
 module load r-env-singularity
@@ -940,7 +933,7 @@ module load lazypipe
 cp /appl/soft/bio/lazypipe/2.0/lazypipe/default.config.yaml config.yaml
 
 lazypipe.pl
-sbatch-lazypipe -1 /PATH_TO_TRIMMED_ILLUMINA_READS/SRR11674042_R1.fastq
+sbatch-lazypipe -1 /PATH_TO_ILLUMINA_READS/SRR11674042_R1.fastq.gz
 
 ```
 You will be interactively asked for information that is needed to construct a batch job:
@@ -976,25 +969,32 @@ Viral contigs for the possible downstream analyses are found from **contigs_vi.f
 
 Due to time limits and some technical challenges associated with running this pipeline, we will only see sample output files during this course. However, you could try it later yourself, following the [authors' instructions](https://mult1fractal.github.io/wtp-documentation/installation/quick_installation/) as well as [CSC notes](https://docs.csc.fi/support/tutorials/nextflow-puhti/) about this pipeline installation. 
 
-The sample output files for this course were obtained from XXX datasets. Files to download and explore can be found at /scratch/project_2001499/XXX: upsetr.svg, phage-distribution.pdf, contigs_quality_summary.tsv, and contigs_tax-class.tsv. 
+The sample output files for this course were obtained from the same Illumina reads dataset, as used for the Lazypipe. The reads were assembled using the [Megahit assembler](https://academic.oup.com/bioinformatics/article/31/10/1674/177884). The output summary file to download and explore: `/scratch/project_2001499/WtP_output/final_report.html`.
+    
+Explore different tabs of the report. It might be easier to view the tables when they are downloaded as .xlsx or .csv, rather than using the browser.
 
-**upsetr.svg** shows a plot summarizing the prediction performance of each tool for the studied sample. Blue bars on the left show the total number of identified phage contigs per tool. Black bars show the number of contigs that each tool (or a combination of tools) has uniquely identified. A dot matrix below refers to the combinations of tools that identified the same contigs as phages.
+**Overview** shows a plot summarizing the prediction performance of each tool for the studied sample. Blue bars on the left show the total number of identified phage contigs per tool. Black bars show the number of contigs that each tool (or a combination of tools) has uniquely identified. A dot matrix below refers to the combinations of tools that identified the same contigs as phages.
 
 * Which tools were applied for phage predictions?
 * Which tool gave the highest number of phage contigs? Which gave the lowest? 
 * Are the predicted phage contigs consistent between different tools (see the dots matrix)?
 
-**phage-distribution.pdf** contains a list of all predicted phage contigs and shows which tool gave which prediction.
+**Phage prediction table** contains a list of all predicted phage contigs and shows which tool gave which prediction and with which score.
 * Do predictions from different tools overlap?
 
-**contigs_quality_summary.tsv** lists all the predicted contigs and shows their quality based on CheckV.
+**CheckV output** lists all the predicted contigs and shows their quality based on CheckV.
 * What is the typical phage contig length in this dataset? What is the lowest and highest?
 * Are most contigs of high/low/medium quality?
 * Are there complete contigs in the list?
 * Are there proviruses?
 * Are there contigs with no viral genes?
 
-**contigs_tax-class.tsv** shows taxonomical predictions for phage contigs.
+**Phage annotations** shows predicted functions obtained for phage ORFs.
+* Which functions were predicted? 
+* Could you try to categorise them (e.g. DNA modification, virion structural genes, etc.)?
+* Which functional predictions are specific for viruses?
+
+**Taxonomic phage classification** shows taxonomical predictions for phage contigs.
 * Could any contigs be classified?
 
 To sum up, how would you proceed with the WtP results taking into account the possibility of having false positives? For further analyses, would you
