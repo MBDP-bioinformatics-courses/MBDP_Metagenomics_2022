@@ -500,8 +500,8 @@ Batch job script. Save it to the `scripts` folder.
 #SBATCH --time 03:00:00
 #SBATCH --nodes 1
 #SBATCH --ntasks-per-node 1
-#SBATCH --cpus-per-task 32
-#SBATCH --mem 80G
+#SBATCH --cpus-per-task 20
+#SBATCH --mem 30G
 #SBATCH --account project_2001499
 #SBATCH --gres=nvme:200
 
@@ -562,7 +562,7 @@ Mapping batch job script, again save it to the `scripts` folder:
 #SBATCH --time 12:00:00
 #SBATCH --nodes 1
 #SBATCH --ntasks-per-node 1
-#SBATCH --cpus-per-task 24
+#SBATCH --cpus-per-task 40
 #SBATCH --mem 80G
 #SBATCH --account project_2001499
 #SBATCH --gres=nvme:200
@@ -614,7 +614,7 @@ Once again, save the batch job script to the `scripts` folder.
 #SBATCH --time 2:00:00
 #SBATCH --nodes 1
 #SBATCH --ntasks-per-node 1
-#SBATCH --cpus-per-task 24
+#SBATCH --cpus-per-task 20
 #SBATCH --mem 80G
 #SBATCH --account project_2001499
 #SBATCH --gres=nvme:200
@@ -749,10 +749,51 @@ anvi-summarize
 
 ## Taxonomic annotation of MAGs with GTDB-Tk
 
-After binning you hopefully have some good quality MAGs. The next step is to give some names to these metagenome assembled genomes. We will use Genome Taxonomy Database (GTDB) and a tool called GTDB-Tk for this. 
+After binning you hopefully have some good quality MAGs. The next step is to give some names to these metagenome assembled genomes. We will use Genome Taxonomy Database ([GTDB](https://gtdb.ecogenomic.org/)) and a tool called [GTDB-Tk](https://ecogenomics.github.io/GTDBTk/installing/index.html#installing-gtdbtk-reference-data) for this.   
+
+GTDB-Tk needs a database for the taxonomic annotation and that has been already done. 
+Instructions are found from [here](https://ecogenomics.github.io/GTDBTk/installing/index.html#installing-gtdbtk-reference-data).  
+
+And the actual commands were:
 
 ```bash
-# gtdb-tk 
+#############  (THIS HAS BEEN DONE ALREADY)  #########################
+## download gtdb database
+# wget https://data.ace.uq.edu.au/public/gtdb/data/releases/latest/auxillary_files/gtdbtk_data.tar.gz
+# tar -xzf gtdbtk_data.tar.gz
+#############  (THIS HAS BEEN DONE ALREADY)  #########################
+```
+
+If you're connected to a interactive node, exit from that with `exit`. We need more resources for the next step. 
+
+```bash
+sinteractive -A project_2001499 --mem 70G -c 6
+```
+First we need to store to location of the database to `$GTDBTK_DATA_PATH` environment variable. Otherwise GTDB-Tk wonät find it and will complain. 
+
+```bash
+export GTDBTK_DATA_PATH=/scratch/project_2001499/databases/GTDB/
+```
+
+Then we can have a look at the different options of the tool.
+
+```bash 
+singularity exec --bind --bind $GTDBTK_DATA_PATH:$GTDBTK_DATA_PATH,$PWD:$PWD,$TMPDIR:/tmp \
+    /scratch/project_2001499/envs/gtdb-tk.sif \
+    gtdbtk -h
+```
+
+And then actually run the program with few selected MAGs. The MAG sequences should all be in one folder. 
+
+``` bash
+singularity exec --bind --bind $GTDBTK_DATA_PATH:$GTDBTK_DATA_PATH,$PWD:$PWD,$TMPDIR:/tmp \
+    /scratch/project_2001499/envs/gtdb-tk.sif \
+    gtdbtk classify_wf \
+    -x fasta \
+    --genome_dir PATH/TO/GENOME/FOLDER \
+    --out_dir OUTPUT/FOLDER \
+    --cpus 6 \
+    --tmpdir gtdb_test
 ```
 
 ## Genome annotation of MAGs with Bakta 
