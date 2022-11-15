@@ -516,7 +516,6 @@ anvi-script-reformat-fasta \
     --report-file 05_ANVIO/reformat_report.txt \
     03_ASSEMBLY/assembly.fasta
 
-
 # generate contigs DB
 anvi-gen-contigs-database \
     -f 05_ANVIO/contigs.fasta \
@@ -548,7 +547,7 @@ Submit the job.
 sbatch  scripts/YOUR_SCRIPT_NAME
 ```
 
-### Differential coverage and the profile database
+### Differential coverage by mapping
 
 The differential coverage for each contig is calculated by mapping seequencing reads to the assembly.  
 We will use Bowtie2 to map the short-read Illumina data to our assembly (the anvio-reformatted version of it). 
@@ -590,16 +589,7 @@ do
     
     samtools index -@ $SLURM_CPUS_PER_TASK 05_ANVIO/${file}.bam
     
-    module purge
-    module load anvio/7.1
-    
-    anvi-profile \
-        -i 05_ANVIO/${file}.bam \
-        -c 05_ANVIO/CONTIGS.db \
-        -S ${file} \
-        --min-contig-length 5000 \
-        -o 05_ANVIO/${file}_PROFILE \
-        -T $SLURM_CPUS_PER_TASK
+    rm ${file}.sam
 done 
 ```
 
@@ -609,11 +599,58 @@ Run script
 bash scripts/YOUR_SCRIPT_NAME
 ```
 
-### Quick look at the taxonomic content of our metagenome
+### Profile databases and merging the profile databases
 
-We can quickly estimate the taxonomic composition of our assembled metagenome based on the  single-copy cores genes found in there. 
+When the contigs database and all three mappings are ready, we can make the profile databases and finally merge all three profile databases into one. 
+
+Again save a new script file to the `scripts` folder.
 
 ```bash
+#!/bin/bash -l
+#SBATCH --job-name anvi-profiling
+#SBATCH --output 00_LOGS/anvi-profiling-%j.out
+#SBATCH --error 00_LOGS/anvi-profiling-%j.err
+#SBATCH --time 2:00:00
+#SBATCH --nodes 1
+#SBATCH --ntasks-per-node 1
+#SBATCH --cpus-per-task 24
+#SBATCH --mem 80G
+#SBATCH --account project_2001499
+#SBATCH --gres=nvme:200
+
+for file in SRR11674041 SRR11674042 SRR11674043
+do
+    module load anvio/7.1
+    
+    anvi-profile \
+        -i 05_ANVIO/${file}.bam \
+        -c 05_ANVIO/CONTIGS.db \
+        -S ${file} \
+        --min-contig-length 5000 \
+        -o 05_ANVIO/${file}_PROFILE \
+        -T $SLURM_CPUS_PER_TASK
+done
+
+anvi-merge \
+    -o 05_ANVIO/SAMPLES-MERGED \
+    -c 05_ANVIO/CONTIGS.db \
+    --enforce-hierarchical-clustering \
+    05_ANVIO/*_PROFILE/PROFILE.db 
+```
+
+And then run the script. 
+
+```bash
+bash scripts/YOUR_SCRIPT_NAME
+```
+
+### Quick look at the taxonomic content of our metagenome
+
+We can quickly estimate the taxonomic composition of our assembled metagenome based on the single-copy cores genes found in there. 
+
+```bash
+module load anvio/7.1
+
 anvi-estimate-scg-taxonomy \
     -c 05_ANVIO/CONTIGS.db \
     --metagenome-mode  \
@@ -626,32 +663,16 @@ Have a look at the output.
 less -S 05_ANVIO/scg-taxonomy.txt
 ```
 
-### Merging the profile databases
-
-When the contigs database and three profile databases are ready, we can merge all three profile databases into one. 
-
-Allocate resources for the last steps
-
-```bash 
-sinteractive -A project_2001499 --cores 6 --mem 70G --tmp 200
-module load anvio/7.1
-export $ANVIOPORT=YOUR_PORT_HERE
-```
-
-Merge all profiles
-
-```bash
-anvi-merge \
-    -o 05_ANVIO/SAMPLES-MERGED \
-    -c 05_ANVIO/CONTIGS.db \
-    --enforce-hierarchical-clustering \
-    05_ANVIO/*_PROFILE/PROFILE.db 
-```
-
 ### Manual binning and the anvi'o interactive interface
 
 Then everything should  be ready and we can start the manual binning part.  
-We will go thru the first steps together. 
+We will go thru the first steps together. And provide you the port number that you will need in the next steps. 
+
+```bash 
+sinteractive -A project_2001499 --mem 20G
+module load anvio/7.1
+export $ANVIOPORT=YOUR_PORT_HERE
+```
 
 Start interactive interface
 
