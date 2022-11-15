@@ -490,7 +490,7 @@ The first step in our genome-resolved metagenomics pipeline is the contruction o
 
 We will run the first steps as a batch job. 
 
-Example batch job script. Save it to the `scripts` folder. 
+Batch job script. Save it to the `scripts` folder. 
 
 ```bash
 #!/bin/bash -l
@@ -544,12 +544,12 @@ anvi-run-scg-taxonomy \
 Submit the job.
 
 ``` bash 
-sbatch  scripts/YOUR_SCRIPT_NAME
+sbatch scripts/YOUR_SCRIPT_NAME
 ```
 
 ### Differential coverage by mapping
 
-The differential coverage for each contig is calculated by mapping seequencing reads to the assembly.  
+The differential coverage for each contig is calculated by mapping sequencing reads to the assembly.  
 We will use Bowtie2 to map the short-read Illumina data to our assembly (the anvio-reformatted version of it). 
 
 Mapping batch job script, again save it to the `scripts` folder:
@@ -573,7 +573,8 @@ bowtie2-build --threads $SLURM_CPUS_PER_TASK 05_ANVIO/contigs.fasta 05_ANVIO/con
 for file in SRR11674041 SRR11674042 SRR11674043
 do
     module load bowtie2/2.4.4
-    bowtie2 \
+   
+   bowtie2 \
         -1 02_TRIMMED_DATA/${file}_trimmed_R1.fastq.gz \
         -2 02_TRIMMED_DATA/${file}_trimmed_R2.fastq.gz \
         -x 05_ANVIO/contigs \
@@ -593,7 +594,7 @@ do
 done 
 ```
 
-Run script
+Submit the job.
 
 ```bash
 bash scripts/YOUR_SCRIPT_NAME
@@ -603,7 +604,7 @@ bash scripts/YOUR_SCRIPT_NAME
 
 When the contigs database and all three mappings are ready, we can make the profile databases and finally merge all three profile databases into one. 
 
-Again save a new script file to the `scripts` folder.
+Once again, save the batch job script to the `scripts` folder.
 
 ```bash
 #!/bin/bash -l
@@ -638,7 +639,7 @@ anvi-merge \
     05_ANVIO/*_PROFILE/PROFILE.db 
 ```
 
-And then run the script. 
+Submit the job. 
 
 ```bash
 bash scripts/YOUR_SCRIPT_NAME
@@ -718,7 +719,8 @@ anvi-summarize \
     --quick-summary
 ```
 
-Download the output folder to your own computer and have a look at the `index.html` file in the output folder. __Do you have any promising bins?__  
+Download the output folder to your own computer and have a look at the `index.html` file in the output folder.  
+__Do you have any promising bins?__  
 Then proceed with refining the most promising bins that you have with `anvi-refine`. Remember to specify the new collection name and check the new bin names.  
 
 The goal is to get at least few good bins that we can call MAGs. 
