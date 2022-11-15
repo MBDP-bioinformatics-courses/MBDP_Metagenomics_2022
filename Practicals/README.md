@@ -487,7 +487,8 @@ You should definitely take a look at their [website](https://anvio.org/) and may
 
 ### Reformat the assembly file 
 
-Before creating the contigs database in anvi'o, we need to do some reformatting for our assmebly file. 
+Before creating the contigs database in anvi'o, we need to do some reformatting for our assmebly file.  
+The program removes contigs shorter than 1 000 bp and simplifyes the sequence names. 
 
 ```bash 
 module load anvio/7.1
