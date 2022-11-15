@@ -484,6 +484,22 @@ done
 Anvi'o is an analysis and visualization platform for omics data. We will use anvi'o for binning contigs into metagenome-assembled genomes (MAGs).  
 You should definitely take a look at their [website](https://anvio.org/) and maybe even join their [discord channel](https://discord.gg/C6He6mSNY4).
 
+
+### Reformat the assembly file 
+
+Before creating the contigs database in anvi'o, we need to do some reformatting for our assmebly file. 
+
+```bash 
+module load anvio/7.1
+
+anvi-script-reformat-fasta \
+    --min-len 1000 \
+    --simplify-names \
+    -o 05_ANVIO/contigs.fasta \
+    --report-file 05_ANVIO/reformat_report.txt \
+    03_ASSEMBLY/assembly.fasta
+```
+
 ### Nucleotide composition and the contigs database
 
 The first step in our genome-resolved metagenomics pipeline is the contruction of contigs database from our metagenomic contigs. During this step anvi'o calls genes, calculates the nucleotide composition for each contigs and annotates the identified genes in two different steps.  
@@ -507,14 +523,6 @@ Batch job script. Save it to the `scripts` folder.
 
 module purge
 module load anvio/7.1
-
-# reformat fasta file
-anvi-script-reformat-fasta \
-    --min-len 1000 \
-    --simplify-names \
-    -o 05_ANVIO/contigs.fasta \
-    --report-file 05_ANVIO/reformat_report.txt \
-    03_ASSEMBLY/assembly.fasta
 
 # generate contigs DB
 anvi-gen-contigs-database \
