@@ -897,7 +897,7 @@ We will use [CheckV](https://www.nature.com/articles/s41587-020-00774-7) to asse
 
 CheckV needs the database, it is in `/scratch/project_2001499/checkv-db` (and this is specified in the script below).
 
-Make a `CheckV` directory in your `06_VIROMICS` directory and run CheckV interactively from there:
+Move to your Virsorter2 output directory in your `06_VIROMICS` directory and run CheckV interactively from there:
 
 ```bash
 sinteractive -A project_2001499 -m 10G -c 8 
@@ -905,13 +905,12 @@ sinteractive -A project_2001499 -m 10G -c 8
 Run the job:
 
 ```bash
-cd scratch/project_2001499/YOUR_VIRSORTER2_OUTPUT_DIRECTORY
 
 apptainer exec --bind $PWD:$PWD,/scratch/project_2001499/checkv-db/db:/db \
-    /scratch/project_2001499/envs/checkV/checkV.sif checkv end_to_end PATH_TO_VIRSORTER2_OUTPUT/final-viral-combined.fa \
+    /scratch/project_2001499/envs/checkV/checkV.sif checkv end_to_end final-viral-combined.fa \
     checkv_out -t 8 -d /db
 ```
-Note that you need to specify the path to your Virsorter2 results directory and name the CheckV output directory (`checkv_out` in this sample script).
+Note that you need to specify the CheckV output directory (`checkv_out` in this sample script).
 
 ### CheckV output files (results)
 
