@@ -651,7 +651,7 @@ anvi-merge \
 Submit the job. 
 
 ```bash
-bash scripts/YOUR_SCRIPT_NAME
+sbatch scripts/YOUR_SCRIPT_NAME
 ```
 
 ### Quick look at the taxonomic content of our metagenome
