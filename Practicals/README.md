@@ -840,6 +840,8 @@ Questions to think about:
 Make a directory called `Virsorter2` in your `06_VIROMICS` directory. Make a batch job script there.  
 Sample script:
 
+__Make sure you change the `$USER` in `export INPUT_PATH=/scratch/project_2001499/$USER/MBDP_Metagenomics_2022/03_ASSEMBLY/` to your own directory name.__
+
 ```bash
 #!/bin/bash
 #SBATCH --job-name=virsorter2
