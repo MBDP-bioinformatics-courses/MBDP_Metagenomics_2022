@@ -850,12 +850,14 @@ Sample script:
 #SBATCH --partition=small
 #SBATCH --error=virsorter2_err_%j.txt
 
+export INPUT_PATH=/scratch/project_2001499/$USER/MBDP_Metagenomics_2022/03_ASSEMBLY/
+
 apptainer exec \
-     --bind $PWD:$PWD \
+     --bind $INPUT_PATH:$INPUT_PATH,$PWD:$PWD \
      /scratch/project_2001499/envs/virsorter2/virsorter2.sif \
      virsorter run \
      -w virsorter2.out \
-     -i /PATH_TO_YOUR_ASSEMBLY/assembly.fasta \
+     -i $INPUT_PATH/assembly.fasta \
      --min-length 1500 \
      --include-groups "dsDNAphage,ssDNA,RNA,NCLDV,lavidaviridae" \
      -j 30 \
