@@ -688,7 +688,7 @@ Start interactive interface
 ```bash
 anvi-interactive \
     -c 05_ANVIO/CONTIGS.db \
-    -p 05_ANVIO/SAMPLES_MERGED/PROFILE.db \
+    -p 05_ANVIO/SAMPLES-MERGED/PROFILE.db \
     --server-only \
     --port-number $ANVIOPORT
 ```
