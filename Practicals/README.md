@@ -680,7 +680,7 @@ We will go thru the first steps together. And provide you the port number that y
 ```bash 
 sinteractive -A project_2001499 --mem 20G
 module load anvio/7.1
-export $ANVIOPORT=YOUR_PORT_HERE
+export ANVIOPORT=YOUR_PORT_HERE
 ```
 
 Start interactive interface
