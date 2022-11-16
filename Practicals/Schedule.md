@@ -38,7 +38,7 @@ _PUHTI SERVICE BREAK (8-12)_
 ## Thursday - :classical_building: Main building, U4075
 | Time | Description |
 | --- | --- |
-| 10:15-11:00 | **Tatiana Demina** [Introduction to viromics](../Lectures/viromics.pdf)|
+| 10:15-11:00 | **Tatiana Demina** [Introduction to viromics](../Lectures/ViromicsL.pdf)|
 | 11:00-11:00 | **Jenni Hultman** : [Anvio hands-on cont'](README.md#genome-resolved-metagenomics-with-anvio) |
 | 12:00-13:00 | **Lunch** :plate_with_cutlery: |
 | 13:00-14:00 | **ALL**: [Anvio cont'](README.md#genome-resolved-metagenomics-with-anvio) |
