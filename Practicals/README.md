@@ -437,7 +437,7 @@ metaquast.py \
     --threads 4
 ```
 
-Now you can move the file ` 03_ASSEMBLY/QUAST/report.html` to your computer and look for the quality control files in the web browser of your preference.  
+Now you can move the file ` 03_ASSEMBLY/QUAST/report.tsv` to your computer and look for the quality control files in the web browser of your preference.  
 
 ## Taxonomic composition with Metaphlan using short-reads 
 
