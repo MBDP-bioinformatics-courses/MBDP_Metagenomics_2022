@@ -857,7 +857,7 @@ apptainer exec \
      -w virsorter2.out \
      -i /PATH_TO_YOUR_ASSEMBLY/assembly.fasta \
      --min-length 1500 \
-     --include-groups "dsDNAphage,ssDNA,RNA,NCLDV,lavidaviridae"
+     --include-groups "dsDNAphage,ssDNA,RNA,NCLDV,lavidaviridae" \
      -j 30 \
      all
 ```
