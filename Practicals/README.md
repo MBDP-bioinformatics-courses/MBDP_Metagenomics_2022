@@ -902,14 +902,19 @@ Move to your Virsorter2 output directory in your `06_VIROMICS` directory and run
 ```bash
 sinteractive -A project_2001499 -m 10G -c 8 
 ```
+
 Run the job:
 
 ```bash
-
 apptainer exec --bind $PWD:$PWD,/scratch/project_2001499/checkv-db/db:/db \
-    /scratch/project_2001499/envs/checkV/checkV.sif checkv end_to_end final-viral-combined.fa \
-    checkv_out -t 8 -d /db
+    /scratch/project_2001499/envs/checkV/checkV.sif \
+    checkv end_to_end \
+    final-viral-combined.fa \
+    checkv_out \
+    -t 8 \
+    -d /db
 ```
+
 Note that you need to specify the CheckV output directory (`checkv_out` in this sample script).
 
 ### CheckV output files (results)
