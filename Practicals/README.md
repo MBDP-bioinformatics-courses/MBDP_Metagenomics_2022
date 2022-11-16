@@ -599,7 +599,7 @@ do
     
     samtools index -@ $SLURM_CPUS_PER_TASK 05_ANVIO/${file}.bam
     
-    rm ${file}.sam
+    rm 05_ANVIO/${file}.sam
 done 
 ```
 
