@@ -443,10 +443,9 @@ Now you can move the file ` 03_ASSEMBLY/QUAST/report.html` to your computer and 
 
 Next we will also analyze individual reads in addition to the assembly based approaches. Which files would you use for this? 
 
-We will use a tool called [Metaphlan4](https://github.com/biobakery/biobakery/wiki/metaphlan4) to analyze these reads. From the paired end Illumina reads only R1 reads are used for the following analyses. Metaphlan takes fastq or fasta-formatted files but cannot read compressed files. Our filtered data is in fastq.gz format so it we need to do some uncompressing with command `gunzip`. 
-
-Use flag `-h` for help (or Google) to check how the command works and uncompress your files.
-
+We will use a tool called [Metaphlan4](https://github.com/biobakery/biobakery/wiki/metaphlan4) to analyze these reads. From the paired end Illumina reads only R1 reads are used for the following analyses. 
+    
+    
 ```bash
 #!/bin/bash -l
 #SBATCH --job-name metaphlan
@@ -469,7 +468,7 @@ module load metaphlan/4.0.2
 for file in SRR11674041 SRR11674042 SRR11674043
 do
     metaphlan \
-       02_TRIMMED_DATA/${file}_trimmed_R1.fastq \
+       02_TRIMMED_DATA/${file}_trimmed_R1.fastq.gz \
         --input_type fastq \
         --bowtie2db /scratch/project_2001499/databases/metaphlan/ \
         --bowtie2out 07_METAPHLAN/${file}.bowtie2.bz2 \
