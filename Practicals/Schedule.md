@@ -39,7 +39,7 @@ _PUHTI SERVICE BREAK (8-12)_
 | Time | Description |
 | --- | --- |
 | 10:15-11:00 | **Tatiana Demina** [Introduction to viromics](../Lectures/ViromicsL.pdf)|
-| 11:00-11:00 | **Jenni Hultman** : [Anvio hands-on cont'](README.md#genome-resolved-metagenomics-with-anvio) |
+| 11:00-12:00 | **Jenni Hultman** : [Anvio hands-on cont'](README.md#genome-resolved-metagenomics-with-anvio) |
 | 12:00-13:00 | **Lunch** :plate_with_cutlery: |
 | 13:00-14:00 | **ALL**: [Anvio cont'](README.md#genome-resolved-metagenomics-with-anvio) |
 | 14.00-14.30 | MBDP :coffee: & :apple: break |
