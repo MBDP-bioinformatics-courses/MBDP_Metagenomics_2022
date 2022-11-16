@@ -568,7 +568,7 @@ Mapping batch job script, again save it to the `scripts` folder:
 #SBATCH --job-name anvi-mapping
 #SBATCH --output 00_LOGS/anvi-mapping-%j.out
 #SBATCH --error 00_LOGS/anvi-mapping-%j.err
-#SBATCH --time 12:00:00
+#SBATCH --time 2:00:00
 #SBATCH --nodes 1
 #SBATCH --ntasks-per-node 1
 #SBATCH --cpus-per-task 40
@@ -606,7 +606,7 @@ done
 Submit the job.
 
 ```bash
-bash scripts/YOUR_SCRIPT_NAME
+sbatch scripts/YOUR_SCRIPT_NAME
 ```
 
 ### Profile databases and merging the profile databases
