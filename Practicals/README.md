@@ -857,7 +857,7 @@ singularity exec --bind $GTDBTK_DATA_PATH:$GTDBTK_DATA_PATH,$PWD:$PWD,$TMPDIR:/t
     --genome_dir PATH/TO/GENOME/FOLDER \
     --out_dir OUTPUT/FOLDER \
     --cpus 6 \
-    --tmpdir gtdb_test
+    --tmpdir /tmp
 ```
 
 ## Genome annotation of MAGs with Bakta 
