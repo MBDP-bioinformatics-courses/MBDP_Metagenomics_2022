@@ -596,6 +596,8 @@ ord_explore(ps)
 
 If you want to learn more, go to [microViz](https://david-barnett.github.io/microViz/) or [phyloseq](https://joey711.github.io/phyloseq/) manual and explore.
 
+### Further reading 
+
 Other great resources for microbiome data analysis in R (all by Leo Lahti et al.): 
 - [miaverse](https://microbiome.github.io/)
 - [Orchestrating Microbiome Analysis](https://microbiome.github.io/OMA/)
