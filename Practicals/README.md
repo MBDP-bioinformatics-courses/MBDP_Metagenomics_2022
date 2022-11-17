@@ -1086,7 +1086,8 @@ We are not proceeding with further viromics analyses during this course, but if 
 For downstream applications, you could check, for example:
 * [vConTACT v.2.0](https://pubmed.ncbi.nlm.nih.gov/31061483/) for taxonomic assignments of the identified virus genomes;
 * [iVirus 2.0](https://www.nature.com/articles/s43705-021-00083-3), an analytic platform with many tools, protocols and public datasets;
-* [IMG/VR](https://academic.oup.com/nar/article/49/D1/D764/5952208), the largest collection of viral sequences obtained from metagenomes.
+* [IMG/VR](https://academic.oup.com/nar/article/49/D1/D764/5952208), the largest collection of viral sequences obtained from metagenomes;
+* [Review](https://www.osti.gov/pages/biblio/1786336) of in silico methods to link viral sequences to their hosts.
 
 ## Visualizing Metaphlan results with R
 
