@@ -544,6 +544,7 @@ Everything except microViz in pre-installed in Puhti. You can find instructions 
 
 Log in to [www.puhti.csc.fi](www.puhti.csc.fi) and choose RStudio from the apps. Use the default resources and click `Launch`. 
 
+Command for R. 
 ```r
 # setup path to installed packages
 .libPaths(c("/projappl/project_2001499/project_rpackages_r421", .libPaths()))
