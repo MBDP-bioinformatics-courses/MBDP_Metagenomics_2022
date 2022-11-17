@@ -557,8 +557,8 @@ library(tidyverse)
 library(phyloseq)
 library(microViz)
 
-# read in the data, MAKE SURE THE PATHS IS CORRECT
-species <- read_tsv(file="/scratch/project_2001499/$USER/MBDP_Metagenomics_2022/07_METAPHLAN/merged_species_table.txt")
+# read in the data, MAKE SURE THE PATHS IS CORRECT 
+species <- read_tsv(file="/scratch/project_2001499/YOUR_FOLDER_NAME/MBDP_Metagenomics_2022/07_METAPHLAN/merged_species_table.txt")
 
 # number of species detected
 species %>% 
@@ -587,9 +587,14 @@ OTU <- species %>%
 # phyloseq object
 ps <- phyloseq(OTU, TAX)
 
+# have a look at the phyloseq objeect
+ps
+
 # interactive visualization with microViz package
 ord_explore(ps)
 ```
+
+If you want to explore more, go to [microViz]((https://david-barnett.github.io/microViz/) manual and give it a try.  
 
 ## Genome-resolved metagenomics with anvi'o
 
