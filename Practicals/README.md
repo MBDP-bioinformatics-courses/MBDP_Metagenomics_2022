@@ -495,8 +495,6 @@ less -S merged_abundance_table.txt
 ```
 
 The first few lines look like:
-
-
     
 ```
 #mpa_vJan21_CHOCOPhlAnSGB_202103
@@ -521,17 +519,75 @@ k__Bacteria|p__Candidatus_Saccharibacteria      0.05373 0.06808 0.19078
     
 After this let's make a species level abundance table     
 
-```  
-grep -E "s__|clade" merged_abundance_table.txt \
-    | grep -v "t__" \
-    | sed "s/^.*|//g" \
-    | sed "s/clade_name/sample/g" \
-    | sed "s/SRS[0-9]*-//g" \
-    > merged_abundance_table_species.txt
- 
+```bash
+# grep -E "s__|clade" merged_abundance_table.txt \
+#     | grep -v "t__" \
+#     | sed "s/^.*|//g" \
+#     | sed "s/clade_name/species/g" \
+#     | sed "s/SRS[0-9]*-//g" \
+#     > merged_abundance_table_species.txt
  ```
-    
- 
+
+Species level abundance table with full taxonomy. 
+
+ ```bash
+ awk '$1 ~ "clade_name" || $1 ~ "s__" {print $0}' merged_abundance_table.txt | grep -v "|t__"  > merged_species_table.txt
+```
+
+## Visualizing Metaphlan results with R
+
+We will visualise the metaphlan results using R.  
+
+We will use RStudio thru Puhti web interface.  
+And use packages: [vegan](https://cran.r-project.org/web/packages/vegan/vegan.pdf), [tidyverse](https://www.tidyverse.org/), [phyloseq](https://joey711.github.io/phyloseq/) and [microViz](https://david-barnett.github.io/microViz/).  
+Everything except microViz in pre-installed in Puhti. You can find instructions on how o install your own packages to Puhti from [here](https://docs.csc.fi/apps/r-env/#r-package-installations).  
+
+Log in to [www.puhti.csc.fi](www.puhti.csc.fi) and choose RStudio from the apps. Use the default resources and click `Launch`. 
+
+```r
+# setup path to installed packages
+.libPaths(c("/projappl/project_2001499/project_rpackages_r421", .libPaths()))
+libpath <- .libPaths()[1]
+
+# load packages
+library(vegan)
+library(tidyverse)
+library(phyloseq)
+library(microViz)
+
+# read in the data, MAKE SURE THE PATHS IS CORRECT
+species <- read_tsv(file="/scratch/project_2001499/$USER/MBDP_Metagenomics_2022/07_METAPHLAN/merged_species_table.txt")
+
+# number of species detected
+species %>% 
+    select(-clade_name) %>% 
+    specnumber(MARGIN=2)
+
+# Shannon diversity
+species %>%
+    select(-clade_name) %>% 
+    diversity(MARGIN=2) 
+
+## make phyloseq object
+
+# taxonomy table
+TAX <- species %>% 
+    select(clade_name) %>% 
+    separate(clade_name, "[|]", into=c("kingdom", "phylum", "class", "order", "family", "genus", "species")) %>% 
+    as.matrix %>% 
+    tax_table()
+
+# count table
+OTU <- species %>% 
+    select(-clade_name) %>% 
+    otu_table(taxa_are_rows=TRUE)
+
+# phyloseq object
+ps <- phyloseq(OTU, TAX)
+
+# interactive visualization with microViz package
+ord_explore(ps)
+```
 
 ## Genome-resolved metagenomics with anvi'o
 
@@ -1089,6 +1145,4 @@ For downstream applications, you could check, for example:
 * [IMG/VR](https://academic.oup.com/nar/article/49/D1/D764/5952208), the largest collection of viral sequences obtained from metagenomes;
 * [Review](https://www.osti.gov/pages/biblio/1786336) of in silico methods to link viral sequences to their hosts.
 
-## Visualizing Metaphlan results with R
 
-open Rstudio
