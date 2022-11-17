@@ -949,7 +949,7 @@ module load lazypipe
 cp /appl/soft/bio/lazypipe/2.0/lazypipe/default.config.yaml config.yaml
 
 lazypipe.pl
-sbatch-lazypipe -1 /PATH_TO_ILLUMINA_READS/SRR11674042_1.fastq.gz
+sbatch-lazypipe -1 /PATH_TO_TRIMMED_ILLUMINA_READS/SRR11674042_R1.fastq.gz
 
 ```
 You will be interactively asked for information that is needed to construct a batch job:
