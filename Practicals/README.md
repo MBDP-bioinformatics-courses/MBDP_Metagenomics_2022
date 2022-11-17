@@ -794,7 +794,7 @@ singularity exec --bind --bind $GTDBTK_DATA_PATH:$GTDBTK_DATA_PATH,$PWD:$PWD,$TM
 And then actually run the program with few selected MAGs. The MAG sequences should all be in one folder. You can either copy the genomes in this folder or make softlinks to them. 
 
 ``` bash
-singularity exec --bind --bind $GTDBTK_DATA_PATH:$GTDBTK_DATA_PATH,$PWD:$PWD,$TMPDIR:/tmp \
+singularity exec --bind $GTDBTK_DATA_PATH:$GTDBTK_DATA_PATH,$PWD:$PWD,$TMPDIR:/tmp \
     /scratch/project_2001499/envs/gtdb-tk.sif \
     gtdbtk classify_wf \
     -x fasta \
