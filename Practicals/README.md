@@ -482,8 +482,9 @@ Once finished we need to merge the files
 
 ```
 module load metaphlan/4.0.2
-    
-merge_metaphlan_tables.py 07_METAPHLAN/*_metaphlan.txt > 07_METAPHLAN/merged_abundance_table.txt
+
+cd 07_METAPHLAN
+merge_metaphlan_tables.py ./*_metaphlan.txt > merged_abundance_table.txt
 
 ```
     
