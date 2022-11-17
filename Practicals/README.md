@@ -539,12 +539,13 @@ Species level abundance table with full taxonomy.
 We will visualise the metaphlan results using R.  
 
 We will use RStudio thru Puhti web interface.  
-And use packages: [vegan](https://cran.r-project.org/web/packages/vegan/vegan.pdf), [tidyverse](https://www.tidyverse.org/), [phyloseq](https://joey711.github.io/phyloseq/) and [microViz](https://david-barnett.github.io/microViz/).  
-Everything except microViz in pre-installed in Puhti. You can find instructions on how o install your own packages to Puhti from [here](https://docs.csc.fi/apps/r-env/#r-package-installations).  
+And R packages: [vegan](https://cran.r-project.org/web/packages/vegan/vegan.pdf), [tidyverse](https://www.tidyverse.org/), [phyloseq](https://joey711.github.io/phyloseq/) and [microViz](https://david-barnett.github.io/microViz/).  
+Only microViz needs to be installed in Puhti. You can find instructions on how to install your own packages to Puhti from [here](https://docs.csc.fi/apps/r-env/#r-package-installations).  
 
 Log in to [www.puhti.csc.fi](www.puhti.csc.fi) and choose RStudio from the apps. Use the default resources and click `Launch`. 
 
-Command for R. 
+Commands for R: 
+
 ```r
 # setup path to installed packages
 .libPaths(c("/projappl/project_2001499/project_rpackages_r421", .libPaths()))
