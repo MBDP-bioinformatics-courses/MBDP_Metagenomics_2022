@@ -742,6 +742,7 @@ __Refine a bin__
 ```bash
 anvi-refine
 ```
+For refining you need to give contigs database (-c 05_ANVIO/CONTIGS.db), profile db (-p 05_ANVIO/SAMPLES-MERGED/PROFILE.db), the collection you created in the previous step (--collection-name PreBins) and name of the preliminary bin you want to refine (eg. -b Preliminary_Bin_00002)
 
 __Rename all bins and make a new collection from those__
 
