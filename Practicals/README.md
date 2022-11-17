@@ -594,7 +594,16 @@ ps
 ord_explore(ps)
 ```
 
-If you want to explore more, go to [microViz](https://david-barnett.github.io/microViz/) manual and give it a try.  
+If you want to learn more, go to [microViz](https://david-barnett.github.io/microViz/) or [phyloseq](https://joey711.github.io/phyloseq/) manual and explore.
+
+Other great resources for microbiome data analysis in R (all by Leo Lahti et al.): 
+- [miaverse](https://microbiome.github.io/)
+- [Orchestrating Microbiome Analysis](https://microbiome.github.io/OMA/)
+- [Introduction to microbiome data science](https://microbiome.github.io/course_2021_radboud/)
+- [Introduction to the microbiome R package](https://microbiome.github.io/tutorials/)
+
+And a text book with examples:
+- [Modern Statistics for Modern Biology](https://www.huber.embl.de/msmb/)
 
 ## Genome-resolved metagenomics with anvi'o
 
