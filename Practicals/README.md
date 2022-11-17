@@ -842,7 +842,7 @@ export GTDBTK_DATA_PATH=/scratch/project_2001499/databases/GTDB/release207_v2/
 Then we can have a look at the different options of the tool.
 
 ```bash 
-singularity exec --bind --bind $GTDBTK_DATA_PATH:$GTDBTK_DATA_PATH,$PWD:$PWD,$TMPDIR:/tmp \
+singularity exec --bind $GTDBTK_DATA_PATH:$GTDBTK_DATA_PATH,$PWD:$PWD,$TMPDIR:/tmp \
     /scratch/project_2001499/envs/gtdb-tk.sif \
     gtdbtk -h
 ```
