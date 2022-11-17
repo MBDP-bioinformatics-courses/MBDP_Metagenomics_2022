@@ -780,7 +780,7 @@ sinteractive -A project_2001499 --mem 70G -c 6
 First we need to store to location of the database to `$GTDBTK_DATA_PATH` environment variable. Otherwise GTDB-Tk won't find it and will complain. 
 
 ```bash
-export GTDBTK_DATA_PATH=/scratch/project_2001499/databases/GTDB/release207_v2
+export GTDBTK_DATA_PATH=/scratch/project_2001499/databases/GTDB/release207_v2/
 ```
 
 Then we can have a look at the different options of the tool.
