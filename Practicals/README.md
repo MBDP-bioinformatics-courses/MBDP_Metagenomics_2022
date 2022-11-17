@@ -594,7 +594,7 @@ ps
 ord_explore(ps)
 ```
 
-If you want to explore more, go to [microViz]((https://david-barnett.github.io/microViz/) manual and give it a try.  
+If you want to explore more, go to [microViz](https://david-barnett.github.io/microViz/) manual and give it a try.  
 
 ## Genome-resolved metagenomics with anvi'o
 
