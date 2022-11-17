@@ -598,7 +598,7 @@ If you want to learn more, go to [microViz](https://david-barnett.github.io/micr
 
 ### Further reading 
 
-Other great resources for microbiome data analysis in R (all by Leo Lahti et al.): 
+Other great resources for microbiome data analysis in R (by Leo Lahti et al.): 
 - [miaverse](https://microbiome.github.io/)
 - [Orchestrating Microbiome Analysis](https://microbiome.github.io/OMA/)
 - [Introduction to microbiome data science](https://microbiome.github.io/course_2021_radboud/)
