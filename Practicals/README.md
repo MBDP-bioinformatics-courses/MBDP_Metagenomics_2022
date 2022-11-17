@@ -847,7 +847,7 @@ singularity exec --bind $GTDBTK_DATA_PATH:$GTDBTK_DATA_PATH,$PWD:$PWD,$TMPDIR:/t
     gtdbtk -h
 ```
 
-And then actually run the program with few selected MAGs. The MAG sequences should all be in one folder. You can either copy the genomes in this folder or make softlinks to them. 
+And then actually run the program with few selected MAGs. The MAG sequences should all be in one folder. You can either copy the genomes in this folder. 
 
 ``` bash
 singularity exec --bind $GTDBTK_DATA_PATH:$GTDBTK_DATA_PATH,$PWD:$PWD,$TMPDIR:/tmp \
