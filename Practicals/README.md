@@ -777,10 +777,10 @@ If you're connected to a interactive node, exit from that with `exit`. We need m
 ```bash
 sinteractive -A project_2001499 --mem 70G -c 6
 ```
-First we need to store to location of the database to `$GTDBTK_DATA_PATH` environment variable. Otherwise GTDB-Tk wonät find it and will complain. 
+First we need to store to location of the database to `$GTDBTK_DATA_PATH` environment variable. Otherwise GTDB-Tk won't find it and will complain. 
 
 ```bash
-export GTDBTK_DATA_PATH=/scratch/project_2001499/databases/GTDB/releaseXX
+export GTDBTK_DATA_PATH=/scratch/project_2001499/databases/GTDB/release207_v2
 ```
 
 Then we can have a look at the different options of the tool.
@@ -791,7 +791,7 @@ singularity exec --bind --bind $GTDBTK_DATA_PATH:$GTDBTK_DATA_PATH,$PWD:$PWD,$TM
     gtdbtk -h
 ```
 
-And then actually run the program with few selected MAGs. The MAG sequences should all be in one folder. 
+And then actually run the program with few selected MAGs. The MAG sequences should all be in one folder. You can either copy the genomes in this folder or make softlinks to them. 
 
 ``` bash
 singularity exec --bind --bind $GTDBTK_DATA_PATH:$GTDBTK_DATA_PATH,$PWD:$PWD,$TMPDIR:/tmp \
