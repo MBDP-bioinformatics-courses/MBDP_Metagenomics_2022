@@ -477,6 +477,61 @@ do
       
 done
 ```    
+    
+Once finished we need to merge the files
+
+```
+module load metaphlan/4.0.2
+    
+merge_metaphlan_tables.py 07_METAPHLAN/*_metaphlan.txt > 07_METAPHLAN/merged_abundance_table.txt
+
+```
+    
+This table can be opened as a spreadsheet (using a program like Excel), any gene expression analysis program, less (example below), or visualized graphically as per subsequent tutorial sections:
+
+```
+less -S merged_abundance_table.txt
+
+```
+
+The first few lines look like:
+
+
+    
+```
+#mpa_vJan21_CHOCOPhlAnSGB_202103
+clade_name      SRR11674041_metaphlan   SRR11674042_metaphlan   SRR11674043_metaphlan
+k__Bacteria     98.57217        96.94795        97.23816
+k__Archaea      1.42783 3.05205 2.76184
+k__Bacteria|p__Proteobacteria   47.18289        25.00974        29.88884
+k__Bacteria|p__Bacteroidetes    16.60339        18.75608        3.5224
+k__Bacteria|p__Actinobacteria   14.8151 33.82423        45.40604
+k__Bacteria|p__Firmicutes       7.48232 7.56776 6.52967
+k__Bacteria|p__Nitrospirae      6.9101  7.82463 8.53506
+k__Bacteria|p__Candidatus_Bipolaricaulota       2.44231 2.11629 2.0278
+k__Bacteria|p__Thermotogae      2.01616 1.18616 0.67207
+k__Archaea|p__Euryarchaeota     1.42783 3.05205 2.76184
+k__Bacteria|p__Synergistetes    0.58856 0.30465 0.41901
+k__Bacteria|p__Candidatus_Cloacimonetes 0.29277 0.16749 0.03304
+k__Bacteria|p__Cyanobacteria    0.09528 0.09195 0.0
+k__Bacteria|p__Candidatus_Saccharibacteria      0.05373 0.06808 0.19078
+
+
+```
+    
+After this let's make a species level abundance table     
+
+```  
+grep -E "s__|clade" merged_abundance_table.txt \
+    | grep -v "t__" \
+    | sed "s/^.*|//g" \
+    | sed "s/clade_name/sample/g" \
+    | sed "s/SRS[0-9]*-//g" \
+    > merged_abundance_table_species.txt
+ 
+ ```
+    
+ 
 
 ## Genome-resolved metagenomics with anvi'o
 
