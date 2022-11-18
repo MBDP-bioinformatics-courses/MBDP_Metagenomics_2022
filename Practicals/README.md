@@ -543,7 +543,7 @@ We will use RStudio thru Puhti web interface.
 And R packages: [vegan](https://cran.r-project.org/web/packages/vegan/vegan.pdf), [tidyverse](https://www.tidyverse.org/), [phyloseq](https://joey711.github.io/phyloseq/) and [microViz](https://david-barnett.github.io/microViz/).  
 Only microViz needs to be installed in Puhti. You can find instructions on how to install your own packages to Puhti from [here](https://docs.csc.fi/apps/r-env/#r-package-installations).  
 
-Log in to [puhti.csc.fi](www.puhti.csc.fi) and choose RStudio from the apps. Use the default resources and click `Launch`. 
+Log in to [www.puhti.csc.fi](https://www.puhti.csc.fi) and choose RStudio from the apps. Use the default resources and click `Launch`. 
 
 Commands for R: 
 
