@@ -455,7 +455,7 @@ We will use a tool called [Metaphlan4](https://github.com/biobakery/biobakery/wi
 #SBATCH --nodes 1
 #SBATCH --ntasks-per-node 1
 #SBATCH --cpus-per-task 8
-#SBATCH --mem 100G
+#SBATCH --mem 50G
 #SBATCH --account project_2001499
 
 
