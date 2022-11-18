@@ -521,12 +521,12 @@ k__Bacteria|p__Candidatus_Saccharibacteria      0.05373 0.06808 0.19078
 After this let's make a species level abundance table     
 
 ```bash
-# grep -E "s__|clade" merged_abundance_table.txt \
-#     | grep -v "t__" \
-#     | sed "s/^.*|//g" \
-#     | sed "s/clade_name/species/g" \
-#     | sed "s/SRS[0-9]*-//g" \
-#     > merged_abundance_table_species.txt
+grep -E "s__|clade" merged_abundance_table.txt \
+     | grep -v "t__" \
+     | sed "s/^.*|//g" \
+     | sed "s/clade_name/species/g" \
+     | sed "s/SRS[0-9]*-//g" \
+   
  ```
 
 Species level abundance table with full taxonomy. 
