@@ -51,4 +51,8 @@ Eduroam or Helsinki UniGuest networks are available
 ## Organizers and teachers
 :woman_technologist: Docent Jenni Hultman, University of Helsinki  
 :man_technologist: Docent Antti Karkman, University of Helsinki  
-:woman_technologist: PhD Tatiana Demina,  University of Helsinki  
+:woman_technologist: PhD Tatiana Demina,  University of Helsinki 
+
+## Feedback
+
+Please give feedback to us [here](https://presemo.helsinki.fi/mbdp2022)
