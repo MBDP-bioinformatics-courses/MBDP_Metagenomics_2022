@@ -955,7 +955,13 @@ And then run Bakta on your favourite MAGs.
        --threads 4 \
        --output OUTPUT
 ```
-
+After this let's modify one of the output files. Go to your `OUTPUT` folder (the name you gave in the previous step) and run the following one liner.
+      
+```bash
+grep -o "KEGG:K....." *.gff3 | tr ":" "\t" > mygenome_kegg_ids.txt
+```
+Then let's visualize the metabolic pathways with [KEGG-mapper](https://www.genome.jp/kegg/mapper/)
+    
 ## Identifying viral contings from the metagenome
 
 The assembled bulk metagenome contains also viral sequences. There are various bioinformatics tools for detecting viral sequences in metagenomes, and they are based on different algorithms and thus, perform differently. During this course, we will use [Virsorter2](https://microbiomejournal.biomedcentral.com/articles/10.1186/s40168-020-00990-y) and [Lazypipe](https://www.helsinki.fi/en/projects/lazypipe). We will also look at the [What-the-Phage](https://www.biorxiv.org/content/10.1101/2020.07.24.219899v3.full) pipeline sample results (you will get ready output files).
